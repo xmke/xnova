@@ -38,7 +38,7 @@ include(ROOT_PATH . 'admin/statfunctions.' . PHPEXT);
 
 
 if (strtolower(substr(PHP_SAPI, 0, 3)) == 'cli' || in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
-	includeLang('admin');
+	includeLang('admin/interface');
 
 	$StatDate   = time();
 	// Rotation des statistiques

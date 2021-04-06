@@ -38,7 +38,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$parse['servername']   = $game_config['game_name'];
 
 	$PageTPL  = gettemplate('rules_body');
-	$page     = parsetemplate( $PageTPL, $parse);
+	$page     = $MustacheEngine->render( $PageTPL, $parse);
 
 	display($page, $lang['rules'], false);
 

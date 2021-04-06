@@ -36,7 +36,7 @@ require_once dirname(__FILE__) .'/common.php';
 // Creation de la Liste de flotte disponible sur la lune
 //
 function BuildFleetListRows ( $CurrentPlanet ) {
-	global $resource, $lang;
+	global $resource, $lang, $MustacheEngine;
 
 	$RowsTPL  = gettemplate('gate_fleet_rows');
 	$CurrIdx  = 1;
@@ -49,7 +49,7 @@ function BuildFleetListRows ( $CurrentPlanet ) {
 				$bloc['fleet_name']      = $lang['tech'][$Ship];
 				$bloc['fleet_max']       = pretty_number ( $CurrentPlanet[$resource[$Ship]] );
 				$bloc['gate_ship_dispo'] = $lang['gate_ship_dispo'];
-				$Result                 .= parsetemplate ( $RowsTPL, $bloc );
+				$Result                 .= $MustacheEngine->render( $RowsTPL, $bloc );
 				$CurrIdx++;
 			}
 		}
@@ -82,7 +82,7 @@ function BuildJumpableMoonCombo ( $CurrentUser, $CurrentPlanet ) {
 // Tient compte aussi du multiplicateur de ressources
 //
 function ShowProductionTable ($CurrentUser, $CurrentPlanet, $BuildID, $Template) {
-	global $ProdGrid, $resource, $game_config;
+	global $ProdGrid, $resource, $game_config, $MustacheEngine;
 
 	$BuildLevelFactor = $CurrentPlanet[ $resource[$BuildID]."_porcent" ];
 	$BuildTemp        = $CurrentPlanet[ 'temp_max' ];
@@ -148,7 +148,7 @@ function ShowProductionTable ($CurrentUser, $CurrentPlanet, $BuildID, $Template)
 			$bloc['build_lvl']       = ($CurrentBuildtLvl == $BuildLevel) ? "<font color=\"#ff0000\">".$BuildLevel."</font>" : $BuildLevel;
 			$bloc['build_range']     = ($BuildLevel * $BuildLevel) - 1;
 		}
-		$Table    .= parsetemplate($Template, $bloc);
+		$Table    .= $MustacheEngine->render($Template, $bloc);
 	}
 
 	return $Table;
@@ -188,7 +188,7 @@ function ShowRapidFireFrom ($BuildID) {
 // Permet de faire la differance entre les divers types et les pages speciales
 //
 function ShowBuildingInfoPage ($CurrentUser, $CurrentPlanet, $BuildID) {
-	global $dpath, $lang, $resource, $pricelist, $CombatCaps;
+	global $dpath, $lang, $resource, $pricelist, $CombatCaps, $MustacheEngine;
 
 	includeLang('infos');
 
@@ -208,20 +208,20 @@ function ShowBuildingInfoPage ($CurrentUser, $CurrentPlanet, $BuildID) {
 		// Cas des mines
 		$PageTPL              = gettemplate('info_buildings_table');
 		$DestroyTPL           = gettemplate('info_buildings_destroy');
-		$TableHeadTPL         = "<tr><td class=\"c\">{nfo_level}</td><td class=\"c\">{nfo_prod_p_hour}</td><td class=\"c\">{nfo_difference}</td><td class=\"c\">{nfo_used_energy}</td><td class=\"c\">{nfo_difference}</td></tr>";
-		$TableTPL             = "<tr><th>{build_lvl}</th><th>{build_prod} {build_gain}</th><th>{build_prod_diff}</th><th>{build_need}</th><th>{build_need_diff}</th></tr>";
+		$TableHeadTPL         = "<tr><td class=\"c\">{{{nfo_level}}}</td><td class=\"c\">{{{nfo_prod_p_hour}}}</td><td class=\"c\">{{{nfo_difference}}}</td><td class=\"c\">{{{nfo_used_energy}}}</td><td class=\"c\">{{{nfo_difference}}}</td></tr>";
+		$TableTPL             = "<tr><th>{{{build_lvl}}}</th><th>{{{build_prod}}} {{{build_gain}}}</th><th>{{{build_prod_diff}}}</th><th>{{{build_need}}}</th><th>{{{build_need_diff}}}</th></tr>";
 	} elseif ($BuildID ==   4) {
 		// Centrale Solaire
 		$PageTPL              = gettemplate('info_buildings_table');
 		$DestroyTPL           = gettemplate('info_buildings_destroy');
-		$TableHeadTPL         = "<tr><td class=\"c\">{nfo_level}</td><td class=\"c\">{nfo_prod_energy}</td><td class=\"c\">{nfo_difference}</td></tr>";
-		$TableTPL             = "<tr><th>{build_lvl}</th><th>{build_prod} {build_gain}</th><th>{build_prod_diff}</th></tr>";
+		$TableHeadTPL         = "<tr><td class=\"c\">{{{nfo_level}}}</td><td class=\"c\">{{{nfo_prod_energy}}}</td><td class=\"c\">{{{nfo_difference}}}</td></tr>";
+		$TableTPL             = "<tr><th>{{{build_lvl}}}</th><th>{{{build_prod}}} {{{build_gain}}}</th><th>{{{build_prod_diff}}}</th></tr>";
 	} elseif ($BuildID ==  12) {
 		// Centrale Fusion
 		$PageTPL              = gettemplate('info_buildings_table');
 		$DestroyTPL           = gettemplate('info_buildings_destroy');
-		$TableHeadTPL         = "<tr><td class=\"c\">{nfo_level}</td><td class=\"c\">{nfo_prod_energy}</td><td class=\"c\">{nfo_difference}</td><td class=\"c\">{nfo_used_deuter}</td><td class=\"c\">{nfo_difference}</td></tr>";
-		$TableTPL             = "<tr><th>{build_lvl}</th><th>{build_prod} {build_gain}</th><th>{build_prod_diff}</th><th>{build_need}</th><th>{build_need_diff}</th></tr>";
+		$TableHeadTPL         = "<tr><td class=\"c\">{{{nfo_level}}}</td><td class=\"c\">{{{nfo_prod_energy}}}</td><td class=\"c\">{{{nfo_difference}}}</td><td class=\"c\">{{{nfo_used_deuter}}}</td><td class=\"c\">{{{nfo_difference}}}</td></tr>";
+		$TableTPL             = "<tr><th>{{{build_lvl}}}</th><th>{{{build_prod}}} {{{build_gain}}}</th><th>{{{build_prod_diff}}}</th><th>{{{build_need}}}</th><th>{{{build_need_diff}}}</th></tr>";
 	} elseif ($BuildID >=  14 && $BuildID <=  32) {
 		// Batiments Generaux
 		$PageTPL              = gettemplate('info_buildings_general');
@@ -243,8 +243,8 @@ function ShowBuildingInfoPage ($CurrentUser, $CurrentPlanet, $BuildID) {
 	} elseif ($BuildID ==  42) {
 		// Phalange
 		$PageTPL              = gettemplate('info_buildings_table');
-		$TableHeadTPL         = "<tr><td class=\"c\">{nfo_level}</td><td class=\"c\">{nfo_range}</td></tr>";
-		$TableTPL             = "<tr><th>{build_lvl}</th><th>{build_range}</th></tr>";
+		$TableHeadTPL         = "<tr><td class=\"c\">{{{nfo_level}}}</td><td class=\"c\">{{{nfo_range}}}</td></tr>";
+		$TableTPL             = "<tr><th>{{{build_lvl}}}</th><th>{{{build_range}}}</th></tr>";
 		$DestroyTPL           = gettemplate('info_buildings_destroy');
 	} elseif ($BuildID ==  43) {
 		// Porte de Saut
@@ -296,12 +296,12 @@ function ShowBuildingInfoPage ($CurrentUser, $CurrentPlanet, $BuildID) {
 
 	// ---- Tableau d'evolution
 	if ($TableHeadTPL != '') {
-		$parse['table_head']  = parsetemplate ($TableHeadTPL, $lang);
+		$parse['table_head']  = $MustacheEngine->render($TableHeadTPL, $lang);
 		$parse['table_data']  = ShowProductionTable ($CurrentUser, $CurrentPlanet, $BuildID, $TableTPL);
 	}
 
 	// La page principale
-	$page  = parsetemplate($PageTPL, $parse);
+	$page  = $MustacheEngine->render($PageTPL, $parse);
 	if ($GateTPL != '') {
 		if ($CurrentPlanet[$resource[$BuildID]] > 0) {
 			$RestString               = GetNextJumpWaitTime ( $CurrentPlanet );
@@ -317,7 +317,7 @@ function ShowBuildingInfoPage ($CurrentUser, $CurrentPlanet, $BuildID) {
 			}
 			$parse['gate_dest_moons'] = BuildJumpableMoonCombo ( $CurrentUser, $CurrentPlanet );
 			$parse['gate_fleet_rows'] = BuildFleetListRows ( $CurrentPlanet );
-			$page .= parsetemplate($GateTPL, $parse);
+			$page .= $MustacheEngine->render($GateTPL, $parse);
 		}
 	}
 
@@ -336,7 +336,7 @@ function ShowBuildingInfoPage ($CurrentUser, $CurrentPlanet, $BuildID) {
 			$parse['deuterium']   = pretty_number ($NeededRessources['deuterium']); // Cout en deuterium de la destruction
 			$parse['destroytime'] = pretty_time   ($DestroyTime);                   // Durée de la destruction
 			// L'insert de destruction
-			$page .= parsetemplate($DestroyTPL, $parse);
+			$page .= $MustacheEngine->render($DestroyTPL, $parse);
 		}
 	}
 

@@ -30,8 +30,8 @@
 
 function CheckTheUser($IsUserChecked)
 {
-    global $user;
-    includeLang('admin');
+    global $user, $MustacheEngine;
+    includeLang('admin/interface');
     $Result        = CheckCookies( $IsUserChecked );
     $IsUserChecked = $Result['state'];
 
@@ -39,11 +39,7 @@ function CheckTheUser($IsUserChecked)
     if ($Result['record'] != false) {
         $user = $Result['record'];
         if ($user['bana'] == "1") {
-            die (
-
-            $page .= parsetemplate(gettemplate('usr_banned'), $lang)
-
-            );
+            die ($MustacheEngine->render(gettemplate('usr_banned'), $lang));
         }
         $RetValue['record'] = $user;
         $RetValue['state']  = $IsUserChecked;

@@ -33,7 +33,7 @@ define('INSTALL' , false);
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
-includeLang('admin');
+includeLang('admin/interface');
 
 function XNovaResetUnivers ( $CurrentUser ) {
 	global $lang;

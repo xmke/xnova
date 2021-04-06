@@ -73,9 +73,9 @@ function InsertBuildListScript ( $CallProgram, $languageStrings) {
 	$BuildListScript .= "				m = \"0\" + m;\n";
 	$BuildListScript .= "			}\n";
 	$BuildListScript .= "			if (1) {\n";
-	$BuildListScript .= "				blc.innerHTML = h + \":\" + m + \":\" + s + \"<br><a href=". $CallProgram .".php?listid=\" + pk + \"&cmd=\" + pm + \"&planet=\" + pl + \">". $languageStrings['DelFirstQueue'] ."</a>\";\n";
+	$BuildListScript .= "				blc.innerHTML = h + \":\" + m + \":\" + s + \"<br><a href=buildings.php?listid=\" + pk + \"&cmd=\" + pm + \"&planet=\" + pl + \">". $languageStrings['DelFirstQueue'] ."</a>\";\n";
 	$BuildListScript .= "			} else {\n";
-	$BuildListScript .= "				blc.innerHTML = h + \":\" + m + \":\" + s + \"<br><a href=". $CallProgram .".php?listid=\" + pk + \"&cmd=\" + pm + \"&planet=\" + pl + \">". $languageStrings['DelFirstQueue'] ."</a>\";\n";
+	$BuildListScript .= "				blc.innerHTML = h + \":\" + m + \":\" + s + \"<br><a href=buildings.php?listid=\" + pk + \"&cmd=\" + pm + \"&planet=\" + pl + \">". $languageStrings['DelFirstQueue'] ."</a>\";\n";
 	$BuildListScript .= "			}\n";
 	$BuildListScript .= "		}\n";
 	$BuildListScript .= "		pp = pp - 1;\n";

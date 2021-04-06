@@ -40,8 +40,8 @@ includeLang('leftmenu');
 		$parse['mf']           = "Hauptframe";
 		$parse['dpath']        = $dpath;
 		$parse['XNovaRelease'] = VERSION;
-		$parse['servername']   = "XNova";
-		$Page                  = parsetemplate(gettemplate('admin/left_menu'), $parse);
+		$parse['servername']   = $game_config['game_name'];
+		$Page                  = $MustacheEngine->render(gettemplate('admin/left_menu'), $parse);
 		display( $Page, "", false, true);
 	} else {
 		message( $lang['sys_noalloaw'], $lang['sys_noaccess'] );

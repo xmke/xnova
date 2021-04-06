@@ -8,7 +8,7 @@
 	<th><a href="mailto:{{usr_email}}">{{usr_email}}</a></th>
 	<th>{{usr_xp_raid}}</th>
 	<th>{{usr_xp_min}}</th>
-	<th>{{state_vacancy}}</th>
+	<th>{{{state_vacancy}}}</th>
 	<th>{{is_banned}}</th>
 		<th>[<a href="../galaxy.php?mode=0&galaxy={{usr_planet_gal}}&system={{usr_planet_sys}}">{{usr_planet_gal}}:{{usr_planet_sys}}:{{usr_planet_pos}}</a>]</th>
 			<th>{{current_page}}</th>

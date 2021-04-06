@@ -34,9 +34,9 @@ define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
-		includeLang('admin');
+		includeLang('admin/interface');
 
-		if ($_GET['cmd'] == 'sort') {
+		if (isset($_GET['cmd']) && $_GET['cmd'] == 'sort') {
 			$TypeSort = $_GET['type'];
 		} else {
 			$TypeSort = "id";
@@ -47,12 +47,15 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$parse                      = $lang;
 		$parse['dpath']             = $dpath;
-		$parse['mf']                = $mf;
-		$parse['adm_ov_data_yourv'] = colorRed(VERSION);
+		//@Todo fix ce truc là, je sais même pas d'où ça vient
+		$parse['mf']                = "Hauptframe";
+		$parse['adm_ov_data_yourv'] = VERSION;
 
-		$Last15Mins = doquery("SELECT * FROM {{table}} WHERE `onlinetime` >= '". (time() - 15 * 60) ."' ORDER BY `". $TypeSort ."` ASC;", 'users');
+		$Last15Mins = doquery("SELECT `id`, `user_lastip`, `username`, `galaxy`, `system`, `planet`, `user_agent`, `current_page`, `ally_name`,`email`, `xpraid`, `xpminier`, `urlaubs_modus`, `bana`, `onlinetime` FROM {{table}} WHERE `onlinetime` >= '". (time() - 15 * 60) ."' ORDER BY `". $TypeSort ."` ASC;", 'users');
 		$Count      = 0;
 		$Color      = "lime";
+		$PrevIP = "";
+		
 		while ( $TheUser = mysqli_fetch_array($Last15Mins) ) {
 			if ($PrevIP != "") {
 				if ($PrevIP == $TheUser['user_lastip']) {
@@ -62,7 +65,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 				}
 			}
 
-			$UserPoints = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $TheUser['id'] . "';", 'statpoints', true);
+			$UserPoints = doquery("SELECT total_points FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $TheUser['id'] . "';", 'statpoints', true);
 			$Bloc['dpath']               = $dpath;
 			$Bloc['adm_ov_altpm']        = $lang['adm_ov_altpm'];
 			$Bloc['adm_ov_wrtpm']        = $lang['adm_ov_wrtpm'];
@@ -75,38 +78,28 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$Bloc['adm_ov_data_clip']    = $Color;
 			$Bloc['adm_ov_data_adip']    = $TheUser['user_lastip'];
 			$Bloc['adm_ov_data_ally']    = $TheUser['ally_name'];
-			$Bloc['adm_ov_data_point']   = pretty_number ( $UserPoints['total_points'] );
+			$Bloc['adm_ov_data_point']   = isset($UserPoints) ? pretty_number ( $UserPoints['total_points'] ) :"0" ;
 			$Bloc['adm_ov_data_activ']   = pretty_time ( time() - $TheUser['onlinetime'] );
 			$Bloc['adm_ov_data_pict']    = "m.gif";
 			$PrevIP                      = $TheUser['user_lastip'];
 
 			//Tweaks vue g�n�rale
-						$Bloc['usr_email']    = $TheUser['email'];
-									$Bloc['usr_xp_raid']    = $TheUser['xpraid'];
-									$Bloc['usr_xp_min']    = $TheUser['xpminier'];
-
-									if ($TheUser['urlaubs_modus'] == 1) {
-											$Bloc['state_vacancy']  = "<img src=\"../images/true.png\" >";
-									} else {
-											$Bloc['state_vacancy']  = "<img src=\"../images/false.png\">";
-									}
-
-									if ($TheUser['bana'] == 1) {
-											$Bloc['is_banned']  = "<img src=\"../images/banned.png\" >";
-									} else {
-											$Bloc['is_banned']  = $lang['is_banned_lang'];
-									}
-									$Bloc['usr_planet_gal']    = $TheUser['galaxy'];
-									$Bloc['usr_planet_sys']    = $TheUser['system'];
-									$Bloc['usr_planet_pos']    = $TheUser['planet'];
+			$Bloc['usr_email']    = $TheUser['email'];
+			$Bloc['usr_xp_raid']    = $TheUser['xpraid'];
+			$Bloc['usr_xp_min']    = $TheUser['xpminier'];
+			$Bloc['state_vacancy']     = $TheUser['urlaubs_modus'] == 1 ? $lang['adm_ul_yes'] : $lang['adm_ul_no'];
+			$Bloc['is_banned']         = $TheUser['bana'] == 1 ? $lang['adm_ul_yes'] : $lang['adm_ul_no'];
+			$Bloc['usr_planet_gal']    = $TheUser['galaxy'];
+			$Bloc['usr_planet_sys']    = $TheUser['system'];
+			$Bloc['usr_planet_pos']    = $TheUser['planet'];
 
 
-			$parse['adm_ov_data_table'] .= parsetemplate( $RowsTPL, $Bloc );
+			$parse['adm_ov_data_table'] = $MustacheEngine->render( $RowsTPL, $Bloc );
 			$Count++;
 		}
 
 		$parse['adm_ov_data_count']  = $Count;
-		$Page = parsetemplate($PageTPL, $parse);
+		$Page = $MustacheEngine->render($PageTPL, $parse);
 
 		display ( $Page, $lang['sys_overview'], false, true);
 	} else {

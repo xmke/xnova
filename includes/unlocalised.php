@@ -244,7 +244,9 @@ function includeLang($filename, $extension = '.mo')
     global $lang, $user;
 
     $pathPattern = ROOT_PATH . "language/%s/{$filename}%s";
+
     if (isset($user['lang']) && !empty($user['lang'])) {
+        
         if ($fp = @fopen($filename = sprintf($pathPattern, $user['lang'], $extension), 'r', true)) {
             fclose($fp);
 
@@ -252,7 +254,6 @@ function includeLang($filename, $extension = '.mo')
             return;
         }
     }
-
     require_once sprintf($pathPattern, DEFAULT_LANG, '.mo');
     return;
 }

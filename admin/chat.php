@@ -32,7 +32,7 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
-includeLang('admin');
+includeLang('admin/interface');
 $parse = $lang;
 
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN))) {

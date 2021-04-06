@@ -5,7 +5,7 @@
 	<td class="c" colspan="2">{{adm_ov_infos}}</td>
 </tr><tr>
 	<td class="b" style="color:#FFFFFF">{{adm_ov_yourv}}: <strong>{{adm_ov_data_yourv}}</strong></td>
-	<td class="b" style="color:#FFFFFF">{{adm_ov_lastv}}: <b><a style="color:orange;" href="http://www.xnova-ng.org/">{{adm_ov_here}}</a></b></td>
+	<td class="b" style="color:#FFFFFF">{{adm_ov_lastv}}: <b><a style="color:orange;" href="https://github.com/xmke/xnova">{{adm_ov_here}}</a></b></td>
 </tr>
 </table>
 <br>
@@ -28,7 +28,7 @@
 	<th>{{usr_current_planet}}</th>
 	<th>{{usr_current_page}}</th>
 </tr>
-	{{adm_ov_data_table}}
+{{{adm_ov_data_table}}}
 <tr>
 	<th class="b" colspan="13">{{adm_ov_count}}: {{adm_ov_data_count}}</th>
 </tr>
