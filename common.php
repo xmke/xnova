@@ -60,7 +60,7 @@ $user          = array();
 $lang          = array();
 $IsUserChecked = false;
 
-define('DEFAULT_SKINPATH', 'skins/xnova/');
+define('DEFAULT_SKINPATH', 'skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');
 define('DEFAULT_LANG', 'fr');
@@ -134,13 +134,19 @@ if (!defined('IN_ADMIN')) {
 
 if (!empty($user)) {
     SetSelectedPlanet($user);
-
-    $planetrow = doquery("SELECT * FROM {{table}} WHERE `id` = '".$user['current_planet']."';", 'planets', true);
-    $galaxyrow = doquery("SELECT * FROM {{table}} WHERE `id_planet` = '".$planetrow['id']."';", 'galaxy', true);
+    
+    $planetrowQry  = "SELECT game_planets.*,";
+    $planetrowQry .= "game_galaxy.metal AS metal_debris, ";
+    $planetrowQry .= "game_galaxy.crystal AS cristal_debris, ";
+    $planetrowQry .= "game_galaxy.id_luna, ";
+    $planetrowQry .= "game_galaxy.luna ";
+    $planetrowQry .= "FROM game_planets ";
+    $planetrowQry .= "RIGHT JOIN game_galaxy ";
+    $planetrowQry .= "ON game_planets.id = game_galaxy.id_planet WHERE game_planets.id = " . $user['current_planet'];
+    $planetrow = doquery($planetrowQry, 'planets', true);
 
     CheckPlanetUsedFields($planetrow);
     PlanetResourceUpdate($user, $planetrow, time());
 } else {
     $planetrow = array();
-    $galaxyrow = array();
 }

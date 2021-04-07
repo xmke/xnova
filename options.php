@@ -261,7 +261,8 @@ require_once dirname(__FILE__) .'/common.php';
        $parse = $lang;
 
        $parse['dpath'] = $dpath;
-       $parse['opt_lst_skin_data']  = "<option value =\"skins/xnova/\">skins/xnova/</option>";
+       $parse['opt_lst_skin_data']   = "<option value =\"skins/epicblue/\">skins/epicblue/</option>";
+       $parse['opt_lst_skin_data']  .= "<option value =\"skins/xnova/\">skins/xnova/</option>";
        $parse['opt_lst_ord_data']   = "<option value =\"0\"". (($user['planet_sort'] == 0) ? " selected": "") .">". $lang['opt_lst_ord0'] ."</option>";
        $parse['opt_lst_ord_data']  .= "<option value =\"1\"". (($user['planet_sort'] == 1) ? " selected": "") .">". $lang['opt_lst_ord1'] ."</option>";
        $parse['opt_lst_ord_data']  .= "<option value =\"2\"". (($user['planet_sort'] == 2) ? " selected": "") .">". $lang['opt_lst_ord2'] ."</option>";

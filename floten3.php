@@ -74,11 +74,11 @@ require_once dirname(__FILE__) .'/common.php';
 	if ($fleetmission == 8) {
 		$YourPlanet = false;
 		$UsedPlanet = false;
-		$select     = doquery("SELECT * FROM {{table}} WHERE galaxy = '". $galaxy ."' AND system = '". $system ."' AND planet = '". $planet ."'", "planets");
+		$select     = doquery("SELECT * FROM {{table}} WHERE galaxy = '". $galaxy ."' AND `system` = '". $system ."' AND planet = '". $planet ."'", "planets", true);
 	} else {
 		$YourPlanet = false;
 		$UsedPlanet = false;
-		$select     = doquery("SELECT * FROM {{table}} WHERE galaxy = '". $galaxy ."' AND system = '". $system ."' AND planet = '". $planet ."' AND planet_type = '". $planettype ."'", "planets");
+		$select     = doquery("SELECT * FROM {{table}} WHERE galaxy = '". $galaxy ."' AND `system` = '". $system ."' AND planet = '". $planet ."' AND planet_type = '". $planettype ."'", "planets", true);
 	}
 
 	if ($CurrentPlanet['galaxy'] == $galaxy &&
@@ -90,9 +90,9 @@ require_once dirname(__FILE__) .'/common.php';
 
 	// Test d'existance de l'enregistrement dans la gaalxie !
 	if ($_POST['mission'] != 15) {
-		if (mysql_num_rows($select) < 1 && $fleetmission != 7) {
+		if (!isset($select) && $fleetmission != 7) {
 			message ("<font color=\"red\"><b>". $lang['fl_unknow_target'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
-		} elseif ($fleetmission == 9 && mysql_num_rows($select) < 1) {
+		} elseif ($fleetmission == 9 && !isset($select)) {
 			message ("<font color=\"red\"><b>". $lang['fl_used_target'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
 	} else {
@@ -106,49 +106,54 @@ require_once dirname(__FILE__) .'/common.php';
 		}
 	}
 
-	$select = mysqli_fetch_array($select);
 
-	if ($select['id_owner'] == $user['id']) {
-		$YourPlanet = true;
-		$UsedPlanet = true;
-	} elseif (!empty($select['id_owner'])) {
-		$YourPlanet = false;
-		$UsedPlanet = true;
-	} else {
+	if(isset($select) && isset($select['id_owner'])){
+		if ($select['id_owner'] == $user['id']) {
+			$YourPlanet = true;
+			$UsedPlanet = true;
+		} elseif (!empty($select['id_owner'])) {
+			$YourPlanet = false;
+			$UsedPlanet = true;
+		} else {
+			$YourPlanet = false;
+			$UsedPlanet = false;
+		}
+	}else{
 		$YourPlanet = false;
 		$UsedPlanet = false;
 	}
+	
 
 	// Determinons les type de missions possibles par rapport a la planete cible
 	if ($fleetmission == 15) {
 		// Gestion des Exp�ditions
 		$missiontype = array(15 => $lang['type_mission'][15]);
 	} else {
-		if ($_POST['planettype'] == "2") {
-			if ($_POST['ship209'] >= 1) {
+		if (isset($_POST['planettype']) && $_POST['planettype'] == "2") {
+			if (isset($_POST['ship209']) && $_POST['ship209'] >= 1) {
 				$missiontype = array(8 => $lang['type_mission'][8]);
 			} else {
 				$missiontype = array();
 			}
 		} elseif ($_POST['planettype'] == "1" || $_POST['planettype'] == "3") {
-			if ($_POST['ship208'] >= 1 && !$UsedPlanet) {
+			if (isset($_POST['ship208']) && $_POST['ship208'] >= 1 && !$UsedPlanet) {
 				$missiontype = array(7 => $lang['type_mission'][7]);
-			} elseif ($_POST['ship210'] >= 1 && !$YourPlanet) {
+			} elseif (isset($_POST['ship210']) && $_POST['ship210'] >= 1 && !$YourPlanet) {
 				$missiontype = array(6 => $lang['type_mission'][6]);
 			}
 
-			if ($_POST['ship202'] >= 1 ||
-				$_POST['ship203'] >= 1 ||
-				$_POST['ship204'] >= 1 ||
-				$_POST['ship205'] >= 1 ||
-				$_POST['ship206'] >= 1 ||
-				$_POST['ship207'] >= 1 ||
-				$_POST['ship210'] >= 1 ||
-				$_POST['ship211'] >= 1 ||
-				$_POST['ship213'] >= 1 ||
-				$_POST['ship214'] >= 1 ||
-				$_POST['ship215'] >= 1 ||
-				$_POST['ship216'] >= 1) {
+			if (isset($_POST['ship202']) && $_POST['ship202'] >= 1 ||
+				isset($_POST['ship203']) && $_POST['ship203'] >= 1 ||
+				isset($_POST['ship204']) && $_POST['ship204'] >= 1 ||
+				isset($_POST['ship205']) && $_POST['ship205'] >= 1 ||
+				isset($_POST['ship206']) && $_POST['ship206'] >= 1 ||
+				isset($_POST['ship207']) && $_POST['ship207'] >= 1 ||
+				isset($_POST['ship210']) && $_POST['ship210'] >= 1 ||
+				isset($_POST['ship211']) && $_POST['ship211'] >= 1 ||
+				isset($_POST['ship213']) && $_POST['ship213'] >= 1 ||
+				isset($_POST['ship214']) && $_POST['ship214'] >= 1 ||
+				isset($_POST['ship215']) && $_POST['ship215'] >= 1 ||
+				isset($_POST['ship216']) && $_POST['ship216'] >= 1) {
 				if (!$YourPlanet) {
 					$missiontype[1] = $lang['type_mission'][1];
 					$missiontype[5] = $lang['type_mission'][5];
@@ -183,100 +188,106 @@ require_once dirname(__FILE__) .'/common.php';
 
 	CheckPlanetUsedFields($CurrentPlanet);
 
-	if ($TargetPlanet['id_owner'] == '') {
-		$HeDBRec = $MyDBRec;
-	} elseif ($TargetPlanet['id_owner'] != '') {
-		$HeDBRec = doquery("SELECT * FROM {{table}} WHERE `id` = '". $TargetPlanet['id_owner'] ."';", 'users', true);
+	$HeDBRec = null;
+	if(!$UsedPlanet && $YourPlanet){ //Checks inutiles pour la colonisation
+		if ($TargetPlanet['id_owner'] == '') {
+			$HeDBRec = $MyDBRec;
+		} elseif ($TargetPlanet['id_owner'] != '') {
+			$HeDBRec = doquery("SELECT * FROM {{table}} WHERE `id` = '". $TargetPlanet['id_owner'] ."';", 'users', true);
+		}
+
+		$UserPoints    = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $MyDBRec['id'] ."';", 'statpoints', true);
+		$User2Points   = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';", 'statpoints', true);
+
+		$MyGameLevel  = $UserPoints['total_points'];
+		$HeGameLevel  = $User2Points['total_points'];
+		$VacationMode = $HeDBRec['urlaubs_modus'];
+
+		if ($MyGameLevel > ($HeGameLevel * $protectionmulti) AND
+			$TargetPlanet['id_owner'] != '' AND
+			$_POST['mission']     == 1  AND
+			$protection           == 1  AND
+			$HeGameLevel < ($protectiontime * 1000)) {
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+		}
+
+		if ($MyGameLevel > ($HeGameLevel * $protectionmulti) AND
+			$TargetPlanet['id_owner'] != '' AND
+			$_POST['mission']     == 5  AND
+			$protection           == 1  AND
+			$HeGameLevel < ($protectiontime * 1000)) {
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+		}
+
+		if ($MyGameLevel > ($HeGameLevel * $protectionmulti) AND
+			$TargetPlanet['id_owner'] != '' AND
+			$_POST['mission']     == 6  AND
+			$protection           == 1  AND
+			$HeGameLevel < ($protectiontime * 1000)) {
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+		}
+
+		if (($MyGameLevel * $protectionmulti) < $HeGameLevel AND
+			$TargetPlanet['id_owner'] != '' AND
+			$_POST['mission']     == 1  AND
+			$protection           == 1  AND
+			$MyGameLevel < ($protectiontime * 1000)) {
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+		}
+
+		if (($MyGameLevel * $protectionmulti) < $HeGameLevel AND
+			$TargetPlanet['id_owner'] != '' AND
+			$_POST['mission']     == 5  AND
+			$protection           == 1  AND
+			$MyGameLevel < ($protectiontime * 1000)) {
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+		}
+
+		if (($MyGameLevel * $protectionmulti) < $HeGameLevel AND
+			$TargetPlanet['id_owner'] != '' AND
+			$_POST['mission']     == 6  AND
+			$protection           == 1  AND
+			$MyGameLevel < ($protectiontime * 1000)) {
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+		}
+
+		if ($VacationMode AND $_POST['mission'] != 8) {
+			message("<font color=\"lime\"><b>".$lang['fl_vacation_pla']."</b></font>", $lang['fl_vacation_ttl'], "fleet." . PHPEXT, 2);
+		}
 	}
-
-	$UserPoints    = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $MyDBRec['id'] ."';", 'statpoints', true);
-	$User2Points   = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';", 'statpoints', true);
-
-	$MyGameLevel  = $UserPoints['total_points'];
-	$HeGameLevel  = $User2Points['total_points'];
-	$VacationMode = $HeDBRec['urlaubs_modus'];
-
-	if ($MyGameLevel > ($HeGameLevel * $protectionmulti) AND
-		$TargetPlanet['id_owner'] != '' AND
-		$_POST['mission']     == 1  AND
-		$protection           == 1  AND
-		$HeGameLevel < ($protectiontime * 1000)) {
-		message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
-	}
-
-	if ($MyGameLevel > ($HeGameLevel * $protectionmulti) AND
-		$TargetPlanet['id_owner'] != '' AND
-		$_POST['mission']     == 5  AND
-		$protection           == 1  AND
-		$HeGameLevel < ($protectiontime * 1000)) {
-		message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
-	}
-
-	if ($MyGameLevel > ($HeGameLevel * $protectionmulti) AND
-		$TargetPlanet['id_owner'] != '' AND
-		$_POST['mission']     == 6  AND
-		$protection           == 1  AND
-		$HeGameLevel < ($protectiontime * 1000)) {
-		message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
-	}
-
-	if (($MyGameLevel * $protectionmulti) < $HeGameLevel AND
-		$TargetPlanet['id_owner'] != '' AND
-		$_POST['mission']     == 1  AND
-		$protection           == 1  AND
-		$MyGameLevel < ($protectiontime * 1000)) {
-		message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
-	}
-
-	if (($MyGameLevel * $protectionmulti) < $HeGameLevel AND
-		$TargetPlanet['id_owner'] != '' AND
-		$_POST['mission']     == 5  AND
-		$protection           == 1  AND
-		$MyGameLevel < ($protectiontime * 1000)) {
-		message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
-	}
-
-	if (($MyGameLevel * $protectionmulti) < $HeGameLevel AND
-		$TargetPlanet['id_owner'] != '' AND
-		$_POST['mission']     == 6  AND
-		$protection           == 1  AND
-		$MyGameLevel < ($protectiontime * 1000)) {
-		message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
-	}
-
-	if ($VacationMode AND $_POST['mission'] != 8) {
-		message("<font color=\"lime\"><b>".$lang['fl_vacation_pla']."</b></font>", $lang['fl_vacation_ttl'], "fleet." . PHPEXT, 2);
-	}
-
-	$FlyingFleets = mysql_fetch_assoc(doquery("SELECT COUNT(fleet_id) as Number FROM {{table}} WHERE `fleet_owner`='{$user['id']}'", 'fleets'));
+	$FlyingFleets = doquery("SELECT COUNT(fleet_id) as Number FROM {{table}} WHERE `fleet_owner`='{$user['id']}'", 'fleets', true);
 	$ActualFleets = $FlyingFleets["Number"];
 	if (($user[$resource[108]] + 1) <= $ActualFleets) {
 		message("Pas de slot disponible", "Erreur", "fleet." . PHPEXT, 1);
 	}
+	$cumulatedResources = 0;
+	$cumulatedResources += isset($_POST['resource1']) && is_numeric($_POST['resource1']) ? $_POST['resource1'] : 0;
+	$cumulatedResources += isset($_POST['resource2']) && is_numeric($_POST['resource2']) ? $_POST['resource2'] : 0;
+	$cumulatedResources += isset($_POST['resource3']) && is_numeric($_POST['resource3']) ? $_POST['resource3'] : 0;
 
-	if ($_POST['resource1'] + $_POST['resource2'] + $_POST['resource3'] < 1 AND $_POST['mission'] == 3) {
+	if ($cumulatedResources < 1 AND $_POST['mission'] == 3) {
 		message("<font color=\"lime\"><b>".$lang['fl_noenoughtgoods']."</b></font>", $lang['type_mission'][3], "fleet." . PHPEXT, 1);
 	}
 	if ($_POST['mission'] != 15) {
-		if ($TargetPlanet['id_owner'] == '' AND $_POST['mission'] < 7) {
+		if (isset($TargetPlanet) && $TargetPlanet['id_owner'] == '' AND $_POST['mission'] < 7) {
 			message ("<font color=\"red\"><b>". $lang['fl_bad_planet01'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
-		if ($TargetPlanet['id_owner'] != '' AND $_POST['mission'] == 7) {
+		if (isset($TargetPlanet) && $TargetPlanet['id_owner'] != '' AND $_POST['mission'] == 7) {
 			message ("<font color=\"red\"><b>". $lang['fl_bad_planet02'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
-		if ($HeDBRec['ally_id'] != $MyDBRec['ally_id'] AND $_POST['mission'] == 4) {
+		if (isset($HeDBRec) && $HeDBRec['ally_id'] != $MyDBRec['ally_id'] AND $_POST['mission'] == 4) {
 			message ("<font color=\"red\"><b>". $lang['fl_dont_stay_here'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
-		if ($TargetPlanet['ally_deposit'] < 1 AND $HeDBRec != $MyDBRec AND $_POST['mission'] == 5) {
+		if (isset($TargetPlanet) && $TargetPlanet['ally_deposit'] < 1 AND $HeDBRec != $MyDBRec AND $_POST['mission'] == 5) {
 			message ("<font color=\"red\"><b>". $lang['fl_no_allydeposit'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
-		if (($TargetPlanet["id_owner"] == $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 1)) {
+		if (isset($TargetPlanet) && ($TargetPlanet["id_owner"] == $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 1)) {
 			message ("<font color=\"red\"><b>". $lang['fl_no_self_attack'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
-		if (($TargetPlanet["id_owner"] == $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 6)) {
+		if (isset($TargetPlanet) && ($TargetPlanet["id_owner"] == $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 6)) {
 			message ("<font color=\"red\"><b>". $lang['fl_no_self_spy'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
-		if (($TargetPlanet["id_owner"] != $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 4)) {
+		if (isset($TargetPlanet) && ($TargetPlanet["id_owner"] != $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 4)) {
 			message ("<font color=\"red\"><b>". $lang['fl_only_stay_at_home'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
 	}
@@ -417,7 +428,7 @@ require_once dirname(__FILE__) .'/common.php';
 		message ("<font color=\"red\"><b>". $lang['fl_nostoragespa'] . pretty_number($StorageNeeded - $FleetStorage) ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 	}
 
-	if ($TargetPlanet['id_level'] > $user['authlevel']) {
+	if (isset($TargetPlanet) && $TargetPlanet['id_level'] > $user['authlevel']) {
 		$Allowed = true;
 		switch ($_POST['mission']){
 			case 1:
@@ -460,7 +471,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$QryInsertFleet .= "`fleet_resource_metal` = '". intval($TransMetal) ."', ";
 	$QryInsertFleet .= "`fleet_resource_crystal` = '". intval($TransCrystal) ."', ";
 	$QryInsertFleet .= "`fleet_resource_deuterium` = '". intval($TransDeuterium) ."', ";
-	$QryInsertFleet .= "`fleet_target_owner` = '". $TargetPlanet['id_owner'] ."', ";
+	$QryInsertFleet .= "`fleet_target_owner` = '". $user['id'] ."', ";
 	$QryInsertFleet .= "`start_time` = '". time() ."';";
 	doquery( $QryInsertFleet, 'fleets');
 

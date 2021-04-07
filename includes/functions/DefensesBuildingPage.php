@@ -31,7 +31,7 @@
 require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
 function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
-    global $lang, $resource, $dpath;
+    global $lang, $resource, $dpath, $MustacheEngine;
 
     // S'il n'y a pas de Chantier
     if (!isset($currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]]) || $currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]] == 0) {
@@ -67,6 +67,7 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
             // Disponibilité actuelle
             $shipIdCount        = $currentPlanet[$resource[$shipId]];
             $shipIdNbre         = ($shipIdCount == 0) ? "" : " (".$lang['dispo'].": " . pretty_number($shipIdCount) . ")";
+            $shipIdName = $lang["tech"][$shipId];
 
             // Construction des 3 cases de la ligne d'un element dans la page d'achat !
             // Début de ligne
@@ -99,8 +100,8 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
                 if (MAX_FLEET_OR_DEFS_PER_ROW > 0 && $maxElements > MAX_FLEET_OR_DEFS_PER_ROW) {
                     $maxElements = MAX_FLEET_OR_DEFS_PER_ROW;
                 }
-
-                $PageTable .= '<br /><a onclick="document.getElementById(\'fmenge:'.$shipId.'\').value=\''.strval($maxElements).'\';" style="cursor:pointer;">Nombre max ('.number_format($maxElements, 0, ',', '.').')</a>';
+                //@todo
+                $PageTable .= '<br /><a onclick="document.getElementById(\'fmenge:'.$shipId.'\').value=\''.strval($maxElements).'\';" style="cursor:pointer;">max ('.number_format($maxElements, 0, ',', '.').')</a>';
             } else if (in_array($shipId, array(Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME, Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME))) {
                 $PageTable .= '<span style="color:red">Limite de construction atteinte.</span>';
             } else if (in_array($shipId, array(Legacies_Empire::ID_DEFENSE_SMALL_SHIELD_DOME, Legacies_Empire::ID_DEFENSE_LARGE_SHIELD_DOME))) {
@@ -113,7 +114,7 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
         }
     }
 
-    if (!empty($currentPlanet['b_hangar_id'])) {
+    if (!empty($currentPlanet['b_hangar_id'])) { //@todo fix this
         $data = array();
         foreach ($shipyard->getQueue() as $item) {
             $data[] = array_merge($item, array(
@@ -124,16 +125,15 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
         $parse = array(
             'data' => json_encode($data)
             );
-        $BuildQueue = parsetemplate(gettemplate('buildings_script'), $parse);
+        $BuildQueue = $MustacheEngine->render(gettemplate('buildings_script'), $parse);
     }
-
     $parse = $lang;
     // La page se trouve dans $PageTable;
     $parse['buildlist']    = $PageTable;
     // Et la liste de constructions en cours dans $BuildQueue;
     $parse['buildinglist'] = $BuildQueue;
     // fragmento de template
-    $page .= parsetemplate(gettemplate('buildings_defense'), $parse);
+    $page = $MustacheEngine->render(gettemplate('buildings_defense'), $parse);
 
     display($page, $lang['Defense']);
 

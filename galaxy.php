@@ -33,26 +33,23 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
     includeLang('galaxy');
-
-    $CurrentPlanet = doquery("SELECT * FROM {{table}} WHERE `id` = '". $user['current_planet'] ."';", 'planets', true);
     $lunarow       = doquery("SELECT * FROM {{table}} WHERE `id` = '". $user['current_luna'] ."';", 'lunas', true);
-    $galaxyrow     = doquery("SELECT * FROM {{table}} WHERE `id_planet` = '". $CurrentPlanet['id'] ."';", 'galaxy', true);
 
     $dpath         = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
     $fleetmax      = $user['computer_tech'] + 1;
-    $CurrentPlID   = $CurrentPlanet['id'];
-    $CurrentMIP    = $CurrentPlanet['interplanetary_misil'];
-    $CurrentRC     = $CurrentPlanet['recycler'];
-    $CurrentSP     = $CurrentPlanet['spy_sonde'];
-    $HavePhalanx   = $CurrentPlanet['phalanx'];
-    $CurrentSystem = $CurrentPlanet['system'];
-    $CurrentGalaxy = $CurrentPlanet['galaxy'];
-    $CanDestroy    = $CurrentPlanet[$resource[213]] + $CurrentPlanet[$resource[214]];
+    $CurrentPlID   = $planetrow['id'];
+    $CurrentMIP    = $planetrow['interplanetary_misil'];
+    $CurrentRC     = $planetrow['recycler'];
+    $CurrentSP     = $planetrow['spy_sonde'];
+    $HavePhalanx   = $planetrow['phalanx'];
+    $CurrentSystem = $planetrow['system'];
+    $CurrentGalaxy = $planetrow['galaxy'];
+    $CanDestroy    = $planetrow[$resource[213]] + $planetrow[$resource[214]];
 
     $maxfleet       = doquery("SELECT * FROM {{table}} WHERE `fleet_owner` = '". $user['id'] ."';", 'fleets');
     $maxfleet_count = mysqli_num_rows($maxfleet);
 
-    CheckPlanetUsedFields($CurrentPlanet);
+    CheckPlanetUsedFields($planetrow);
     CheckPlanetUsedFields($lunarow);
 
     if (!isset($mode)) {
@@ -135,13 +132,13 @@ require_once dirname(__FILE__) .'/common.php';
     $planetcount = 0;
     $lunacount   = 0;
 
-    $page = InsertGalaxyScripts($CurrentPlanet);
+    $page = InsertGalaxyScripts($planetrow);
 
     $page .= "<body style=\"overflow: hidden;\" onUnload=\"\"><br><br>";
     $page .= ShowGalaxySelector ( $galaxy, $system );
 
     if ($mode == 2) {
-        $page .= ShowGalaxyMISelector($galaxy, $system, $planet, $CurrentPlanet['id'], $CurrentMIP);
+        $page .= ShowGalaxyMISelector($galaxy, $system, $planet, $planetrow['id'], $CurrentMIP);
     }
 
     $page .= "<table width=569><tbody>";

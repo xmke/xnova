@@ -30,7 +30,7 @@
 
 function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $ThePlanet)
 {
-	global $lang, $resource, $reslist, $dpath, $game_config, $_GET;
+	global $lang, $resource, $reslist, $dpath, $game_config, $_GET, $MustacheEngine;
 
 
 	$NoResearchMessage = "";
@@ -119,7 +119,7 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 
 	$TechRowTPL = gettemplate('buildings_research_row');
 	$TechScrTPL = gettemplate('buildings_research_script');
-
+	$TechnoList = "";
 	foreach($lang['tech'] as $Tech => $TechName) {
 		if ($Tech > 105 && $Tech <= 199) {
 			if ( IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Tech)) {
@@ -184,14 +184,14 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 							$bloc['tech_home']  = $CurrentPlanet["id"];
 							$bloc['tech_id']    = $CurrentPlanet["b_tech_id"];
 						}
-						$TechnoLink  = parsetemplate($TechScrTPL, $bloc);
+						$TechnoLink  = $MustacheEngine->render($TechScrTPL, $bloc);
 					} else {
 						// Technologie pas en cours recherche
 						$TechnoLink  = "<center>-</center>";
 					}
 				}
 				$RowParse['tech_link']  = $TechnoLink;
-				$TechnoList            .= parsetemplate($TechRowTPL, $RowParse);
+				$TechnoList            .= $MustacheEngine->render($TechRowTPL, $RowParse);
 			}
 		}
 	}
@@ -199,7 +199,7 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 	$PageParse                = $lang;
 	$PageParse['noresearch']  = $NoResearchMessage;
 	$PageParse['technolist']  = $TechnoList;
-	$Page                    .= parsetemplate(gettemplate('buildings_research'), $PageParse);
+	$Page                     = $MustacheEngine->render(gettemplate('buildings_research'), $PageParse);
 
 	display( $Page, $lang['Research'] );
 }

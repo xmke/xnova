@@ -34,7 +34,7 @@ define('IN_INSTALL', true);
 define('ROOT_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 define('PHPEXT', include ROOT_PATH . 'extension.inc');
 
-define('DEFAULT_SKINPATH', '../skins/xnova/');
+define('DEFAULT_SKINPATH', '../skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');
 define('DEFAULT_LANG', 'fr');

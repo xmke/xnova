@@ -30,15 +30,15 @@
 
 function CheckCookies($IsUserChecked)
 {
-    global $lang, $game_config;
+    global $lang, $game_config, $user;
 
     includeLang('cookies');
-
+    
     $userData = array();
     if (isset($_SESSION['user_id'])) {
         $sql =<<<EOF
 SELECT * FROM {{table}}
-    WHERE id={$_SESSION['user_id']}
+    WHERE id      ={$_SESSION['user_id']}
     LIMIT 1
 EOF;
         $userData = doquery($sql, 'users', true);

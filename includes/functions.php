@@ -140,9 +140,9 @@ function StdUserHeader ($title = '') {
 	$parse             = $langInfos;
 	$parse['title']    = $title;
 	//@todo remove
-	$parse['dpath']    = "skins/xnova/";
+	$parse['dpath']    = "skins/epicblue/";
 
-	$parse['defined_login'] = defined('LOGIN');
+	$parse['defined_login'] = defined('LOGIN') && LOGIN == true ? true : false;
 	
 	$parse['-body-']  = ""; //  class=\"style\" topmargin=\"0\" leftmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">";
 	return $MustacheEngine->render(gettemplate('simple_header'), $parse);

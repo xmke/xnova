@@ -43,7 +43,7 @@ function PlanetSizeRandomiser ($Position, $HomeWorld = false) {
 		$MaxAddon         = mt_rand(0, 110);
 		$MinAddon         = mt_rand(0, 100);
 		$Addon            = ($MaxAddon - $MinAddon);
-		$PlanetFields     = ($RandomSize + $abweichung);
+		$PlanetFields     = ($RandomSize + $Addon);
 	} else {
 		$PlanetFields     = $game_config['initial_fields'];
 	}

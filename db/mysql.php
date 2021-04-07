@@ -56,7 +56,6 @@ function doquery($query, $table, $fetch = false)
     if (false === ($sqlQuery = mysqli_query(Database::$dbHandle, $sql))) {
         trigger_error(mysqli_error(Database::$dbHandle) . PHP_EOL . "<br /><pre></code>$sql<code></pre><br />" . PHP_EOL, E_USER_WARNING);
     }
-
     if($fetch) {
         return mysqli_fetch_array($sqlQuery);
     }else{

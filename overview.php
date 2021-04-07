@@ -32,7 +32,7 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-$lunarow = doquery("SELECT * FROM {{table}} WHERE `id_owner` = '" . $planetrow['id_owner'] . "' AND `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `lunapos` = '" . $planetrow['planet'] . "';", 'lunas', true);
+$lunarow = doquery("SELECT id FROM {{table}} WHERE `id_owner` = '" . $planetrow['id_owner'] . "' AND `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `lunapos` = '" . $planetrow['planet'] . "';", 'lunas', true);
 
 //CheckPlanetUsedFields ($lunarow);
 
@@ -166,6 +166,7 @@ switch ($mode) {
             // --- Gestion des flottes personnelles ---------------------------------------------------------
             // Toutes de vert vetues
             $OwnFleets = doquery("SELECT * FROM {{table}} WHERE `fleet_owner` = '" . $user['id'] . "';", 'fleets');
+            
             $Record = 0;
             while ($FleetRow = mysqli_fetch_array($OwnFleets)) {
                 $Record++;
@@ -177,6 +178,7 @@ switch ($mode) {
                 $Label = "fs";
                 if ($StartTime > time()) {
                     $fpage[$StartTime] = BuildFleetEventTable ($FleetRow, 0, true, $Label, $Record);
+                    echo "<br />call buildfleeteventtable - ".$Record." ";
                 }
 
                 if ($FleetRow['fleet_mission'] <> 4) {
@@ -184,11 +186,13 @@ switch ($mode) {
                     $Label = "ft";
                     if ($StayTime > time()) {
                         $fpage[$StayTime] = BuildFleetEventTable ($FleetRow, 1, true, $Label, $Record);
+                        echo "<br />call buildfleeteventtable2 - ".$Record." ";
                     }
                     // Flotte au retour
                     $Label = "fe";
-                    if ($EndTime > time()) {
+                    if ($EndTime > time() && $FleetRow['fleet_mission'] <> 7) {
                         $fpage[$EndTime] = BuildFleetEventTable ($FleetRow, 2, true, $Label, $Record);
+                        echo "<br />call buildfleeteventtable3 - ".$Record." ";
                     }
                 }
             } // End While
@@ -208,12 +212,14 @@ switch ($mode) {
                         if ($StartTime > time()) {
                             $Label = "ofs";
                             $fpage[$StartTime] = BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
+                            echo "<br />call buildfleeteventtable4 - ".$Record." ";
                         }
                         if ($FleetRow['fleet_mission'] == 5) {
                             // Flotte en stationnement
                             $Label = "oft";
                             if ($StayTime > time()) {
                                 $fpage[$StayTime] = BuildFleetEventTable ($FleetRow, 1, false, $Label, $Record);
+                                echo "<br />call buildfleeteventtable5 - ".$Record." ";
                             }
                         }
                     }
@@ -296,7 +302,7 @@ switch ($mode) {
 						planet = '" . $irak['planet_angreifer'] . "' AND
 						planet_type = '1'", 'planets', true);
 
-                    if (mysql_num_rows($planet_start) == 1) {
+                    if (mysqli_num_rows($planet_start) == 1) {
                         $planet = mysqli_fetch_array($planet_start);
                     }
 
@@ -340,7 +346,7 @@ switch ($mode) {
             // --- Gestion de l'affichage d'une lune ---------------------------------------------------------
             if (isset($lunarow) && isset($lunarow['id']) && $lunarow['id'] <> 0) {
                 if ($planetrow['planet_type'] == 1) {
-                    $lune = doquery ("SELECT * FROM {{table}} WHERE `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `planet` = '" . $planetrow['planet'] . "' AND `planet_type` = '3'", 'planets', true);
+                    $lune = doquery ("SELECT `id`, `name`, `image` FROM {{table}} WHERE `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `planet` = '" . $planetrow['planet'] . "' AND `planet_type` = '3'", 'planets', true);
                     $parse['moon_img'] = "<a href=\"?cp=" . $lune['id'] . "&re=0\" title=\"" . $lune['name'] . "\"><img src=\"" . $dpath . "planeten/" . $lune['image'] . ".jpg\" height=\"50\" width=\"50\"></a>";
                     $parse['moon'] = $lune['name'];
                 } else {
@@ -361,8 +367,8 @@ switch ($mode) {
             $parse['galaxy_galaxy'] = $planetrow['galaxy'];
             $parse['galaxy_planet'] = $planetrow['planet'];
             $parse['galaxy_system'] = $planetrow['system'];
-            $StatRecord = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $user['id'] . "';", 'statpoints', true);
-
+            $StatRecord = doquery("SELECT `build_points`, `fleet_points`, `tech_points`, `total_points`, `total_rank`, `total_old_rank` FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $user['id'] . "';", 'statpoints', true);
+            
             $parse['user_points'] = isset($StatRecord) && isset($StatRecord['build_points']) ? pretty_number($StatRecord['build_points']) : 0;
             $parse['user_fleet'] = isset($StatRecord) && isset($StatRecord['fleet_points']) ? pretty_number($StatRecord['fleet_points']) : 0;
             $parse['player_points_tech'] = isset($StatRecord) && isset($StatRecord['tech_points']) ? pretty_number($StatRecord['tech_points']) : 0;
@@ -390,6 +396,7 @@ switch ($mode) {
 
             if (isset($fpage) && count($fpage) > 0) {
                 ksort($fpage);
+                $flotten = "";
                 foreach ($fpage as $time => $content) {
                     $flotten .= $content . "\n";
                 }
@@ -408,9 +415,9 @@ switch ($mode) {
             $parse['anothers_planets'] = $AllPlanets;
             $parse['max_users'] = $game_config['users_amount'];
 
-            $parse['metal_debris'] = pretty_number($galaxyrow['metal']);
-            $parse['crystal_debris'] = pretty_number($galaxyrow['crystal']);
-            $parse['has_debrisField'] = ($galaxyrow['metal'] != 0 || $galaxyrow['crystal'] != 0) && $planetrow[$resource[209]] != 0;
+            $parse['metal_debris'] = pretty_number($planetrow['metal_debris']);
+            $parse['crystal_debris'] = pretty_number($planetrow['cristal_debris']);
+            $parse['has_debrisField'] = ($planetrow['metal_debris'] != 0 || $planetrow['cristal_debris'] != 0) && $planetrow[$resource[209]] != 0;
             $parse['recycle_string'] = $lang['type_mission'][8];
      
 
@@ -439,10 +446,9 @@ switch ($mode) {
             } else {
                 $parse['building'] = $lang['Free'];
             }
-            $query = doquery('SELECT username FROM {{table}} ORDER BY register_time DESC', 'users', true);
-            $parse['last_user'] = $query['username'];
-            $query = doquery("SELECT COUNT(DISTINCT(id)) FROM {{table}} WHERE onlinetime>" . (time()-900), 'users', true);
-            $parse['online_users'] = $query[0];
+            $query = doquery("SELECT COUNT(DISTINCT(id)) AS connectedPlayers FROM {{table}} WHERE onlinetime>" . (time()-900), 'users', true);
+            $parse['NumberMembersOnline'] = isset($query["connectedPlayers"]) ? $query["connectedPlayers"] : 1;
+
             // $count = doquery(","users",true);
             $parse['users_amount'] = $game_config['users_amount'];
             // Rajout d'une barre pourcentage
@@ -480,9 +486,6 @@ switch ($mode) {
             $parse['raids'] = isset($user['raids']) ? $user['raids'] : 0;
             $parse['raidswin'] = isset($user['raidswin']) ? $user['raidswin'] : 0;
             $parse['raidsloose'] = isset($user['raidsloose']) ? $user['raidsloose'] : 0;
-            // Compteur de Membres en ligne
-            $OnlineUsers = doquery("SELECT COUNT(*) FROM {{table}} WHERE onlinetime>='" . (time()-15 * 60) . "'", 'users', 'true');
-            $parse['NumberMembersOnline'] = $OnlineUsers[0];
 
             $page = $MustacheEngine->render(gettemplate('overview_body'), $parse);
 

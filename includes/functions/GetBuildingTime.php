@@ -52,7 +52,7 @@ function GetBuildingTime ($user, $planet, $Element) {
 		if       ( $intergal_lab < "1" ) {
 			$lablevel = $planet[$resource['31']];
 		} elseif ( $intergal_lab >= "1" ) {
-			$empire = doquery("SELECT * FROM {{table}} WHERE id_owner='". $user[id] ."';", 'planets');
+			$empire = doquery("SELECT * FROM {{table}} WHERE id_owner='". $user['id'] ."';", 'planets');
 			$NbLabs = 0;
 			while ($colonie = mysqli_fetch_array($empire)) {
 				$techlevel[$NbLabs] = $colonie[$resource['31']];
@@ -62,7 +62,7 @@ function GetBuildingTime ($user, $planet, $Element) {
 				$lablevel = 0;
 				for ($lab = 1; $lab <= $intergal_lab; $lab++) {
 					asort($techlevel);
-					$lablevel += $techlevel[$lab - 1];
+					$lablevel += isset($techlevel) && isset($techlevel[$lab - 1]) ? $techlevel[$lab - 1] : 0;
 				}
 			}
 		}

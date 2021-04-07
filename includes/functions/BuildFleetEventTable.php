@@ -29,7 +29,7 @@
  */
 
 function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
-	global $lang;
+	global $lang, $MustacheEngine;
 
 	$FleetStyle  = array (
 		 1 => 'attack',
@@ -56,9 +56,16 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
 	$FleetContent   = CreateFleetPopupedFleetLink ( $FleetRow, $lang['ov_fleet'], $FleetPrefix . $FleetStyle[ $MissionType ] );
 	$FleetCapacity  = CreateFleetPopupedMissionLink ( $FleetRow, $lang['type_mission'][ $MissionType ], $FleetPrefix . $FleetStyle[ $MissionType ] );
 
-	$StartPlanet    = doquery("SELECT `name` FROM {{table}} WHERE `galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND `system` = '".$FleetRow['fleet_start_system']."' AND `planet` = '".$FleetRow['fleet_start_planet']."' AND `planet_type` = '".$FleetRow['fleet_start_type']."';", 'planets', true);
+	$NameQuery  = "SELECT `name` ";
+	$NameQuery .= "FROM {{table}} ";
+	$NameQuery .= "WHERE `galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND `system` = '".$FleetRow['fleet_start_system']."' AND `planet` = '".$FleetRow['fleet_start_planet']."' AND `planet_type` = '".$FleetRow['fleet_start_type']."' ";
+	$NameQuery .= "UNION ";
+	$NameQuery .= "SELECT `name` ";
+	$NameQuery .= "FROM {{table}} ";
+	$NameQuery .= "WHERE `galaxy` = '".$FleetRow['fleet_end_galaxy']."' AND `system` = '".$FleetRow['fleet_end_system']."' AND `planet` = '".$FleetRow['fleet_end_planet']."' AND `planet_type` = '".$FleetRow['fleet_end_type']."';";
+	$NameQuery = doquery($NameQuery, "planets", true);
+	
 	$StartType      = $FleetRow['fleet_start_type'];
-	$TargetPlanet   = doquery("SELECT `name` FROM {{table}} WHERE `galaxy` = '".$FleetRow['fleet_end_galaxy']."' AND `system` = '".$FleetRow['fleet_end_system']."' AND `planet` = '".$FleetRow['fleet_end_planet']."' AND `planet_type` = '".$FleetRow['fleet_end_type']."';", 'planets', true);
 	$TargetType     = $FleetRow['fleet_end_type'];
 
 	if       ($Status != 2) {
@@ -67,7 +74,7 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
 		} elseif ($StartType == 3) {
 			$StartID  = $lang['ov_moon_to'];
 		}
-		$StartID .= $StartPlanet['name'] ." ";
+		$StartID .= isset($NameQuery) && isset($NameQuery[0]) ? $NameQuery[0] ." " : "";
 		$StartID .= GetStartAdressLink ( $FleetRow, $FleetPrefix . $FleetStyle[ $MissionType ] );
 
 		if ( $MissionType != 15 ) {
@@ -81,7 +88,7 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
 		} else {
 			$TargetID  = $lang['ov_explo_to_target'];
 		}
-		$TargetID .= $TargetPlanet['name'] ." ";
+		$TargetID .= isset($NameQuery) && isset($NameQuery[1]) ? $NameQuery[1] ." " : "";
 		$TargetID .= GetTargetAdressLink ( $FleetRow, $FleetPrefix . $FleetStyle[ $MissionType ] );
 	} else {
 		if       ($StartType == 1) {
@@ -89,7 +96,7 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
 		} elseif ($StartType == 3) {
 			$StartID  = $lang['ov_back_moon'];
 		}
-		$StartID .= $StartPlanet['name'] ." ";
+		$StartID .= isset($NameQuery) && isset($NameQuery[0]) ? $NameQuery[0] ." " : "";
 		$StartID .= GetStartAdressLink ( $FleetRow, $FleetPrefix . $FleetStyle[ $MissionType ] );
 
 		if ( $MissionType != 15 ) {
@@ -103,7 +110,7 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
 		} else {
 			$TargetID  = $lang['ov_explo_from'];
 		}
-		$TargetID .= $TargetPlanet['name'] ." ";
+		$TargetID .= isset($NameQuery) && isset($NameQuery[1]) ? $NameQuery[1] ." " : "";
 		$TargetID .= GetTargetAdressLink ( $FleetRow, $FleetPrefix . $FleetStyle[ $MissionType ] );
 	}
 
@@ -152,7 +159,7 @@ function BuildFleetEventTable ( $FleetRow, $Status, $Owner, $Label, $Record ) {
 	$bloc['fleet_descr']  = $EventString;
 	$bloc['fleet_javas']  = InsertJavaScriptChronoApplet ( $Label, $Record, $Rest, false );
 
-	return parsetemplate($RowsTPL, $bloc);
+	return $MustacheEngine->render($RowsTPL, $bloc);
 }
 
 ?>

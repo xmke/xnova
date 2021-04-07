@@ -20,7 +20,7 @@
 	<th>Raison du multicompte</td>
 	<th><input name="reason" type="text" value="0" /></th>
 </tr><tr>
-	<th colspan="2"><input type="Submit" value="{adm_am_add}" /></th>
+	<th colspan="2"><input type="Submit" value="{{adm_am_add}}" /></th>
 </tbody>
 </tr>
 </table>

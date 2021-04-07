@@ -32,7 +32,7 @@ require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
 function FleetBuildingPage(&$currentPlanet, &$currentUser)
 {
-    global $lang, $resource, $dpath;
+    global $lang, $resource, $dpath, $MustacheEngine;
 
     // S'il n'y a pas de Chantier
     if (!isset($currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]]) || $currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]] == 0) {
@@ -65,10 +65,10 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
     // Construction de la page du Chantier (car si j'arrive ici ... c'est que j'ai tout ce qu'il faut pour ...
     $tableIndex = 0;
     $types = include ROOT_PATH . 'includes/data/types.php';
+    $PageTable = "";
     foreach ($types[Legacies_Empire::TYPE_SHIP] as $shipId) {
         if ($shipyard->checkAvailability($shipId)) {
             // Disponible à la construction
-
             // On regarde si on peut en acheter au moins 1
             $CanBuildOne         = IsElementBuyable($currentUser, $currentPlanet, $shipId, false);
             // On regarde combien de temps il faut pour construire l'element
@@ -76,6 +76,7 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
             // Disponibilité actuelle
             $shipIdCount        = $currentPlanet[$resource[$shipId]];
             $shipIdNbre         = ($shipIdCount == 0) ? "" : " (".$lang['dispo'].": " . pretty_number($shipIdCount) . ")";
+            $shipIdName = $lang["tech"][$shipId];
 
             // Construction des 3 cases de la ligne d'un element dans la page d'achat !
             // Début de ligne
@@ -112,7 +113,8 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
             }
 
             if ($CanBuildOne) {
-                $PageTable .= '<br /><a onclick="document.getElementById(\'fmenge:'.$shipId.'\').value=\''.strval($maxElements).'\';" style="cursor:pointer;">Nombre max ('.number_format($maxElements, 0, ',', '.').')</a>';
+                //@todo
+                $PageTable .= '<br /><a onclick="document.getElementById(\'fmenge:'.$shipId.'\').value=\''.strval($maxElements).'\';" style="cursor:pointer;">max ('.number_format($maxElements, 0, ',', '.').')</a>';
             }
 
             // Fin de ligne (les 3 cases sont construites !!
@@ -120,7 +122,7 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
         }
     }
 
-    if (!empty($currentPlanet['b_hangar_id'])) {
+    if (!empty($currentPlanet['b_hangar_id'])) { //@todo fix this
         $data = array();
         foreach ($shipyard->getQueue() as $item) {
             $data[] = array_merge($item, array(
@@ -131,7 +133,7 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
         $parse = array(
             'data' => json_encode($data)
             );
-        $BuildQueue = parsetemplate(gettemplate('buildings_script'), $parse);
+        $BuildQueue = $MustacheEngine->render(gettemplate('buildings_script'), $parse);
     }
 
     $parse = $lang;
@@ -139,7 +141,7 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
     $parse['buildlist']    = $PageTable;
     // Et la liste de constructions en cours dans $BuildQueue;
     $parse['buildinglist'] = $BuildQueue;
-    $page .= parsetemplate(gettemplate('buildings_fleet'), $parse);
+    $page = $MustacheEngine->render(gettemplate('buildings_fleet'), $parse);
 
     display($page, $lang['Fleet']);
 }

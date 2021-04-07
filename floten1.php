@@ -65,11 +65,13 @@ require_once dirname(__FILE__) .'/common.php';
 
 	// Verifions si nous avons bien tout ce que nous voullons envoyer
 	$FleetHiddenBlock  = "";
+	//die(var_dump($_POST));
+	$fleet = array('fleetlist' => '', 'amount' => 0);
 	foreach ($reslist['fleet'] as $n => $i) {
-		if ($i > 200 && $i < 300 && $_POST["ship$i"] > "0") {
+		if ($i > 200 && $i < 300 && $i != 212 && $_POST["ship$i"] > "0") {
 			if ($_POST["ship$i"] > $planetrow[$resource[$i]]) {
 				$page .= $lang['fl_noenought'];
-				$speedalls[$i]             = GetFleetMaxSpeed ( "", $i, $user );
+				$speedalls[$i]             = GetFleetMaxSpeed ( array(), $i, $user );
 			} else {
 				$fleet['fleetarray'][$i]   = $_POST["ship$i"];
 				// Tableau des vaisseaux avec leur nombre
@@ -78,10 +80,10 @@ require_once dirname(__FILE__) .'/common.php';
 				$fleet['amount']          += $_POST["ship$i"];
 				// Tableau des vitesses
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"consumption". $i ."\" value=\"". GetShipConsumption ( $i, $user ) ."\" />";
-				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"speed". $i ."\"       value=\"". GetFleetMaxSpeed ( "", $i, $user ) ."\" />";
+				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"speed". $i ."\"       value=\"". GetFleetMaxSpeed ( array(), $i, $user ) ."\" />";
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"capacity". $i ."\"    value=\"". $pricelist[$i]['capacity'] ."\" />";
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"ship". $i ."\"        value=\"". $_POST["ship$i"] ."\" />";
-				$speedalls[$i]             = GetFleetMaxSpeed ( "", $i, $user );
+				$speedalls[$i]             = GetFleetMaxSpeed ( array(), $i, $user );
 			}
 		}
 	}
@@ -91,7 +93,8 @@ require_once dirname(__FILE__) .'/common.php';
 	} else {
 		$speedallsmin = min($speedalls);
 	}
-	$page .= "<script type=\"text/javascript\" src=\"scripts/flotten.js\"></script>";
+	$target_mission = isset($_POST['target_mission']) ? intval($_POST['target_mission']) : 0;
+	$page  = "<script type=\"text/javascript\" src=\"scripts/flotten.js\"></script>";
 	$page .= "<script type=\"text/javascript\">\n";
 	$page .= "function getStorageFaktor() {\n";
 	$page .= "	return 1\n";
@@ -220,8 +223,7 @@ require_once dirname(__FILE__) .'/common.php';
 	// Gestion des raccourcis vers ses propres colonies ou planetes
 	$kolonien      = SortUserPlanets ( $user );
 	$currentplanet = doquery("SELECT * FROM {{table}} WHERE id = '" . $user['current_planet'] . "'", 'planets', true);
-
-	if (mysql_num_rows($kolonien) > 1) {
+	if ($kolonien->num_rows > 1) {
 		$i = 0;
 		$w = 0;
 		$tr = true;

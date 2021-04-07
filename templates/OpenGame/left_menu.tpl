@@ -1,10 +1,14 @@
 <div id='leftmenu'>
 <script language="JavaScript">
-function f(target_url,win_name) {{
+function f(target_url,win_name) {
   var new_win = window.open(target_url,win_name,'resizable=yes,scrollbars=yes,menubar=no,toolbar=no,width=550,height=280,top=0,left=0');
+  
   new_win.focus();
-}}
+}
 </script>
+
+
+
 <body  class="style" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
 <center>
 <div id='menu'>

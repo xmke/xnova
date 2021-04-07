@@ -101,7 +101,7 @@ $lang['RaidsWin']            = "Raids Gagnés";
 $lang['RaidsLoose']          = "Raids Perdus";
 
 // Gestion des flottes
-$lang['ov_fleet']            = "flotte";
+$lang['ov_fleet']            = "flottes";
 $lang['ov_une']              = "Une de tes ";
 $lang['ov_vennant']          = " venant ";
 $lang['ov_planet_to']        = "de la planète ";

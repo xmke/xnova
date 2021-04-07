@@ -34,10 +34,6 @@ function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) {
 //	debug_print_backtrace();
 
 	if ($CurrentUser) {
-		if ( !$CurrentPlanet ) {
-			$CurrentPlanet = doquery("SELECT * FROM {{table}} WHERE `id` = '". $CurrentUser['current_planet'] ."';", 'planets', true);
-		}
-
 		// Actualisation des ressources de la planete
 
 		$NavigationTPL       = gettemplate('topnav');

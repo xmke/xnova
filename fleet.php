@@ -64,24 +64,11 @@ require_once dirname(__FILE__) .'/common.php';
 	);
 
 	// Histoire de recuperer les infos passées par galaxy
-	$galaxy         = $_GET['galaxy'];
-	$system         = $_GET['system'];
-	$planet         = $_GET['planet'];
-	$planettype     = $_GET['planettype'];
-	$target_mission = $_GET['target_mission'];
-
-	if (!$galaxy) {
-		$galaxy = $planetrow['galaxy'];
-	}
-	if (!$system) {
-		$system = $planetrow['system'];
-	}
-	if (!$planet) {
-		$planet = $planetrow['planet'];
-	}
-	if (!$planettype) {
-		$planettype = $planetrow['planet_type'];
-	}
+	$galaxy         = isset($_GET['galaxy']) ? intval($_GET['galaxy']) : $planetrow['galaxy'];
+	$system         = isset($_GET['system']) ? intval($_GET['system']) : $planetrow['system'];
+	$planet         = isset($_GET['planet']) ? intval($_GET['planet']) : $planetrow['planet'];
+	$planettype     = isset($_GET['planettype']) ? intval($_GET['planettype']) : $planetrow['planet_type'];
+	$target_mission = isset($_GET['target_mission']) ? intval($_GET['target_mission']) : 0; //@todo check if OK
 
 	$page  = "<script language=\"JavaScript\" src=\"scripts/flotten.js\"></script>\n";
 	$page .= "<script language=\"JavaScript\" src=\"scripts/ocnt.js\"></script>\n";
@@ -112,7 +99,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$page .= "</tr>";
 
 	// Gestion des flottes du joueur actif
-	$fq = doquery("SELECT * FROM {{table}} WHERE fleet_owner={$user[id]}", "fleets");
+	$fq = doquery("SELECT * FROM {{table}} WHERE fleet_owner = ".$user['id'].";", "fleets");
 	$i  = 0;
 
 
@@ -123,7 +110,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$page .= "<th>".$i."</th>";
 		// (02) Fleet Mission
 		$page .= "<th>";
-		$page .= "<a>". $missiontype[$f[fleet_mission]] ."</a>";
+		$page .= "<a>". $missiontype[$f['fleet_mission']] ."</a>";
 		if (($f['fleet_start_time'] + 1) == $f['fleet_end_time']) {
 			$page .= "<br><a title=\"".$lang['fl_back_to_ttl']."\">".$lang['fl_back_to']."</a>";
 		} else {
@@ -145,13 +132,13 @@ require_once dirname(__FILE__) .'/common.php';
 				}
 			}
 		}
-		$page .= "\">". pretty_number($f[fleet_amount]) ."</a></th>";
+		$page .= "\">". pretty_number($f['fleet_amount']) ."</a></th>";
 		// (04) Fleet From (Planete d'origine)
-		$page .= "<th>[".$f[fleet_start_galaxy].":".$f[fleet_start_system].":".$f[fleet_start_planet]."]</th>";
+		$page .= "<th>[".$f['fleet_start_galaxy'].":".$f['fleet_start_system'].":".$f['fleet_start_planet']."]</th>";
 		// (05) Fleet Start Time
 		$page .= "<th>". gmdate("d. M Y H:i:s", $f['fleet_start_time']) ."</th>";
 		// (06) Fleet Target (Planete de destination)
-		$page .= "<th>[".$f[fleet_end_galaxy].":".$f[fleet_end_system].":".$f[fleet_end_planet]."]</th>";
+		$page .= "<th>[".$f['fleet_end_galaxy'].":".$f['fleet_end_system'].":".$f['fleet_end_planet']."]</th>";
 		// (07) Fleet Target Time
 		$page .= "<th>". gmdate("d. M Y H:i:s", $f['fleet_end_time']) ."</th>";
 		// (08) Fleet Back Time
@@ -165,7 +152,7 @@ require_once dirname(__FILE__) .'/common.php';
 				$page .= "<input name=\"fleetid\" value=\"". $f['fleet_id'] ."\" type=\"hidden\">";
 				$page .= "<input value=\" ".$lang['fl_back_to_ttl']." \" type=\"submit\" name=\"send\">";
 				$page .= "</form>";
-			if ($f[fleet_mission] == 1) {
+			if ($f['fleet_mission'] == 1) {
 				$page .= "<form action=\"verband.php\" method=\"post\">";
 				$page .= "<input name=\"fleetid\" value=\"". $f['fleet_id'] ."\" type=\"hidden\">";
 				$page .= "<input value=\" ".$lang['fl_associate']." \" type=\"submit\">";
@@ -219,23 +206,19 @@ require_once dirname(__FILE__) .'/common.php';
 	if (!$planetrow) {
 		message($lang['fl_noplanetrow'], $lang['fl_error']);
 	}
-
-	// Prise des coordonnées sur la ligne de commande
-	$galaxy         = intval($_GET['galaxy']);
-	$system         = intval($_GET['system']);
-	$planet         = intval($_GET['planet']);
-	$planettype     = intval($_GET['planettype']);
-	$target_mission = intval($_GET['target_mission']);
+	
 	$ShipData       = "";
-
+	//@todo
+	$CurrentShipSpeed = "Indisponible";
 	foreach ($reslist['fleet'] as $n => $i) {
 		if ($planetrow[$resource[$i]] > 0) {
+			$CurrentShipSpeed = GetFleetMaxSpeed (array(), $i, $user);
 			$page .= "<tr height=\"20\">";
 			$page .= "<th><a title=\"". $lang['fl_fleetspeed'] . $CurrentShipSpeed ."\">" . $lang['tech'][$i] . "</a></th>";
 			$page .= "<th>". pretty_number ($planetrow[$resource[$i]]);
 			$ShipData .= "<input type=\"hidden\" name=\"maxship". $i ."\" value=\"". $planetrow[$resource[$i]] ."\" />";
 			$ShipData .= "<input type=\"hidden\" name=\"consumption". $i ."\" value=\"". GetShipConsumption ( $i, $user ) ."\" />";
-			$ShipData .= "<input type=\"hidden\" name=\"speed" .$i ."\" value=\"" . GetFleetMaxSpeed ("", $i, $user) . "\" />";
+			$ShipData .= "<input type=\"hidden\" name=\"speed" .$i ."\" value=\"" . $CurrentShipSpeed . "\" />";
 			$ShipData .= "<input type=\"hidden\" name=\"capacity". $i ."\" value=\"". $pricelist[$i]['capacity'] ."\" />";
 			$page .= "</th>";
 			// Satelitte Solaire (eux ne peuvent pas bouger !)

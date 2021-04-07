@@ -141,7 +141,9 @@ SQL_EOF;
             );
 
         foreach ($this->_resourcesTypes as $resourceType) {
-            $this->_currentPlanet[$resourceType] = bcsub($this->_currentPlanet[$resourceType], $resourcesUsed[$resourceType]);
+            if(isset($this->_currentPlanet[$resourceType]) && isset($resourcesUsed[$resourceType])){
+                $this->_currentPlanet[$resourceType] = bcsub($this->_currentPlanet[$resourceType], $resourcesUsed[$resourceType]);
+            }
         }
 
         return $this;
@@ -215,7 +217,7 @@ SQL_EOF;
     protected function _checkMaximumQuantity($shipId, $qty)
     {
         $max = $this->getMaximumBuildableElementsCount($shipId);
-
+        //die("qty: ".$qty." max: ". $max);
         if (bccomp($qty, $max) > 0) {
             return $max;
         }
@@ -286,7 +288,7 @@ SQL_EOF;
                 return $limitedElementsQty[$shipId]['limit'];
             }
         }
-
+        
         return $qty;
     }
 

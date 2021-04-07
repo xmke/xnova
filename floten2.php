@@ -72,18 +72,18 @@ require_once dirname(__FILE__) .'/common.php';
 			$missiontype = array(6 => $lang['type_mission'][6]);
 		}
 
-		if ($_POST['ship202'] >= 1 ||
-			$_POST['ship203'] >= 1 ||
-			$_POST['ship204'] >= 1 ||
-			$_POST['ship205'] >= 1 ||
-			$_POST['ship206'] >= 1 ||
-			$_POST['ship207'] >= 1 ||
-			$_POST['ship210'] >= 1 ||
-			$_POST['ship211'] >= 1 ||
-			$_POST['ship213'] >= 1 ||
-			$_POST['ship214'] >= 1 ||
-			$_POST['ship215'] >= 1 ||
-			$_POST['ship216'] >= 1) {
+		if (isset($_POST['ship202']) && $_POST['ship202'] >= 1 ||
+			isset($_POST['ship203']) && $_POST['ship203'] >= 1 ||
+			isset($_POST['ship204']) && $_POST['ship204'] >= 1 ||
+			isset($_POST['ship205']) && $_POST['ship205'] >= 1 ||
+			isset($_POST['ship206']) && $_POST['ship206'] >= 1 ||
+			isset($_POST['ship207']) && $_POST['ship207'] >= 1 ||
+			isset($_POST['ship210']) && $_POST['ship210'] >= 1 ||
+			isset($_POST['ship211']) && $_POST['ship211'] >= 1 ||
+			isset($_POST['ship213']) && $_POST['ship213'] >= 1 ||
+			isset($_POST['ship214']) && $_POST['ship214'] >= 1 ||
+			isset($_POST['ship215']) && $_POST['ship215'] >= 1 ||
+			isset($_POST['ship216']) && $_POST['ship216'] >= 1) {
 			if (!$YourPlanet) {
 				$missiontype[1] = $lang['type_mission'][1];
 				$missiontype[5] = $lang['type_mission'][5];
@@ -112,7 +112,7 @@ require_once dirname(__FILE__) .'/common.php';
        $missiontype[9] = $lang['type_mission'][9];
    }
 
-	$fleetarray    = unserialize(base64_decode(str_rot13($_POST["usedfleet"])));
+	$fleetarray    = isset($_POST["usedfleet"]) ? unserialize(base64_decode(str_rot13($_POST["usedfleet"]))) : array();
 	$mission       = $_POST['target_mission'];
 	$SpeedFactor   = $_POST['speedfactor'];
 	$AllFleetSpeed = GetFleetMaxSpeed ($fleetarray, 0, $user);
@@ -190,7 +190,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$page .= "<input type=\"hidden\" name=\"ship". $Ship ."\"        value=\"". $Count ."\" />\n";
 		$page .= "<input type=\"hidden\" name=\"capacity". $Ship ."\"    value=\"". $pricelist[$Ship]['capacity'] ."\" />\n";
 		$page .= "<input type=\"hidden\" name=\"consumption". $Ship ."\" value=\"". GetShipConsumption ( $Ship, $user ) ."\" />\n";
-		$page .= "<input type=\"hidden\" name=\"speed". $Ship ."\"       value=\"". GetFleetMaxSpeed ( "", $Ship, $user ) ."\" />\n";
+		$page .= "<input type=\"hidden\" name=\"speed". $Ship ."\"       value=\"". GetFleetMaxSpeed ( array(), $Ship, $user ) ."\" />\n";
 
 	}
 	$page .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"1\" width=\"519\">\n";
@@ -234,6 +234,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$page .= "</tr><tr height=\"20\">\n";
 	$page .= "<th colspan=\"3\">&nbsp;</th>\n";
 	$page .= "</tr>\n";
+
 	if ($planet == 16) {
 		$page .= "<tr height=\"20\">";
 		$page .= "<td class=\"c\" colspan=\"3\">". $lang['fl_expe_staytime'] ."</td>";
@@ -247,7 +248,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$page .= $lang['fl_expe_hours'];
 		$page .= "</th>";
 		$page .= "</tr>";
-	} elseif ( $missiontype[5] != '' ) {
+	} elseif ( isset($missiontype[5]) && $missiontype[5] != '' ) {
 		$page .= "<tr height=\"20\">";
 		$page .= "<td class=\"c\" colspan=\"3\">". $lang['fl_expe_staytime'] ."</td>";
 		$page .= "</tr>";

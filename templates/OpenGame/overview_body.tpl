@@ -22,10 +22,10 @@
 	
 	<tr><td colspan="4" class="c">{{Events}}</td>
 	</tr>
-	{{fleet_list}}
+	{{{fleet_list}}}
 	<tr><th>{{moon_img}}<br>{{moon}}</th>
 	<th colspan="2"><img src="{{dpath}}planeten/{{planet_image}}.jpg" height="200" width="200"><br>{{{building}}}</th>
-	<th class="s"><table class="s" align="top" border="0"><tr>{{anothers_planets}}</tr></table></th></tr>
+	<th class="s"><table class="s" align="top" border="0"><tr>{{{anothers_planets}}}</tr></table></th></tr>
 	<tr><th>{{Diameter}}</th>
 	<th colspan="3">{{planet_diameter}} km (<a title="{{Developed_fields}}">{{planet_field_current}}</a> / <a title="{{max_eveloped_fields}}">{{planet_field_max}}</a> {{fields}})</th></tr>
 	<th>{{Developed_fields}}</th>
@@ -45,7 +45,7 @@
 	<th colspan="3">{{Metal}} : {{metal_debris}} / {{Crystal}} : {{crystal_debris}}
 	
 	{{#has_debrisField}}
-	&nbsp;(<a href="quickfleet.php?mode=8&g={{galaxy_galaxy}}&s={{galaxy_system}}&p={{galaxy_planet}}&t=2">{recycle_string}</a>";
+	&nbsp;-&nbsp;<a href="quickfleet.php?mode=8&g={{galaxy_galaxy}}&s={{galaxy_system}}&p={{galaxy_planet}}&t=2">{{{recycle_string}}}</a>
 
 	{{/has_debrisField}}
 	</th></tr>

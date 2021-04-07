@@ -7,10 +7,8 @@
     <link rel="stylesheet" type="text/css" href="css/about.css">
 {{/defined_login}}
 {{^defined_login}}
-  	<link rel="stylesheet" type="text/css" href="skins/xnova/default.css" />
-	<link rel="stylesheet" type="text/css" href="skins/xnova/formate.css" />
+	<link rel="stylesheet" type="text/css" href="skins/epicblue/formate.css" />
 {{/defined_login}}
-
 
 
 

@@ -33,9 +33,9 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
 
-		includeLang('admin');
+		includeLang('admin/interface');
 
-		$mode      = $_POST['mode'];
+		$mode      = isset($_POST['mode']) ? $_POST['mode'] : '';
 
 		$PageTpl   = gettemplate("add_declare");
 		$parse     = $lang;

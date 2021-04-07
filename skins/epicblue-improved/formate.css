@@ -1,0 +1,257 @@
+
+/** General overrides and fixes to main html */
+*, html, body, div, table, tr, td, tbody, thead {
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: normal;
+    font-size: 12px;
+    overflow: visible !important;
+    position: relative !important;
+    
+    /*border-collapse: collapse;*/
+}
+
+html, body, div, td.c {
+    background-color: #344055;
+    background-image: none;
+}
+
+html, body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/** Fix for popup div to work with new layout rules */
+div#overDiv {
+    position: fixed !important;
+    
+}
+
+body {
+    overflow: visible !important;
+}
+
+a {
+    background-color: none !important;
+}
+
+table, tr, td, tbody, thead {
+    /*border: 1px;*/
+}
+
+/** full width header bar */
+#header_top {
+    overflow: visible !important;
+    float: left !important;
+    top: initial !important;
+    right: initial !important;
+    left: initial !important;
+    bottom: initial !important;
+    width: 100%;
+    height: 54px;
+}
+
+#header_top center > table.header {
+    width: 100% !important;
+}
+
+#header_top table.header tr {
+    
+}
+
+/** planet selector container */
+#header_top table.header tr td:first-child {
+    width: 20% !important;
+}
+
+#header_top table.header tr td:first-child table {
+    width: 100% !important;
+    border-spacing: 0;
+}
+
+#header_top table.header tr td:first-child table tr {
+    width: 100% !important;
+}
+
+#header_top table.header tr td:first-child table tr td:first-child {
+    width: 50px !important;
+}
+
+#header_top table.header tr td:first-child table tr td:last-child {
+    width: 100% !important;
+}
+
+#header_top table.header tr td:first-child table tr td:last-child select {
+    width: 100% !important;
+    height: 50px;
+    white-space: pre-wrap;
+}
+
+/** resources header container */
+#header_top table.header tr td:last-child {
+    width: 80% !important;
+}
+
+#header_top table.header tr td:last-child table {
+    width: 100% !important;
+}
+
+#header_top table.header tr td:last-child table tr {
+    width: 100% !important;
+}
+
+#header_top table.header tr td:last-child table tr td {
+    width: 20% !important;
+}
+/** remove resource titles from the view to increase usable screen realestate */
+#header_top table.header tr td:last-child table tr:nth-child(2) {
+    display: none;
+    visibility: hidden;
+}
+
+#header_top table.header tr td:last-child table tr:first-child td img {
+    display: inline;
+    position: relative;
+}
+
+#header_top table.header tr td:last-child table tr:first-child td:hover:after {
+	position: absolute;
+        padding: 1px;
+        top: 0;
+        right: 0;
+        width: 55px;
+        text-align: center;
+        background-color: rgb(52, 69, 102);
+        border: 1px solid rgb(65, 86, 128);
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -ms-border-radius: 2px;
+        border-radius: 2px;
+        font-size: 10px;
+}
+
+#header_top table.header tr td:last-child table tr:first-child td:first-child:hover:after {
+    content: "Metal";
+    color: #cc6600;
+}
+
+#header_top table.header tr td:last-child table tr:first-child td:nth-child(2):hover:after {
+    content: "Crystal";
+    color: #00ccff;
+}
+
+#header_top table.header tr td:last-child table tr:first-child td:nth-child(3):hover:after {
+    content: "Deuterium";
+    color: #ffffff;
+}
+
+#header_top table.header tr td:last-child table tr:first-child td:last-child:hover:after {
+    content: "Energy";
+    color: #ffcc66;
+}
+
+/** floated left menu column with percentage based width */
+#leftmenu {
+    float: left;
+    clear: left;
+    width: 20% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#leftmenu #menu {
+    width: 100% !important;
+    clear: both;
+}
+
+#leftmenu #menu > p, #leftmenu #menu > a {
+    display: none;
+    visibility: hidden;
+}
+
+#leftmenu #menu table {
+    width: 100% !important;
+    border-collapse: collapse;
+    border: 1px solid #415680;
+    position: relative !important;
+}
+
+#leftmenu #menu table tbody {
+    
+}
+
+#leftmenu #menu table tbody tr {
+    border: 1px solid #415680;
+}
+
+/** remove useless row at the end */
+#leftmenu #menu table tbody tr:last-child {
+    display: none;
+    visibility: hidden;
+}
+
+#leftmenu #menu table tbody tr td {
+    padding: 0;
+}
+
+#leftmenu #menu table tbody tr td {
+    background-image: url('gfx/user-menu.jpg');
+    background-repeat: repeat-x;
+    background-size: cover;
+    width: 100% !important;
+    height: 30px !important;
+}
+
+#leftmenu #menu table tbody tr td img {
+    visibility: hidden;
+}
+
+#leftmenu #menu table tr td  a {
+    width: 100%;
+    height: 20px;
+    padding: 8px 5px;
+    display: block;
+}
+
+#content {
+    position: relative !important;
+    display: inline-block !important;
+    float: left !important;
+    top: initial !important;
+    right: initial !important;
+    left: initial !important;
+    bottom: initial !important;
+    width: 80% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#content center table {
+    margin: 0 !important;
+    width: 100% !important;
+    border-collapse: collapse;
+}
+
+#content center table tr {
+    border: 1px solid #415680 !important;
+    border-collapse: collapse;
+}
+
+#content center table tr td {
+    border-collapse: collapse;
+    padding: 0;
+}
+#content center table tr td table {
+    border-collapse: collapse;
+}
+
+#messagebox {
+    
+}
