@@ -174,7 +174,7 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 						if ($ThePlanet['id'] != $CurrentPlanet['id']) {
 							// Ca se passe sur une autre planete
 							$bloc['tech_time']  = $ThePlanet["b_tech"] - time();
-							$bloc['tech_name']  = $lang['on'] ."<br>". $ThePlanet["name"];
+							$bloc['tech_name']  = $lang['on'] ."<br />". $ThePlanet["name"];
 							$bloc['tech_home']  = $ThePlanet["id"];
 							$bloc['tech_id']    = $ThePlanet["b_tech_id"];
 						} else {

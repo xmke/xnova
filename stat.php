@@ -95,7 +95,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$parse['range'] .= "<option value=\"". $PageValue ."\"". (($range == $PageValue) ? " SELECTED" : "") .">". $PageValue ."-". $PageRange ."</option>";
 		}
 
-		$parse['stat_header'] = parsetemplate(gettemplate('stat_alliancetable_header'), $parse);
+		$parse['stat_header'] = $MustacheEngine->render(gettemplate('stat_alliancetable_header'), $parse);
 
 		$start = floor($range / 100 % 100) * 100;
 		$query = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '2' AND `stat_code` = '1' ORDER BY `". $Order ."` DESC LIMIT ". $start .",100;", 'statpoints');
@@ -103,7 +103,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$start++;
 		$parse['stat_date']   = $game_config['stats'];
 		$parse['stat_values'] = "";
-		while ($StatRow = mysql_fetch_assoc($query)) {
+		while ($StatRow = mysqli_fetch_assoc($query)) {
 			$parse['ally_rank']       = $start;
 
 			$AllyRow                  = doquery("SELECT * FROM {{table}} WHERE `id` = '". $StatRow['id_owner'] ."';", 'alliance',true);
@@ -133,13 +133,13 @@ require_once dirname(__FILE__) .'/common.php';
 			$parse['ally_points']     = pretty_number( $StatRow[ $Order ] );
 			$parse['ally_members_points'] =  pretty_number( floor($StatRow[ $Order ] / $AllyRow['ally_members']) );
 
-			$parse['stat_values']    .= parsetemplate(gettemplate('stat_alliancetable'), $parse);
+			$parse['stat_values']    .= $MustacheEngine->render(gettemplate('stat_alliancetable'), $parse);
 			$start++;
 		}
 	} else {
-		$MaxUsers = doquery ("SELECT COUNT(*) AS `count` FROM {{table}} WHERE `db_deaktjava` = '0';", 'users', true);
-		if ($MaxUsers['count'] > 100) {
-			$LastPage = floor($MaxUsers['count'] / 100);
+		$start = 1;
+		if ($game_config['users_amount'] > 100) {
+			$LastPage = floor($game_config['users_amount']  / 100);
 		}
 		$parse['range'] = "";
 		for ($Page = 0; $Page <= $LastPage; $Page++) {
@@ -148,29 +148,43 @@ require_once dirname(__FILE__) .'/common.php';
 			$parse['range'] .= "<option value=\"". $PageValue ."\"". (($start == $PageValue) ? " SELECTED" : "") .">". $PageValue ."-". $PageRange ."</option>";
 		}
 
-		$parse['stat_header'] = parsetemplate(gettemplate('stat_playertable_header'), $parse);
+		$parse['stat_header'] = $MustacheEngine->render(gettemplate('stat_playertable_header'), $parse);
 
 		$start = floor($range / 100 % 100) * 100;
-		$query = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' ORDER BY `". $Order ."` DESC LIMIT ". $start .",100;", 'statpoints');
+
+		$query = <<<SQL_EOF
+		SELECT 
+		s.*,
+		u.username,
+		u.id,
+		u.ally_name
+	FROM
+		{{TablePrefix}}statpoints s
+	LEFT JOIN
+	{{TablePrefix}}users u
+	ON s.id_owner = u.id
+	WHERE
+		`stat_type` = '1' AND `stat_code` = '1' 
+	ORDER BY `total_points` DESC
+	LIMIT 0 , 100;
+SQL_EOF;
+		$query = str_replace("{{TablePrefix}}", "game_", $query); //@todo
+		$query = doquery($query, 'statpoints');
 
 		$start++;
-		$parse['stat_date']   = $game_config['stats'];
+		
 		$parse['stat_values'] = "";
+		$StatDate = "";
 		while ($StatRow = mysqli_fetch_assoc($query)) {
 			$parse['stat_date']       = date("d M Y - H:i:s", $StatRow['stat_date']);
 			$parse['player_rank']     = $start;
 
-			$UsrRow                   = doquery("SELECT * FROM {{table}} WHERE `id` = '". $StatRow['id_owner'] ."';", 'users',true);
-
-			$QryUpdateStats .= "`stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $TheRank['id_owner'] ."';";
-
-
 			$rank_old                 = $StatRow[ $OldRank ];
 			if ( $rank_old == 0) {
 				$rank_old             = $start;
-				$QryUpdRank           = doquery("UPDATE {{table}} SET `".$Rank."` = '".$start."', `".$OldRank."` = '".$start."' WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';" , "statpoints");
+				//$QryUpdRank           = doquery("UPDATE {{table}} SET `".$Rank."` = '".$start."', `".$OldRank."` = '".$start."' WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';" , "statpoints");
 			} else {
-				$QryUpdRank           = doquery("UPDATE {{table}} SET `".$Rank."` = '".$start."' WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';" , "statpoints");
+				//$QryUpdRank           = doquery("UPDATE {{table}} SET `".$Rank."` = '".$start."' WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $StatRow['id_owner'] ."';" , "statpoints");
 			}
 			$rank_new                 = $start;
 			$ranking                  = $rank_old - $rank_new;
@@ -183,24 +197,26 @@ require_once dirname(__FILE__) .'/common.php';
 			if ($ranking > "0") {
 				$parse['player_rankplus'] = "<font color=\"green\">+".$ranking."</font>";
 			}
-			if ($UsrRow['id'] == $user['id']) {
-				$parse['player_name']     = "<font color=\"lime\">".$UsrRow['username']."</font>";
+			if ($StatRow['id'] == $user['id']) {
+				$parse['player_name']     = "<font color=\"lime\">".$StatRow['username']."</font>";
 			} else {
-				$parse['player_name']     = $UsrRow['username'];
+				$parse['player_name']     = $StatRow['username'];
 			}
-			$parse['player_mes']      = "<a href=\"messages.php?mode=write&id=" . $UsrRow['id'] . "\"><img src=\"" . $dpath . "img/m.gif\" border=\"0\" alt=\"". $lang['Ecrire'] ."\" /></a>";
-			if ($UsrRow['ally_name'] == $user['ally_name']) {
-				$parse['player_alliance'] = "<font color=\"#33CCFF\">".$UsrRow['ally_name']."</font>";
+			$parse['player_mes']      = "<a href=\"messages.php?mode=write&id=" . $StatRow['id'] . "\"><img src=\"" . $dpath . "img/m.gif\" border=\"0\" alt=\"". $lang['Ecrire'] ."\" /></a>";
+			if ($StatRow['ally_name'] == $user['ally_name']) {
+				$parse['player_alliance'] = "<font color=\"#33CCFF\">".$StatRow['ally_name']."</font>";
 			} else {
-				$parse['player_alliance'] = $UsrRow['ally_name'];
+				$parse['player_alliance'] = $StatRow['ally_name'];
 			}
 			$parse['player_points']   = pretty_number( $StatRow[ $Order ] );
-			$parse['stat_values']    .= parsetemplate(gettemplate('stat_playertable'), $parse);
+			$parse['stat_values']    .= $MustacheEngine->render(gettemplate('stat_playertable'), $parse);
+			$StatDate = date("d/m/y H:i:s", $StatRow['stat_date']);
 			$start++;
 		}
+		$parse['stat_date']   = $StatDate;
 	}
 
-	$page = parsetemplate( gettemplate('stat_body'), $parse );
+	$page = $MustacheEngine->render( gettemplate('stat_body'), $parse );
 
 	display($page, $lang['stat_title']);
 

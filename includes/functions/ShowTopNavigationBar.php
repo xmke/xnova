@@ -28,14 +28,14 @@
  *
  */
 
-function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) {
+function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) { 
 	global $lang, $_GET, $MustacheEngine;
 
 //	debug_print_backtrace();
 
 	if ($CurrentUser) {
 		// Actualisation des ressources de la planete
-
+		PlanetResourceUpdate($CurrentUser, $CurrentPlanet, time());
 		$NavigationTPL       = gettemplate('topnav');
 
 		$dpath               = (!$CurrentUser["dpath"]) ? DEFAULT_SKINPATH : $CurrentUser["dpath"];

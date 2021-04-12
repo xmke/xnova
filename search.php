@@ -74,7 +74,8 @@ switch($type){
 */
 if(isset($searchtext) && isset($type)){
 
-	while($r = mysqli_fetch_array($search, MYSQL_BOTH)){
+	$result_list = "";
+	while($r = mysqli_fetch_array($search, MYSQLI_BOTH)){
 
 		if($type=='playername'||$type=='planetname'){
 			$s=$r;
@@ -89,7 +90,7 @@ if(isset($searchtext) && isset($type)){
 			}else{
 			$pquery = doquery("SELECT name FROM {{table}} WHERE id = {$s['id_planet']}","planets",true);
 			$s['planet_name'] = $pquery['name'];
-			$s['ally_name'] = ($aquery['ally_name']!='')?"<a href=\"alliance.php?mode=ainfo&tag={$aquery['ally_name']}\">{$aquery['ally_name']}</a>":'';
+			$s['ally_name'] = (isset($aquery) && isset($aquery['ally_name']) && $aquery['ally_name']!='')?"<a href=\"alliance.php?mode=ainfo&tag={$aquery['ally_name']}\">{$aquery['ally_name']}</a>":'';
 			}
 			//ahora la alianza
 			if($s['ally_id']!=0&&$s['ally_request']==0){
@@ -100,7 +101,7 @@ if(isset($searchtext) && isset($type)){
 
 
 
-			$s['position'] = "<a href=\"stat.php?start=".$s['rank']."\">".$s['rank']."</a>";
+			$s['position'] = isset($s) && isset($s['rank']) ? "<a href=\"stat.php?start=".$s['rank']."\">".$s['rank']."</a>" : "-";
 			$s['dpath'] = $dpath;
 			$s['coordinated'] = "{$s['galaxy']}:{$s['system']}:{$s['planet']}";
 			$s['buddy_request'] = $lang['buddy_request'];

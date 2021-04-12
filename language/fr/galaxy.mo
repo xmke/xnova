@@ -29,7 +29,7 @@
  */
 
 $lang['Galaxy'] = 'Galaxie';
-$lang['Solar_system'] = 'Syst&egrave;me Solaire';
+$lang['Solar_system'] = 'Système Solaire';
 $lang['Afficher'] = "Afficher";
 $lang['Show'] = 'Voir';
 $lang['vacation_shortcut'] = "v";
@@ -39,24 +39,24 @@ $lang['inactif_28_shortcut'] = "I";
 $lang['strong_player_shortcut'] = "f";
 $lang['weak_player_shortcut'] = "d";
 
-$lang['Legend'] = 'L&eacute;gende';
+$lang['Legend'] = 'Légende';
 $lang['Strong_player'] = 'Joueur fort';
-$lang['Weak_player'] = 'Joueur faible (d&eacute;butant)';
+$lang['Weak_player'] = 'Joueur faible (débutant)';
 $lang['Way_vacation'] = 'Mode vancances';
-$lang['Pendent_user'] = 'Bloqu&eacute;';
+$lang['Pendent_user'] = 'Bloqué';
 $lang['Inactive_7_days'] = 'Inactif +7';
 $lang['Inactive_28_days'] = 'Inactif +28';
 
-$lang['Solar_system_at'] = 'Syst&egrave;me Solaire &agrave;';
+$lang['Solar_system_at'] = 'Système Solaire à';
 
 $lang['Pos'] = 'Pos';
-$lang['Planet'] = 'Plan&egrave;te';
-$lang['Name'] = 'Nom (Activit&eacute;)';
+$lang['Planet'] = 'Planète';
+$lang['Name'] = 'Nom (Activité)';
 $lang['Moon'] = 'Lune';
-$lang['Debris'] = 'D&eacute;bris';
-$lang['caracters'] = "Caract&eacute;ristiques";
-$lang['diameter'] = "Diam&egrave;tre";
-$lang['temperature'] = "Temp&egrave;rature";
+$lang['Debris'] = 'Débris';
+$lang['caracters'] = "Caractéristiques";
+$lang['diameter'] = "Diamètre";
+$lang['temperature'] = "Température";
 $lang['Player'] = 'Joueur (Status)';
 $lang['Place'] = 'Place';
 $lang['State'] = 'Status';
@@ -64,7 +64,7 @@ $lang['Alliance'] = 'Alliance';
 $lang['Actions'] = 'Actions';
 //info tips (galaxy_row_ally)
 $lang['AllyInfoText'] = 'Alliance %n';//%n = ally_name ; %r = ally_rank ; %m = ally_members ;
-$lang['Planets_count'] = '( Planete Habit&eacute;es: %n (s) )';
+$lang['Planets_count'] = '( Planete Habitées: %n (s) )';
 //Sackando la flota
 $lang['Sending_fleet'] = 'Envoie de Flotte';
 $lang['Sent_fleet'] = 'Flotte Envoyee';
@@ -96,10 +96,10 @@ $lang['gl_ally_internal'] = "Site de alliance";
 $lang['gl_ally_web'] = "Site web de alliance";
 $lang['gl_sendmess'] = "Ecrire un message";
 $lang['gl_buddy'] = "Liste d amis";
-$lang['gl_buddyreq'] = "Demander a &ecirc;tre amis";
+$lang['gl_buddyreq'] = "Demander a être amis";
 $lang['gl_stats'] = "Statistiques";
-$lang['gl_planet'] = "Plan&egrave;te";
-$lang['gl_destroyedplanet'] = "Plan&egrave;te d&eacute;truite";
+$lang['gl_planet'] = "Planète";
+$lang['gl_destroyedplanet'] = "Planète détruite";
 $lang['gl_phalanx'] = "Phalange";
 $lang['gl_ressource'] = "Ressources";
 $lang['gl_action'] = "Action";
@@ -120,11 +120,11 @@ $lang['gs_sending'] = "Envois de";
 $lang['gs_to'] = "vers";
 $lang['Sending'] = 'Envoie';
 
-$lang['gf_cntmone'] = "Plan&egrave;tes conquises";
-$lang['gf_cntmnone'] = "Aucune Plan&egrave;te peupl&eacute;e.";
-$lang['gf_cntmsome'] = "Plan&egrave;tes peupl&eacute;es.";
-$lang['gf_mi_title'] = "Missiles Interplan&egrave;taires";
-$lang['gf_fleetslt'] = "Slots de Flottes utilis&eacute;";
+$lang['gf_cntmone'] = "%d planète peuplée.";
+$lang['gf_cntmnone'] = "Aucune planète peuplée.";
+$lang['gf_cntmsome'] = "%d planètes peuplées.";
+$lang['gf_mi_title'] = "Missiles Interplanètaires";
+$lang['gf_fleetslt'] = "Slots de Flottes utilisé";
 $lang['gf_rc_title'] = "Recycleur Disponibles";
 $lang['gf_sp_title'] = "Sondes D'espionnage Disponibles";
 $lang['gf_unknowsp'] = "Espaces infinis";

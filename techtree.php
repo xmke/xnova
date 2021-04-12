@@ -33,12 +33,13 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 	$HeadTpl = gettemplate('techtree_head');
 	$RowTpl  = gettemplate('techtree_row');
+	$page = "";
 	foreach($lang['tech'] as $Element => $ElementName) {
 		$parse            = array();
 		$parse['tt_name'] = $ElementName;
 		if (!isset($resource[$Element])) {
 			$parse['Requirements']  = $lang['Requirements'];
-			$page                  .= parsetemplate($HeadTpl, $parse);
+			$page                  .= $MustacheEngine->render($HeadTpl, $parse);
 		} else {
 			if (isset($requirements[$Element])) {
 				$parse['required_list'] = "";
@@ -61,12 +62,12 @@ require_once dirname(__FILE__) .'/common.php';
 				$parse['tt_detail']     = "";
 			}
 			$parse['tt_info']   = $Element;
-			$page              .= parsetemplate($RowTpl, $parse);
+			$page              .= $MustacheEngine->render($RowTpl, $parse);
 		}
 	}
 
 	$parse['techtree_list'] = $page;
-	$page                   = parsetemplate(gettemplate('techtree_body'), $parse);
+	$page                   = $MustacheEngine->render(gettemplate('techtree_body'), $parse);
 
 	display($page, $lang['Tech']);
 

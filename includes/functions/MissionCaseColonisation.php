@@ -38,7 +38,8 @@ function MissionCaseColonisation ( $FleetRow ) {
 		$TargetAdress = sprintf ($lang['sys_adress_planet'], $FleetRow['fleet_end_galaxy'], $FleetRow['fleet_end_system'], $FleetRow['fleet_end_planet']);
 		if ($iGalaxyPlace[0] == 0) {
 			// Y a personne qui s'y est mis avant que je ne debarque !
-			if ($iPlanetCount[0] >= MAX_PLAYER_PLANETS && $user['authlevel'] != LEVEL_ADMIN) {
+			//@todo $user ici ?!
+			if ($iPlanetCount[0] >= MAX_PLAYER_PLANETS) {
 				$TheMessage = $lang['sys_colo_arrival'] . $TargetAdress . $lang['sys_colo_maxcolo'] . MAX_PLAYER_PLANETS . $lang['sys_colo_planet'];
 				SendSimpleMessage ( $FleetRow['fleet_owner'], 1, $FleetRow['fleet_start_time'], 0, $lang['sys_colo_mess_from'], $lang['sys_colo_mess_report'], $TheMessage);
 				doquery("UPDATE {{table}} SET `fleet_mess` = '1' WHERE `fleet_id` = ". $FleetRow["fleet_id"], 'fleets');

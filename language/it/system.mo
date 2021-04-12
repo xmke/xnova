@@ -133,6 +133,8 @@ $lang['sys_destruc_echec'] = ". Scosse tremende colpiscono la superficie della l
 $lang['sys_destruc_reussi'] = ", provocando un terremoto che finisce per lacerarla. Tutti gli edifici sono distrutti - Missione compiuta! La luna &egrave; distrutta! La flotta ritorna al pianeta di partenza.";
 $lang['sys_destruc_null'] = ", la flotta non sviluppa la potenza necessaria - Missione non riuscita! La flotta torna perdente al pianeta di partenza partenza.";
 
+$lang['frames_error'] = "Your browser does not support frames.";
+
 // Created by Perberos. All rights reversed (C) 2006
 // Complet by XNova Team. All rights reversed (C) 2008
 ?>

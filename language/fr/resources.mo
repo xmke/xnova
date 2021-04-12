@@ -29,17 +29,17 @@
  */
 
 
-$lang['Production_of_resources_in_the_planet'] = 'Production de mati&egrave;res premi&egrave;res sur la plan&egrave;te  "%s"';
+$lang['Production_of_resources_in_the_planet'] = 'Production de matières premières sur la planète  "%s"';
 $lang['Production_level'] = 'Niveau de Production';
 $lang['Basic_income'] = 'Revenu de base';
-$lang['quantity'] = 'Quantit&eacute;';
-$lang['level'] = 'Niveau';
-$lang['Stores_capacity'] = 'Capacit&eacute; des d&eacute;p&ocirc;ts';
-$lang['Widespread_production'] = 'Production &eacute;tendue';
-$lang['Daily'] = 'Journali&egrave;re';
+$lang['quantity'] = 'Qté';
+$lang['level'] = 'Niv.';
+$lang['Stores_capacity'] = 'Capacité des dépôts';
+$lang['Widespread_production'] = 'Production étendue';
+$lang['Daily'] = 'Journalière';
 $lang['Weekly'] = 'Hebdomadaire';
 $lang['Monthly'] = 'Mensuelle';
-$lang['Storage_state'] = 'Etat des d&eacute;p&ocirc;ts';
+$lang['Storage_state'] = 'Etat des dépôts';
 $lang['Calcule'] = 'Calculer';
 $lang['o/o'] = '%';
 $lang['k'] = 'k';

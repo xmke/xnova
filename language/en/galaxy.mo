@@ -120,9 +120,9 @@ $lang['gs_sending'] = "Shipping";
 $lang['gs_to'] = "toward";
 $lang['Sending'] = 'Send';
 
-$lang['gf_cntmone'] = "Planets colonized";
-$lang['gf_cntmnone'] = "Planet is not populated";
-$lang['gf_cntmsome'] = "Populated Planets";
+$lang['gf_cntmone'] = "%d populated planet";
+$lang['gf_cntmnone'] = "No populated planets";
+$lang['gf_cntmsome'] = "%d populated planets";
 $lang['gf_mi_title'] = "Interplanetary Missile";
 $lang['gf_fleetslt'] = "Fleet used slots";
 $lang['gf_rc_title'] = "Recycler Available";

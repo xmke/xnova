@@ -34,7 +34,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 
 function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
-	global $lang, $ProdGrid, $resource, $reslist, $game_config, $_POST;
+	global $lang, $ProdGrid, $resource, $reslist, $game_config, $_POST, $MustacheEngine;
 
 	includeLang('resources');
 
@@ -64,6 +64,7 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 				$SubQry                      .= ", `".$FieldName."` = '".$Value."'";
 			}
 		}
+		PlanetResourceUpdate ( $CurrentUser, $CurrentPlanet, time() );
 	}
 
 	$parse  = $lang;
@@ -121,6 +122,7 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 			$CurrRow                             = array();
 			$CurrRow['name']                     = $resource[$ProdID];
 			$CurrRow['porcent']                  = $CurrentPlanet[$Field];
+			$CurrRow['option'] = "";
 			for ($Option = 10; $Option >= 0; $Option--) {
 				$OptValue = $Option * 10;
 				if ($Option == $CurrRow['porcent']) {
@@ -142,7 +144,7 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 			$CurrRow['deuterium_type']           = colorNumber ( $CurrRow['deuterium_type'] );
 			$CurrRow['energy_type']              = colorNumber ( $CurrRow['energy_type']    );
 
-			$parse['resource_row']              .= parsetemplate ( $RessRowTPL, $CurrRow );
+			$parse['resource_row']              .= $MustacheEngine->render ( $RessRowTPL, $CurrRow );
 		}
 	}
 
@@ -264,13 +266,13 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 	$QryUpdatePlanet .= "`id` = '". $CurrentPlanet['id'] ."';";
 	doquery( $QryUpdatePlanet, 'planets');
 
-	$page = parsetemplate( $RessBodyTPL, $parse );
+	$page = $MustacheEngine->render( $RessBodyTPL, $parse );
 
 	return $page;
 }
 
 	$Page = BuildRessourcePage ( $user, $planetrow );
-	display( $Page, $lang['Resources'] );
+	display( $Page, $lang['Production_of_resources_in_the_planet'] );
 
 // -----------------------------------------------------------------------------------------------------------
 // History version

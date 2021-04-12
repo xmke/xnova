@@ -428,29 +428,6 @@ require_once dirname(__FILE__) .'/common.php';
 		message ("<font color=\"red\"><b>". $lang['fl_nostoragespa'] . pretty_number($StorageNeeded - $FleetStorage) ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 	}
 
-	if (isset($TargetPlanet) && $TargetPlanet['id_level'] > $user['authlevel']) {
-		$Allowed = true;
-		switch ($_POST['mission']){
-			case 1:
-			case 2:
-			case 6:
-			case 9:
-				$Allowed = false;
-				break;
-			case 3:
-			case 4:
-			case 5:
-			case 7:
-			case 8:
-			case 15:
-				break;
-			default:
-		}
-		if ($Allowed == false) {
-			message ("<font color=\"red\"><b>". $lang['fl_adm_attak'] ."</b></font>", $lang['fl_warning'], "fleet." . PHPEXT, 2);
-		}
-	}
-
 	// ecriture de l'enregistrement de flotte (a partir de l�, y a quelque chose qui vole et c'est toujours sur la planete d'origine)
 	$QryInsertFleet  = "INSERT INTO {{table}} SET ";
 	$QryInsertFleet .= "`fleet_owner` = '". $user['id'] ."', ";

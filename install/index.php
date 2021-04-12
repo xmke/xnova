@@ -41,7 +41,6 @@ define('DEFAULT_LANG', 'fr');
 $dpath = DEFAULT_SKINPATH;
 
 include(ROOT_PATH . 'includes/debug.class.'.PHPEXT);
-$debug = new debug();
 
 include(ROOT_PATH . 'includes/constants.' . PHPEXT);
 include(ROOT_PATH . 'includes/functions.' . PHPEXT);
@@ -291,12 +290,13 @@ EOF;
             $prefix = $_POST['prefix'];
             $db     = $_POST['db'];
 
-            if (!mysql_connect($host, $user, $pass)) {
+            $dblink = mysqli_connect($host, $user, $pass);
+            if (!$dblink) {
                 header("Location: ?mode=goto&page=2&error=1");
                 exit();
             }
 
-            if (!mysql_select_db($db)) {
+            if (!mysqli_select_db($dblink, $db)) {
                 header("Location: ?mode=goto&page=2&error=1");
                 exit();
             }

@@ -29,7 +29,7 @@
  */
 
 define('INSIDE' , true);
-define('INSTALL' , false);
+define('INSTALL' , false); 
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
@@ -52,10 +52,12 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse['adm_ov_data_yourv'] = VERSION;
 
 		$Last15Mins = doquery("SELECT `id`, `user_lastip`, `username`, `galaxy`, `system`, `planet`, `user_agent`, `current_page`, `ally_name`,`email`, `xpraid`, `xpminier`, `urlaubs_modus`, `bana`, `onlinetime` FROM {{table}} WHERE `onlinetime` >= '". (time() - 15 * 60) ."' ORDER BY `". $TypeSort ."` ASC;", 'users');
+		
+
 		$Count      = 0;
 		$Color      = "lime";
 		$PrevIP = "";
-		
+		$parse['adm_ov_data_table'] = "";
 		while ( $TheUser = mysqli_fetch_array($Last15Mins) ) {
 			if ($PrevIP != "") {
 				if ($PrevIP == $TheUser['user_lastip']) {
@@ -94,7 +96,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$Bloc['usr_planet_pos']    = $TheUser['planet'];
 
 
-			$parse['adm_ov_data_table'] = $MustacheEngine->render( $RowsTPL, $Bloc );
+			$parse['adm_ov_data_table'] .= $MustacheEngine->render( $RowsTPL, $Bloc );
 			$Count++;
 		}
 

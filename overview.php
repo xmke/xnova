@@ -178,7 +178,6 @@ switch ($mode) {
                 $Label = "fs";
                 if ($StartTime > time()) {
                     $fpage[$StartTime] = BuildFleetEventTable ($FleetRow, 0, true, $Label, $Record);
-                    echo "<br />call buildfleeteventtable - ".$Record." ";
                 }
 
                 if ($FleetRow['fleet_mission'] <> 4) {
@@ -186,13 +185,11 @@ switch ($mode) {
                     $Label = "ft";
                     if ($StayTime > time()) {
                         $fpage[$StayTime] = BuildFleetEventTable ($FleetRow, 1, true, $Label, $Record);
-                        echo "<br />call buildfleeteventtable2 - ".$Record." ";
                     }
                     // Flotte au retour
                     $Label = "fe";
                     if ($EndTime > time() && $FleetRow['fleet_mission'] <> 7) {
                         $fpage[$EndTime] = BuildFleetEventTable ($FleetRow, 2, true, $Label, $Record);
-                        echo "<br />call buildfleeteventtable3 - ".$Record." ";
                     }
                 }
             } // End While
@@ -212,7 +209,6 @@ switch ($mode) {
                         if ($StartTime > time()) {
                             $Label = "ofs";
                             $fpage[$StartTime] = BuildFleetEventTable ($FleetRow, 0, false, $Label, $Record);
-                            echo "<br />call buildfleeteventtable4 - ".$Record." ";
                         }
                         if ($FleetRow['fleet_mission'] == 5) {
                             // Flotte en stationnement
@@ -243,7 +239,8 @@ switch ($mode) {
             $Colone = 1;
             $AllPlanets = "<tr>";
             while ($UserPlanet = mysqli_fetch_array($planets_query)) {
-                PlanetResourceUpdate ($user, $UserPlanet, time());
+                //PlanetResourceUpdate ($user, $UserPlanet, time());
+                //Pourquoi vouloir mettre à jour toutes les planètes alors qu'on ne veut que les afficher ?!
                 if ($UserPlanet["id"] != $user["current_planet"] && $UserPlanet['planet_type'] != 3) {
                     $AllPlanets .= "<th>" . $UserPlanet['name'] . "<br>";
                     $AllPlanets .= "<a href=\"?cp=" . $UserPlanet['id'] . "&re=0\" title=\"" . $UserPlanet['name'] . "\"><img src=\"" . $dpath . "planeten/small/s_" . $UserPlanet['image'] . ".jpg\" height=\"50\" width=\"50\"></a><br>";

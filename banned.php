@@ -37,12 +37,12 @@ includeLang('banned');
 
 $parse = $lang;
 $parse['dpath'] = $dpath;
-$parse['mf'] = $mf;
 
 
 $query = doquery("SELECT * FROM {{table}} ORDER BY `id`;",'banned');
 $i=0;
 //@todo template dynamique Mustache
+$parse['banned'] = "";
 while($u = mysqli_fetch_array($query)){
 	$parse['banned'] .=
         "<tr><td class=b><center><b>".$u[1]."</center></td></b>".
@@ -54,9 +54,9 @@ while($u = mysqli_fetch_array($query)){
 }
 
 if ($i=="0")
- $parse['banned'] .= "<tr><th class=b colspan=6>Il n'y a pas de joueurs bannis</th></tr>";
+ $parse['banned'] .= "<tr><th class=b colspan=5>Il n'y a pas de joueurs bannis</th></tr>";
 else
-  $parse['banned'] .= "<tr><th class=b colspan=6>Il y a {$i} joueurs bannis</th></tr>";
+  $parse['banned'] .= "<tr><th class=b colspan=5>Il y a {$i} joueurs bannis</th></tr>";
 
 display($MustacheEngine->render(gettemplate('banned_body'), $parse),'Banned',true);
 

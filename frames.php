@@ -30,6 +30,7 @@
 
 define('INSIDE' , true);
 define('INSTALL' , false);
+define('FRAMES_PAGE', true);
 
 $XNova_Host    = $_SERVER['HTTP_HOST'];
 $XNova_Script  = $_SERVER['SCRIPT_NAME'];
@@ -42,23 +43,12 @@ $XNovaRootURL  = "http://". $XNova_Host ."/". $XNova_URI ."/";
 
 require_once dirname(__FILE__) .'/common.php';
 
-$page  = "<html>";
-$page .= "<head>";
-$page .= "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=". $langInfos['ENCODING']."\">";
-$page .= "<link rel=\"shortcut icon\" href=\"favicon.ico\">";
-$page .= "<title>". $game_config['game_name'] ."</title>";
-$page .= "</head>";
+$parse['game_name'] = $game_config['game_name'];
+$parse['encoding'] = $langInfos['ENCODING'];
+$parse['frames_error'] = $lang['frames_error'];
 
-$page .= "<frameset framespacing=\"0\" border=\"0\" cols=\"190,*\" frameborder=\"0\">";
-$page .= "<frame name=\"LeftMenu\" target=\"Mainframe\" src=\"leftmenu.php\" noresize scrolling=\"no\" marginwidth=\"0\" marginheight=\"0\">";
-$page .= "<frame name=\"Hauptframe\" src=\"overview.php\">";
-$page .= "<noframes>";
-$page .= "<body>";
-$page .= "<p>Votre navigateur ne gère pas les frames.</p>";
-$page .= "</noframes>";
-$page .= "</frameset>";
-    $page .= "</body>";
-$page .= "</html>";
+$Page                  = $MustacheEngine->render( gettemplate( 'frames_template' ), $parse);
 
-echo $page;
+display ( $Page, $game_config['game_name'], '', false );
+
 

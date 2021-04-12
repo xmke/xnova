@@ -52,6 +52,8 @@ function f(target_url,win_name) {
 </tr><tr>
 	<td colspan="2"><div><a href="galaxy.php?mode=0" accesskey="s" target="{{mf}}">{{Galaxy}}</a></div></td>
 </tr><tr>
+	<td colspan="2"><div><a href="galaxy2.php" accesskey="s" target="{{mf}}">NEWGALAXY</a></div></td>
+</tr><tr>
 	<td colspan="2"><div><a href="imperium.php" accesskey="i" target="{{mf}}">{{Imperium}}</a></div></td>
 </tr><tr>
 	<td colspan="2"><div><a href="resources.php" accesskey="r" target="{{mf}}">{{Resources}}</a></div></td>

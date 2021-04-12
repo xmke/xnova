@@ -36,6 +36,7 @@ class Database
 
 function doquery($query, $table, $fetch = false)
 {
+    global $SqlQueries;
     if (!isset(Database::$config)) {
         $config = require dirname(dirname(__FILE__)) . '/config.php';
     }
@@ -53,6 +54,11 @@ function doquery($query, $table, $fetch = false)
     }
     $sql = str_replace("{{table}}", "{$config['global']['database']['table_prefix']}{$table}", $query);
 
+    $SqlQueries++;
+    $dbt=debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2);
+    $caller = isset($dbt[1]['file']) ? $dbt[1]['file'] : null;
+    //echo "<!-- Caller : ".$caller ." -->\r\n";
+    //echo "<!-- ".$sql." -->\r\n";
     if (false === ($sqlQuery = mysqli_query(Database::$dbHandle, $sql))) {
         trigger_error(mysqli_error(Database::$dbHandle) . PHP_EOL . "<br /><pre></code>$sql<code></pre><br />" . PHP_EOL, E_USER_WARNING);
     }

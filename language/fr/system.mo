@@ -133,6 +133,8 @@ $lang['sys_destruc_echec'] = ". Des tremblements secouent la surface de la lune.
 $lang['sys_destruc_reussi'] = ", provoquant un tremblement puis un d&eacute;chirement total de celle-ci. Tous les b&agrave;timents sont d&eacute;truits - Mission accomplie !La lune est d&eacute;truite! La flotte rentre &agrave; la plan&egrave;te de d&eacute;part.";
 $lang['sys_destruc_null'] = ", visiblement la flotte ne d&eacute;veloppe pas la puissance n&eacute;cessaire - Echec de la mission! La flotte rentre &agrave; la plan&egrave;te de d&eacute;part.";
 
+$lang['frames_error'] = "Votre navigateur internet ne supporte pas les frames.";
+
 // Created by Perberos. All rights reversed (C) 2006
 // Complet by XNova Team. All rights reversed (C) 2008
 ?>

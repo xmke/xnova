@@ -33,13 +33,11 @@ define('INSTALL' , false);
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
-	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
+	if ($user['authlevel'] == LEVEL_ADMIN) { //Visible uniquement aux administrateurs
 
-				$parse['phpinfo'] = phpinfo();
+		die(phpinfo()); //Faisons simple et lisible.
 
-		$Page = parsetemplate($PageTPL, $parse);
-
-		display ( $Page, "PhpInfo", false, true);
+		
 	} else {
 		AdminMessage ( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}

@@ -35,7 +35,7 @@ function GalaxyRowActions ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowPlayer, $Gal
 	if (isset($GalaxyRowPlayer['id']) && $GalaxyRowPlayer['id'] != $user['id']) {
 
 		if ($CurrentMIP <> 0) {
-			if ($GalaxyRowUser['id'] != $user['id']) {
+			if (isset($GalaxyRowUser) && $GalaxyRowUser['id'] != $user['id']) {
 				if ($GalaxyRowPlanet["galaxy"] == $CurrentGalaxy) {
 					$Range = GetMissileRange();
 					$SystemLimitMin = $CurrentSystem - $Range;

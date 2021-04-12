@@ -103,29 +103,34 @@ function message($mes, $title = 'Error', $dest = "", $time = "3", $color = 'oran
 // $metatags  -> S'il y a quelques actions particulieres a faire ...
 // $AdminPage -> Si on est dans la section admin ... faut le dire ...
 function display ($page, $title = '', $topnav = true, $AdminPage = false) {
-	global $link, $game_config, $debug, $user, $planetrow;
-	if (!$AdminPage) {
-		$DisplayPage  = StdUserHeader ($title);
-	} else {
-		$DisplayPage  = AdminUserHeader ($title);
-	}
-
-	if ($topnav) {
-		$DisplayPage .= ShowTopNavigationBar( $user, $planetrow );
-	}
-	$DisplayPage .= "<center>\n". $page ."\n</center>\n";
-	// Affichage du Debug si necessaire
-	if (isset($user['authlevel']) && in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR))) {
-		if ($game_config['debug'] == 1) $debug->echo_log();
-	}
-
-	$DisplayPage .= StdFooter();
-	if (isset($link)) {
+	global $link, $user, $planetrow, $MustacheEngine, $StartPageGeneration, $SqlQueries;
+	if(!defined('FRAMES_PAGE')){
 		
-		mysqli_close($link);
-	}
+		if (!$AdminPage) {
+			$DisplayPage  = StdUserHeader ($title);
+		} else {
+			$DisplayPage  = AdminUserHeader ($title);
+		}
+	
+		if ($topnav) {
+			$DisplayPage .= ShowTopNavigationBar( $user, $planetrow );
+		}
+		$DisplayPage .= "<center>\n". $page ."\n</center>\n";
+		
+		$DisplayPage .= $MustacheEngine->render(gettemplate('overall_footer'), array());
+		if (isset($link)) {
+			
+			mysqli_close($link);
+		}
+		echo $DisplayPage;
+		$EndPageGeneration = getmicrotime();
 
-	echo $DisplayPage;
+		echo "\r\n<br />Page générée en ".round($EndPageGeneration-$StartPageGeneration, 3) ." secondes avec ".$SqlQueries." requêtes.<br />\r\n";
+
+	}else{
+		echo $page;
+	}
+	
 
 	die();
 }
@@ -163,21 +168,7 @@ function AdminUserHeader ($title = '', $metatags = '') {
 	return $MustacheEngine->render(gettemplate('admin/simple_header'), $parse);
 }
 
-// ----------------------------------------------------------------------------------------------------------------
-//
-// Pied de page
-//
-function StdFooter() {
-	global $game_config, $lang, $StartPageGeneration, $MustacheEngine;
 
-	$parse['copyright']     = isset($game_config['copyright']) ? $game_config['copyright'] : 'XNova Support Team';
-	$parse['TranslationBy'] = isset($lang['TranslationBy']) ? $lang['TranslationBy'] : '';
-	$Footer = $MustacheEngine->render(gettemplate('overall_footer'), $parse);
-	$EndPageGeneration = getmicrotime();
-
-    echo "Page générée en ".round($EndPageGeneration-$StartPageGeneration, 3) ." secondes.<br />";
-	return $Footer;
-}
 
 // ----------------------------------------------------------------------------------------------------------------
 //

@@ -244,7 +244,7 @@ require_once dirname(__FILE__) .'/common.php';
           if (!empty($_POST['newpass1']) && !empty($_POST['newpass2']) && $_POST["newpass1"] == $_POST["newpass2"]) {
              $newpass = md5($_POST["newpass1"]);
              doquery("UPDATE {{table}} SET `password` = '{$newpass}' WHERE `id` = '{$user['id']}' LIMIT 1", "users");
-             setcookie(COOKIE_NAME, "", time()-100000, "/", "", 0); //le da el expire
+             setcookie($game_config["COOKIE_NAME"], "", time()-100000, "/", "", 0); //le da el expire
              message($lang['succeful_changepass'], $lang['changue_pass'],"login.php",1);
           }
        }
@@ -252,7 +252,7 @@ require_once dirname(__FILE__) .'/common.php';
           $query = doquery("SELECT id FROM {{table}} WHERE username='{$_POST["db_character"]}'", 'users', true);
           if (!$query) {
              doquery("UPDATE {{table}} SET username='{$username}' WHERE id='{$user['id']}' LIMIT 1", "users");
-             setcookie(COOKIE_NAME, "", time()-100000, "/", "", 0); //le da el expire
+             setcookie($game_config["COOKIE_NAME"], "", time()-100000, "/", "", 0); //le da el expire
              message($lang['succeful_changename'], $lang['changue_name'],"login.php",1);
           }
        }
@@ -269,15 +269,6 @@ require_once dirname(__FILE__) .'/common.php';
 
        $parse['opt_lst_cla_data']   = "<option value =\"0\"". (($user['planet_sort_order'] == 0) ? " selected": "") .">". $lang['opt_lst_cla0'] ."</option>";
        $parse['opt_lst_cla_data']  .= "<option value =\"1\"". (($user['planet_sort_order'] == 1) ? " selected": "") .">". $lang['opt_lst_cla1'] ."</option>";
-
-       if ($user['authlevel'] != LEVEL_PLAYER) {
-          $FrameTPL = gettemplate('options_admadd');
-          $IsProtOn = doquery ("SELECT `id_level` FROM {{table}} WHERE `id_owner` = '".$user['id']."' LIMIT 1;", 'planets', true);
-          $bloc['opt_adm_title']       = $lang['opt_adm_title'];
-          $bloc['opt_adm_planet_prot'] = $lang['opt_adm_planet_prot'];
-          $bloc['adm_pl_prot_data']    = ($IsProtOn['id_level'] > 0) ? " checked='checked'/":'';
-          $parse['opt_adm_frame']      = parsetemplate($FrameTPL, $bloc);
-       }
 
        $parse['opt_usern_data'] = $user['username'];
        $parse['opt_mail1_data'] = $user['email'];

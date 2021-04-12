@@ -120,9 +120,9 @@ $lang['gs_sending'] = "Invio di";
 $lang['gs_to'] = "verso";
 $lang['Sending'] = 'Invio';
 
-$lang['gf_cntmone'] = "Pianeti conquistati";
+$lang['gf_cntmone'] = "%d Pianeti conquistati";
 $lang['gf_cntmnone'] = "Nessun pianeta abitato.";
-$lang['gf_cntmsome'] = "Pianeti abitati.";
+$lang['gf_cntmsome'] = "%d Pianeti abitati.";
 $lang['gf_mi_title'] = "Missili interplanetari";
 $lang['gf_fleetslt'] = "Slot di flotta utilizzati";
 $lang['gf_rc_title'] = "Riciclatrici disponibili";

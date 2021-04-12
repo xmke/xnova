@@ -217,30 +217,6 @@ require_once dirname(__FILE__) .'/common.php';
 	}
 	$consumption = round($consumption) + 1;
 
-	if ($TargetRow['id_level'] > $user['authlevel']) {
-		$Allowed = true;
-		switch ($_POST['mission']){
-			case 1:
-			case 2:
-			case 6:
-			case 9:
-				$Allowed = false;
-				break;
-			case 3:
-			case 4:
-			case 5:
-			case 7:
-			case 8:
-			case 15:
-				break;
-			default:
-		}
-		if ($Allowed == false) {
-			$ResultMessage = "619;".$lang['gs_c619']."|".$CurrentFlyingFleets." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
-			die ( $ResultMessage );
-		}
-	}
-
 	$QryInsertFleet  = "INSERT INTO {{table}} SET ";
 	$QryInsertFleet .= "`fleet_owner` = '". $user['id'] ."', ";
 	$QryInsertFleet .= "`fleet_mission` = '". intval($_POST['mission']) ."', ";

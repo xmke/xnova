@@ -36,12 +36,13 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR))) {
 		includeLang('admin/addmoon');
 
-		$mode      = $_POST['mode'];
+		$mode      = isset($_POST['mode']) && $_POST['mode'] == "addit" ? $_POST['mode'] : "";
 
 		$PageTpl   = gettemplate("admin/add_moon");
 		$parse     = $lang;
 
 		if ($mode == 'addit') {
+
 			$PlanetID  = $_POST['user'];
 			$MoonName  = $_POST['name'];
 
@@ -60,9 +61,9 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 			AdminMessage ( $lang['addm_done'], $lang['addm_title'] );
 		}
-		$Page = parsetemplate($PageTpl, $parse);
+		$Page = $MustacheEngine->render($PageTpl, $parse);
 
-		display ($Page, $lang['addm_title'], false, '', true);
+		display ($Page, $lang['addm_title'], false, true);
 	} else {
 		AdminMessage ( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}

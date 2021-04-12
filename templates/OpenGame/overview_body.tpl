@@ -10,8 +10,8 @@
 
 
 
-	{{Have_new_level_mineur}}
-	{{Have_new_level_raid}}
+	{{{Have_new_level_mineur}}}
+	{{{Have_new_level_raid}}}
 	<tr><th>{{Server_time}}</th>
 	<th colspan="3"><div id="dateheure"></div></th></tr>
 	<tr><th>{{MembersOnline}}</th>
@@ -23,7 +23,7 @@
 	<tr><td colspan="4" class="c">{{Events}}</td>
 	</tr>
 	{{{fleet_list}}}
-	<tr><th>{{moon_img}}<br>{{moon}}</th>
+	<tr><th>{{{moon_img}}}<br>{{{moon}}}</th>
 	<th colspan="2"><img src="{{dpath}}planeten/{{planet_image}}.jpg" height="200" width="200"><br>{{{building}}}</th>
 	<th class="s"><table class="s" align="top" border="0"><tr>{{{anothers_planets}}}</tr></table></th></tr>
 	<tr><th>{{Diameter}}</th>

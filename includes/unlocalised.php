@@ -208,7 +208,7 @@ function saveToFile($filename, $content) {
 }
 
 function parsetemplate($template, $array){
-    $template .= "<!-- ParseTemplate proccess -->";
+    $template .= "<!-- ParseTemplate proccess -->\r\n";
     trigger_error("ParseTemplate function is deprecated.", E_USER_NOTICE);
 	foreach($array as $a => $b) {
         if(is_array($b)){
@@ -228,7 +228,7 @@ function parsetemplate($template, $array){
 function getTemplate($templateName) {
 
     $filename = TEMPLATE_DIR . '/' . TEMPLATE_NAME . "/{$templateName}.tpl";
-    $fileContent  = "<!-- ". $filename ." -->";
+    $fileContent  = "\r\n<!-- ". $filename ." -->\r\n";
     $fileContent .= ReadFromFile($filename);
     return $fileContent;
 }

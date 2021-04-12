@@ -133,6 +133,9 @@ $lang['sys_destruc_echec'] = ". Tremors shook the surface of the moon. But somet
 $lang['sys_destruc_reussi'] = ", causing an earthquake and then a total of tearing it. All buildings are destroyed - Mission accomplished! The moon is destroyed! The fleet returned to the starting planet.";
 $lang['sys_destruc_null'] = ", obviously the fleet does not develop the necessary power - Mission Failed! The fleet returned to the starting planet.";
 
+$lang['frames_error'] = "Your browser does not support frames.";
+
+
 // Created by Perberos. All rights reversed (C) 2006
 // Complet by XNova Team. All rights reversed (C) 2008
 ?>

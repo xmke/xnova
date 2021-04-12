@@ -78,7 +78,6 @@ PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci AUTO_INCREMENT=5;",
 
 "ALTER TABLE `{{prefix}}planets` ADD COLUMN `last_jump_time` int(11) NOT NULL default '0';",
-"ALTER TABLE `{{prefix}}planets` ADD COLUMN `id_level` int(11) default NULL;",
 "ALTER TABLE `{{prefix}}planets` MODIFY `b_building_id` text character set latin1 NOT NULL;",
 
 "CREATE TABLE `{{prefix}}statpoints` (

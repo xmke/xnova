@@ -15,7 +15,7 @@ function t(){
 		if ( m > 59 ) { h = Math.floor( m / 60 ); m = m - h * 60; }
 		if ( s < 10 ) { s = "0" + s }
 		if ( m < 10 ) { m = "0" + m }
-		brp.innerHTML = h + ':' + m + ':' + s + '<br><a href=buildings.php?mode=research&cmd=cancel&tech={{tech_id}}>{{cancel}}<br>{{tech_name}}</a>';
+		brp.innerHTML = h + ':' + m + ':' + s + '<br><a href=buildings.php?mode=research&cmd=cancel&tech={{tech_id}}>{{cancel}}<br>{{{tech_name}}}</a>';
 	}
 	window.setTimeout("t();",999);
 }

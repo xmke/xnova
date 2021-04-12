@@ -54,7 +54,7 @@ function GetBuildingPrice ($CurrentUser, $CurrentPlanet, $Element, $Incremental 
 				
 			
 			if ($ForDestroy == true) {
-				$cost[$ResType]  = floor($cost[$ResType]) / 2;
+				$cost[$ResType]  = isset($cost[$ResType]) ? floor($cost[$ResType]) / 2 : 0;
 				$cost[$ResType] /= 2;
 			}
 		}

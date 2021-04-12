@@ -30,7 +30,7 @@
 
 function CheckTheUser($IsUserChecked)
 {
-    global $user, $MustacheEngine;
+    global $user, $MustacheEngine, $lang;
     includeLang('admin/interface');
     $Result        = CheckCookies( $IsUserChecked );
     $IsUserChecked = $Result['state'];

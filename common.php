@@ -32,6 +32,7 @@ function getmicrotime(){
     return ((float)$usec + (float)$sec);
 }
 $StartPageGeneration = getmicrotime();
+$SqlQueries = 0;
 session_start();
 
 if (in_array(strtolower(getenv('DEBUG')), array('1', 'on', 'true'))) {
@@ -65,8 +66,6 @@ define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');
 define('DEFAULT_LANG', 'fr');
 
-include(ROOT_PATH . 'includes/debug.class.'.PHPEXT);
-$debug = new Debug();
 
 include(ROOT_PATH . 'includes/constants.' . PHPEXT);
 include(ROOT_PATH . 'includes/functions.' . PHPEXT);
@@ -96,33 +95,35 @@ includeLang('tech');
 if (empty($user) && !defined('DISABLE_IDENTITY_CHECK')) {
     header('Location: login.php');
     exit(0);
+}else{
+    $now = time();
+    $sql =<<<SQL_EOF
+    SELECT
+      fleet_start_galaxy AS galaxy,
+      fleet_start_system AS sys,
+      fleet_start_planet AS planet,
+      fleet_start_type AS planet_type
+        FROM {{table}}
+        WHERE `fleet_start_time` <= {$now}
+    UNION
+    SELECT
+      fleet_end_galaxy AS galaxy,
+      fleet_end_system AS sys,
+      fleet_end_planet AS planet,
+      fleet_end_type AS planet_type
+        FROM {{table}}
+        WHERE `fleet_end_time` <= {$now}
+    SQL_EOF;
+    
+    $_fleets = doquery($sql, 'fleets');
+    while ($row = mysqli_fetch_array($_fleets)) {
+        FlyingFleetHandler($row);
+    }
+    
+    unset($_fleets);
 }
+ 
 
-$now = time();
-$sql =<<<SQL_EOF
-SELECT
-  fleet_start_galaxy AS galaxy,
-  fleet_start_system AS sys,
-  fleet_start_planet AS planet,
-  fleet_start_type AS planet_type
-    FROM {{table}}
-    WHERE `fleet_start_time` <= {$now}
-UNION
-SELECT
-  fleet_end_galaxy AS galaxy,
-  fleet_end_system AS sys,
-  fleet_end_planet AS planet,
-  fleet_end_type AS planet_type
-    FROM {{table}}
-    WHERE `fleet_end_time` <= {$now}
-SQL_EOF;
-
-$_fleets = doquery($sql, 'fleets');
-while ($row = mysqli_fetch_array($_fleets)) {
-    FlyingFleetHandler($row);
-}
-
-unset($_fleets);
 
 include(ROOT_PATH . 'rak.'.PHPEXT);
 if (!defined('IN_ADMIN')) {
@@ -141,12 +142,14 @@ if (!empty($user)) {
     $planetrowQry .= "game_galaxy.id_luna, ";
     $planetrowQry .= "game_galaxy.luna ";
     $planetrowQry .= "FROM game_planets ";
-    $planetrowQry .= "RIGHT JOIN game_galaxy ";
+    $planetrowQry .= "LEFT JOIN game_galaxy ";
     $planetrowQry .= "ON game_planets.id = game_galaxy.id_planet WHERE game_planets.id = " . $user['current_planet'];
-    $planetrow = doquery($planetrowQry, 'planets', true);
+    $planetrow = doquery($planetrowQry, 'planets', true); //@todo prefix
 
+
+    
     CheckPlanetUsedFields($planetrow);
-    PlanetResourceUpdate($user, $planetrow, time());
+    
 } else {
     $planetrow = array();
 }

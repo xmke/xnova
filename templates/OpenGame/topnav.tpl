@@ -40,11 +40,11 @@
 			<td class="header" align="center" width="140"><i><b><font color="#ffffff">{{Message}}</font></b></i></td>
 		</tr>
 		<tr class="header">
-			<td class="header" align="center" width="140"><font>{{metal}}</font></td>
-			<td class="header" align="center" width="140"><font>{{crystal}}</font></td>
-			<td class="header" align="center" width="140"><font>{{deuterium}}</font></td>
-			<td class="header" align="center" width="140"><font>{{energy}}</font></td>
-			<td class="header" align="center" width="140"><font>{{{message}}}</font></td>
+			<td class="header" align="center" width="140">{{{metal}}}</td>
+			<td class="header" align="center" width="140">{{{crystal}}}</td>
+			<td class="header" align="center" width="140">{{{deuterium}}}</td>
+			<td class="header" align="center" width="140">{{{energy}}}</td>
+			<td class="header" align="center" width="140">{{{message}}}</td>
 		</tr>
 		</tbody>
 		</table>

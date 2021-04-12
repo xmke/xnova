@@ -1,6 +1,6 @@
 <br>
 <center>
 <table width="569">
-	{techtree_list}
+	{{{techtree_list}}}
 </table>
 </center>

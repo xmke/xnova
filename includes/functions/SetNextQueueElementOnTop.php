@@ -85,7 +85,7 @@ function SetNextQueueElementOnTop ( &$CurrentPlanet, $CurrentUser ) {
 												pretty_number ($Needed['deuterium']), $lang['Deuterium']);
 					}
 
-					SendSimpleMessage ( $CurrentUser['id'], '', '', 99, $lang['sys_buildlist'], $lang['sys_buildlist_fail'], $Message);
+					SendSimpleMessage ( $CurrentUser['id'], 1, time(), 99, $lang['sys_buildlist'], $lang['sys_buildlist_fail'], $Message);
 
 					array_shift( $QueueArray );
 					$ActualCount         = count ( $QueueArray );
