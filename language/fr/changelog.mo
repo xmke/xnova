@@ -37,47 +37,47 @@ $lang['changelog']   = array(
 - ADD : Les administrateurs choisissent desormais le fond de la baniere... (Bono)<br />
 - ADD : Mode vacances + Production a 0 + Interdiction de construire(Prethorian)',
 
-'0.8d' => '- ADD : Les administrateurs voient d&eacute;sormais quelle page est consult&eacute;e par quel joueur (Bono)<br />
-- ADD : Bot antimulticompte, personnalisation et activation/d&eacute;sactivation a volont&eacute;...  (Bono)<br />
-- ADD : Politique de customisation du serveur entam&eacute;e...  (Bono)<br />
-- ADD : Possibilit&eacute; d\'activer/personnaliser/customiser un lien personnalis&eacute; (Bono)<br />
-- ADD : Possibilit&eacute; d\'afficher/desactiver des liens dans le menu (Bono)<br />
-- FIX : Lien vers les alliances corrig&eacute;<br />
+'0.8d' => '- ADD : Les administrateurs voient désormais quelle page est consultée par quel joueur (Bono)<br />
+- ADD : Bot antimulticompte, personnalisation et activation/désactivation a volonté...  (Bono)<br />
+- ADD : Politique de customisation du serveur entamée...  (Bono)<br />
+- ADD : Possibilité d\'activer/personnaliser/customiser un lien personnalisé (Bono)<br />
+- ADD : Possibilité d\'afficher/desactiver des liens dans le menu (Bono)<br />
+- FIX : Lien vers les alliances corrigé<br />
 - NEW: Destruction des lunes (juju67)<br />
-- NEW: Stationnement chez un alli&eacute; (juju67)<br />
+- NEW: Stationnement chez un allié (juju67)<br />
 - FIX: Lien vers la galaxie du joueur dans la fonction de recherche',
 
 
 
 '0.8c' => 'Modules et corrections (e-Zobar)<br />
-- NEW: Fonction copyright &eacute;tendus<br />
-- NEW: G&eacute;n&eacute;rateur de banni&egrave;re-profil (signatures pour forum) dans \'Vue g&eacute;n&eacute;rale\' (d&eacute;sactivable)<br />
-- ADD: D&eacute;claration des multi-comptes<br />
-- FIX: Nombreuses erreurs visuelles: admin chat, r&egrave;gles<br />
+- NEW: Fonction copyright étendus<br />
+- NEW: Générateur de bannière-profil (signatures pour forum) dans \'Vue générale\' (désactivable)<br />
+- ADD: Déclaration des multi-comptes<br />
+- FIX: Nombreuses erreurs visuelles: admin chat, règles<br />
 - FIX: Variable root_path sur toutes les pages<br />
-- FIX: S&eacute;curit&eacute; panneau d\'administration<br />
+- FIX: Sécurité panneau d\'administration<br />
 - FIX: Illustrations officiers manquantes<br />
-- ADD: Message d\'accueil &agrave; l\'inscription (Tom1991)<br />
+- ADD: Message d\'accueil à l\'inscription (Tom1991)<br />
 - ADD: Affichage points raids (Tom1991)',
 
 '0.8b' => 'Correction de bugs (Chlorel)<br />
-- ADD: Fonction de remise &agrave; z&eacute;ro du joueur qui triche<br />
-- FIX: Liste des plan&egrave;tes tri&eacute;es dans la vue empire<br />
-- FIX: Liste des plan&egrave;tes tri&eacute;es dans la vue g&eacute;n&eacute;rale aussi<br />
-- FIX: Mise &agrave; de toutes les plan&egrave;tes au passage par la vue g&eacute;n&eacute;rale et la vue empire',
+- ADD: Fonction de remise à zéro du joueur qui triche<br />
+- FIX: Liste des planètes triées dans la vue empire<br />
+- FIX: Liste des planètes triées dans la vue générale aussi<br />
+- FIX: Mise à de toutes les planètes au passage par la vue générale et la vue empire',
 
 '0.8a' => 'Correction de bugs (Chlorel)<br />
 - FIX: message.php ne fait plus d\'erreurs SQL quand y pas de message<br />
 - FIX: Correction page records pour pouvoir prendre en compte ou pas les admins<br />
-- NEW: phalange version recod&eacute;e ... a tester sous toutes les coutures<br />
-- FIX: Plus de possibilit&eacute; d\'espionner sans sondes<br />
+- NEW: phalange version recodée ... a tester sous toutes les coutures<br />
+- FIX: Plus de possibilité d\'espionner sans sondes<br />
 - MOD: Mise en forme des chiffres dans les rapports de combat (avec des .)<br />
 - MOD: Modification du template de login pour qu\'il passe par display avec 1 seul <body><br />
 - FIX: Suppression d\'une cause possible d\'erreurs MySQL<br />
 - FIX: Extraction des dernieres chaines de la vue generale<br />
 - FIX: Surprise pour les cheater au marchand !<br />
 - FIX: Fonction DeleSelectedUser efface aussi les planetes maintenant<br />
-- ADD: Page des r&egrave;gles (XxmangaxX)',
+- ADD: Page des règles (XxmangaxX)',
 
 '0.8' => 'Infos (Chlorel)<br />
 - FIX: Skin sur nouvel installeur<br />
@@ -85,7 +85,7 @@ $lang['changelog']   = array(
 - FIX: Oublie de modification d\'appel sur quelques functions nouvellement modifiees',
 
 '0.7m' => 'Correction de bugs (Chlorel)<br />
-- ADD: Interface d\'activation de protection des plan&egrave;tes<br />
+- ADD: Interface d\'activation de protection des planètes<br />
 - FIX: Les lunes vont a nouveau au bon joueur et pas a "un" joueur quand elles sont crees depuis l\'administration<br />
 - FIX: Overview Evenements de flottes (les personnelles pour le moment) utilisent a present le css (default.css)<br />
 - MOD: Adaption de diverses fonctions a l\'utilisation du css<br />
@@ -94,11 +94,11 @@ $lang['changelog']   = array(
 '0.7k' => 'Correction de bugs (Chlorel)<br />
 - FIX: Retour de flotte en transport<br />
 - ADD: Protection des planetes d\'administration<br />
-- MOD: Liste des joueurs dans la section admin liens sur les ent&ecirc;tes pour tri<br />
-- MOD: Page g&eacute;n&eacute;rale section admin avec liens sur les ent&ecirc;tes pour tri<br />
+- MOD: Liste des joueurs dans la section admin liens sur les entêtes pour tri<br />
+- MOD: Page générale section admin avec liens sur les entêtes pour tri<br />
 - FIX: Lors de l\'utilisation d\'un skin autre que celui d\'XNova, il s\'applique aussi en section admin<br />
 - FIX: Ajout du lune dans le panneau d\'administration (e-Zobar)<br />
-- ADD: Mode transf&egrave;re dans l\'installateur (e-Zobar)',
+- ADD: Mode transfère dans l\'installateur (e-Zobar)',
 
 '0.7j' => 'Correction de bugs (Chlorel)<br />
 - FIX: On peut a nouveau retirer une construction de la queue de fabrication<br />
@@ -110,7 +110,7 @@ $lang['changelog']   = array(
 
 '0.7i' => 'Correction de bugs (Chlorel)<br />
 - Suppression cheat +1<br />
-- Ajustement des dur&eacute;e de vols / consommation des flottes entre le code PHP et le code JAVA<br />
+- Ajustement des durée de vols / consommation des flottes entre le code PHP et le code JAVA<br />
 - Tri des colonies par le joueur dans options<br />
 - Preparation du multiskin dans options<br />
 - Divers amenagements dans le code pour les Administrateurs (Liste de messages, Liste de Joueurs)<br />
@@ -126,23 +126,23 @@ $lang['changelog']   = array(
 
 '0.7g' => 'Correction diverses (Chlorel)<br />
 - Modification de l\'ordre du traitement de la liste de construction de batiments<br />
-- Mise en conformit&eacute; du code pour une seule commande "echo"<br />
-- Quelques modules de r&eacute;&eacute;crits<br />
-- Correction bug de d&eacute;doublement de flotte<br />
-- Mise &agrave; jour dynamique de la taille des silos, production des mines et de l\'&eacute;nergie<br />
+- Mise en conformité du code pour une seule commande "echo"<br />
+- Quelques modules de réécrits<br />
+- Correction bug de dédoublement de flotte<br />
+- Mise à jour dynamique de la taille des silos, production des mines et de l\'énergie<br />
 - Divers adaptations dans la section admin (e-Zobar)<br />
 - Modification lourde du style XNova (e-Zobar)',
 
 '0.7f' => 'Informations et porte de saut: (Chlorel)<br />
-- Nouvelle page d\'information completement repens&eacute;e<br />
-- Nouvelle interface porte de saut int&eacute,gr&eacute;e a la page d\'information<br />
+- Nouvelle page d\'information completement repensée<br />
+- Nouvelle interface porte de saut intégrée a la page d\'information<br />
 - Nouvelle gestion de l\'affichage des rapid fire dans la page d\'information<br />
 - Multitude de correction faites par e-Zobar',
 
 '0.7e' => 'Partout et nulle part : (Chlorel)<br />
 - Nouvelle page registration (mise au standard)<br />
-- Nouvelle page records (mise en conformit&eacute; avec le site)<br />
-- Modif kernel (y en a pas mal mais pas possible de toutes les expliquer l&agrave; et de toutes maniere pas
+- Nouvelle page records (mise en conformité avec le site)<br />
+- Modif kernel (y en a pas mal mais pas possible de toutes les expliquer là et de toutes maniere pas
   grand monde ne serait capable de les comprendre',
 
 '0.7d' => 'Partie admin : (e-Zobar)<br />
@@ -151,24 +151,24 @@ $lang['changelog']   = array(
 - traduction complete de ce qui n\'etait pas encore en francais',
 
 '0.7c' => 'Statistiques : (Chlorel)<br />
-- Suppression des appels base de donn&eacute;es de l\ancien systeme de Statistiques<br />
-- Bug Impossibilit&eacute; de fabriquer des defenses ou des elements de flotte n\'utilisant pas de metal<br />
-- Bug Comme certains petits rigolos s\'amusent a lancer des quantit&eacute;es enormes de vaisseau dans<br />
-  une meme ligne de la queue de construction vaisseau, nous en sommes arriv&eacute;s a limiter le nombre<br />
+- Suppression des appels base de données de l\ancien systeme de Statistiques<br />
+- Bug Impossibilité de fabriquer des defenses ou des elements de flotte n\'utilisant pas de metal<br />
+- Bug Comme certains petits rigolos s\'amusent a lancer des quantitées enormes de vaisseau dans<br />
+  une meme ligne de la queue de construction vaisseau, nous en sommes arrivés a limiter le nombre<br />
   d\'element fabriquable par ligne donc maximum 1000 vaisseaux ou defenses a la fois !!<br />
 - Bug erreur lors de la selection planete par la combo<br />
 - Mise a jour de l\'installeur',
 
 '0.7b' => 'Statistiques : (Chlorel)<br />
-- Reecriture de la page de Statistique (appell&eacute;e par l\'utilisateur)<br />
+- Reecriture de la page de Statistique (appellée par l\'utilisateur)<br />
 - Les stat alliance s\'affichent !<br />
 - Ecriture du generateur admin des stats<br />
-- Separation des stats de l\'enregistrement utilisateur (les stats on leur propre base de donn&eacute;es)',
+- Separation des stats de l\'enregistrement utilisateur (les stats on leur propre base de données)',
 
 '0.7a' => 'Divers : (Chlorel)<br />
 - Bug Technologies (la duree de recherche apparait a nouveau quand on revient dans le laboratoire<br />
-- Bug Missiles (mis a plat de la port&eacute;e des missiles interplanetaires, et mise en place de la limite de fabrication par rapport a la taille du silo)<br />
-- Bug Port&eacute;e des phalange corrig&eacute; (on ne peut plus phalanger toute la galaxie)<br />
+- Bug Missiles (mis a plat de la portée des missiles interplanetaires, et mise en place de la limite de fabrication par rapport a la taille du silo)<br />
+- Bug Portée des phalange corrigé (on ne peut plus phalanger toute la galaxie)<br />
 - Bug Correction de la conssomation de deuterium quand on passe par le menu galaxie',
 
 '0.7' => 'Building :<br />
@@ -208,7 +208,7 @@ $lang['changelog']   = array(
 - Mise en forme ancien module<br />
 - Gestion de l\'affichage des flotte personnelle 100%<br />
 - Modification affichage des lunes quand presentes<br />
-- Correction bug renommer les lunes (pour qu\'elles soient effectivement renomm&eacute;es)',
+- Correction bug renommer les lunes (pour qu\'elles soient effectivement renommées)',
 
 '0.3' => 'Gestion de flottes: (by Chlorel)<br />
 - Modification / modularisation / documentation de la boucle de gestion des vols 100%<br />
@@ -223,7 +223,7 @@ $lang['changelog']   = array(
 - Modification de la boucle de controle des flottes 10% (by Chlorel)',
 
 '0.1' => 'Merge des version flotte:<br />
-- Mise en place de la strat&eacute;gie de developpement<br />
+- Mise en place de la stratégie de developpement<br />
 - Mise en place de nouvelles pages de gestion de flotte',
 
 '0.0' => 'Version de depart:<br />

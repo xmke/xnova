@@ -29,7 +29,7 @@
  */
 
 
-$lang['see_you'] = 'En esp&eacute;rant vous revoir tr&egrave;s bientot. Le staff.';
-$lang['session_closed'] = "Session termin&eacute;e.";
+$lang['see_you'] = 'En espérant vous revoir très bientot. Le staff.';
+$lang['session_closed'] = "Session terminée.";
 
 ?>

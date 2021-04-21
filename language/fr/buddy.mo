@@ -28,15 +28,15 @@
  *
  */
 
-$lang['Request_sent'] = 'Requete envoy&eacute;e.';
+$lang['Request_sent'] = 'Requete envoyée.';
 $lang['Buddy_request'] = 'Requete d\'ami';
-$lang['A_request_exists_already_for_this_user'] = 'Un requete d\'ami existe d&eacute;j&agrave; pour cet utilisateur.';
+$lang['A_request_exists_already_for_this_user'] = 'Un requete d\'ami existe déjà pour cet utilisateur.';
 $lang['You_cannot_ask_yourself_for_a_request'] = 'Vous ne pouvez pas vous envoyez d\'invitation...';
 $lang['Buddy_list'] = 'Liste d\'amis';
 $lang['There_is_no_request'] = 'Pas de requetes';
 $lang['Request_text'] = 'Texte de de requete';
-$lang['characters'] = 'caract&egrave;res';
-$lang['Back'] = 'Revenir en arri&egrave;re';
+$lang['characters'] = 'caractères';
+$lang['Back'] = 'Revenir en arrière';
 $lang['Send'] = 'Envoyer';
 $lang['Delete_request'] = 'Supprimer la requete';
 $lang['Ok'] = 'Accepter';
