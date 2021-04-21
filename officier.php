@@ -33,7 +33,7 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
 function ShowOfficierPage ( &$CurrentUser ) {
-	global $lang, $resource, $reslist, $_GET;
+	global $lang, $resource, $reslist, $_GET, $MustacheEngine;
 
 	includeLang('officier');
 
@@ -79,7 +79,7 @@ function ShowOfficierPage ( &$CurrentUser ) {
 		$parse['title'] = $lang['Officier'];
 		$parse['mes']   = $Message;
 
-		$page           = parsetemplate( $MessTPL, $parse);
+		$page           = $MustacheEngine->render( $MessTPL, $parse);
 	} else {
 		// Pas de recrutement d'officier
 		$PageTPL = gettemplate('officier_body');
@@ -99,10 +99,10 @@ function ShowOfficierPage ( &$CurrentUser ) {
 				} else {
 					$bloc['off_link'] = $lang['Maxlvl'];
 				}
-				$parse['disp_off_tbl'] .= parsetemplate( $RowsTPL, $bloc );
+				$parse['disp_off_tbl'] .= $MustacheEngine->render( $RowsTPL, $bloc );
 			}
 		}
-		$page           = parsetemplate( $PageTPL, $parse);
+		$page           = $MustacheEngine->render( $PageTPL, $parse);
 	}
 
 	return $page;

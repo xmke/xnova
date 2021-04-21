@@ -36,7 +36,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
 		includeLang('admin/interface');
 
-		$mode      = $_POST['mode'];
+		$mode      = isset($_POST['mode']) ? $_POST['mode'] : "";
 
 		$PageTpl   = gettemplate("admin/banned");
 
@@ -80,8 +80,8 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			AdminMessage ($DoneMessage, $lang['adm_bn_ttle']);
 		}
 
-		$Page = parsetemplate($PageTpl, $parse);
-		display( $Page, $lang['adm_bn_ttle'], false, '', true);
+		$Page = $MustacheEngine->render($PageTpl, $parse);
+		display( $Page, $lang['adm_bn_ttle'], false, true);
 	} else {
 		AdminMessage ($lang['sys_noalloaw'], $lang['sys_noaccess']);
 	}

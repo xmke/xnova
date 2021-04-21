@@ -37,9 +37,10 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$parse   = $lang;
 
-		if ($_POST['md5q'] != "") {
+		if (isset($_POST['md5q']) && $_POST['md5q'] != "") {
 
 			doquery ("UPDATE {{table}} SET `password` = '" . md5 ($_POST['md5q']) . "' WHERE `username` = '".$_POST['user']."';", 'users');
+			message("OK !", 'Information');
 			//$QueryUpdatePass = "UPDATE {{table}} SET ";
 			//$QueryUpdatePass .= "`password` = '" . md5 ($_POST['md5q']) . "', ";
 			//$QueryUpdatePass = "WHERE ";
@@ -50,7 +51,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		}
 
 		$PageTpl = gettemplate("admin/changepass");
-		$Page    = parsetemplate( $PageTpl, $parse);
+		$Page    = $MustacheEngine->render( $PageTpl, $parse);
 
 		display( $Page, $lang['md5_title'], false, true );
 	} else {

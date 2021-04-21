@@ -11,6 +11,6 @@
 	  <th><a href="?action=usr_level">{{adm_mod_level}}</a></th>
 	</tr>
 </table>
-{{adm_sub_form1}}
-{{adm_sub_form2}}
-{{adm_sub_form3}}
+{{{adm_sub_form1}}}
+{{{adm_sub_form2}}}
+{{{adm_sub_form3}}}

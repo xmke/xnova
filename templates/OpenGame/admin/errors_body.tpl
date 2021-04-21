@@ -10,5 +10,5 @@
 <th width="230">{{adm_er_time}}</th>
 <th width="95">{{adm_er_delete}}</th>
 </tr>
-{{errors_list}}
+{{{errors_list}}}
 </table>

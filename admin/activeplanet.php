@@ -38,12 +38,13 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$parse          = $lang;
 		$parse['dpath'] = $dpath;
-		$parse['mf']    = $mf;
 
 		$PageTPL        = gettemplate('admin/activeplanet_body');
-		$AllActivPlanet = doquery("SELECT * FROM {{table}} WHERE `last_update` >= '". (time()-15 * 60) ."' ORDER BY `id` ASC", 'planets');
+		$ActiveTime = time() - (15 * 60);
+		$AllActivPlanet = doquery("SELECT `name`, `galaxy`, `system`, `planet`, `points`, `last_update` FROM {{table}} WHERE `last_update` >= ".$ActiveTime." ORDER BY `last_update` ASC", 'planets');
 		$Count          = 0;
-
+		
+		$parse['online_list'] = "";
 		while ($ActivPlanet = mysqli_fetch_array($AllActivPlanet)) {
 			$parse['online_list'] .= "<tr>";
 			$parse['online_list'] .= "<td class=b><center><b>". $ActivPlanet['name'] ."</b></center></td>";
@@ -57,8 +58,8 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse['online_list'] .= "<th class=\"b\" colspan=\"4\">". $lang['adm_pl_they'] ." ". $Count ." ". $lang['adm_pl_apla'] ."</th>";
 		$parse['online_list'] .= "</tr>";
 
-		$page = parsetemplate( $PageTPL	, $parse );
-		display( $page, $lang['adm_pl_title'], false, '', true );
+		$page = $MustacheEngine->render( $PageTPL	, $parse );
+		display( $page, $lang['adm_pl_title'], false, true);
 	} else {
 		message( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}

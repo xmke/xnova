@@ -36,25 +36,27 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR))) {
 
 		$parse = $lang;
-		$query = doquery("SELECT * FROM {{table}} WHERE planet_type='1'", "planets");
+		$query = doquery("SELECT `id`,`name`,`galaxy`,`system`,`planet`,`last_update` FROM {{table}} WHERE planet_type='1'", "planets");
 		$i = 0;
+		$parse['planetes'] = "";
 		while ($u = mysqli_fetch_array($query)) {
 			$parse['planetes'] .= "<tr>"
-			. "<td class=b><center><b>" . $u[0] . "</center></b></td>"
-			. "<td class=b><center><b>" . $u[1] . "</center></b></td>"
-			. "<td class=b><center><b>" . $u[4] . "</center></b></td>"
-			. "<td class=b><center><b>" . $u[5] . "</center></b></td>"
-			. "<td class=b><center><b>" . $u[6] . "</center></b></td>"
+			. "<td class=b><center><b>" . $u['id'] . "</center></b></td>"
+			. "<td class=b><center><b>" . $u['name'] . "</center></b></td>"
+			. "<td class=b><center><b>" . $u['galaxy'] . "</center></b></td>"
+			. "<td class=b><center><b>" . $u['system'] . "</center></b></td>"
+			. "<td class=b><center><b>" . $u['planet'] . "</center></b></td>"
+			. "<td class=b><center><b>" . date('d/m/Y H:i:s', $u['last_update']) . "</center></b></td>"
 			. "</tr>";
 			$i++;
 		}
 
 		if ($i == "1")
-			$parse['planetes'] .= "<tr><th class=b colspan=5>Il y a qu'une seule plan&egrave;te</th></tr>";
+			$parse['planetes'] .= "<tr><th class=b colspan=6>Il y a qu'une seule plan&egrave;te</th></tr>";
 		else
-			$parse['planetes'] .= "<tr><th class=b colspan=5>Il y a {$i} plan&egrave;tes</th></tr>";
+			$parse['planetes'] .= "<tr><th class=b colspan=6>Il y a {$i} plan&egrave;tes</th></tr>";
 
-		display(parsetemplate(gettemplate('admin/planetlist_body'), $parse), 'Planetlist', false, true);
+		display($MustacheEngine->render(gettemplate('admin/planetlist_body'), $parse), 'Planetlist', false, true);
 	} else {
 		message($lang['sys_noalloaw'], $lang['sys_noaccess']);
 	}

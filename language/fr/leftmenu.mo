@@ -29,10 +29,6 @@
  */
 
 
-// User menu links
-$lang['qry']   = 'Executer commande SQL';
-
-
 $lang['Multiverse']   = '<b>XNova</b> Uni';
 
 $lang['Overview']     = 'Vue générale';
@@ -55,7 +51,6 @@ $lang['Galaxy']       = 'Galaxie';
 $lang['Fleet']        = 'Flotte';
 
 $lang['Alliance']     = 'Alliance';
-$lang['Chat']         = 'Chat';
 $lang['Statistics']   = 'Statistiques';
 $lang['Search']       = 'Recherche';
 $lang['blocked']      = 'Piloris';
@@ -105,7 +100,6 @@ $lang['adm_fleet']    = 'Flottes en vol';
 $lang['adm_ban']      = 'Bannir';
 $lang['adm_unban']    = 'Débannir';
 
-$lang['adm_chat']     = 'Administration chat';
 $lang['adm_updpt']    = 'Actualiser points';
 $lang['adm_msg']      = 'Liste des messages';
 $lang['adm_md5']      = 'Outil cryptage';

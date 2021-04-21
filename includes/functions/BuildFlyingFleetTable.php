@@ -29,11 +29,11 @@
  */
 
 function BuildFlyingFleetTable () {
-	global $lang;
-
+	global $lang, $MustacheEngine;
 	$TableTPL     = gettemplate('admin/fleet_rows');
 	$FlyingFleets = doquery ("SELECT * FROM {{table}} ORDER BY `fleet_end_time` ASC;", 'fleets');
-	while ( $CurrentFleet = mysql_fetch_assoc( $FlyingFleets ) ) {
+	$table = "";
+	while ( $CurrentFleet = mysqli_fetch_assoc( $FlyingFleets ) ) {
 		$FleetOwner       = doquery("SELECT `username` FROM {{table}} WHERE `id` = '". $CurrentFleet['fleet_owner'] ."';", 'users', true);
 		$TargetOwner      = doquery("SELECT `username` FROM {{table}} WHERE `id` = '". $CurrentFleet['fleet_target_owner'] ."';", 'users', true);
 		$Bloc['Id']       = $CurrentFleet['fleet_id'];
@@ -57,7 +57,7 @@ function BuildFlyingFleetTable () {
 		}
 		$Bloc['En_Time']  = date('G:i:s d/n/Y', $CurrentFleet['fleet_end_time']);
 
-		$table .= parsetemplate( $TableTPL, $Bloc );
+		$table .= $MustacheEngine->render( $TableTPL, $Bloc );
 	}
 	return $table;
 }

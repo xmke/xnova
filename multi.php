@@ -44,7 +44,7 @@ if ($Mode != 'add') {
     $parse['Declaration']     = $lang['Declaration'];
     $parse['DeclarationText'] = $lang['DeclarationText'];
 
-    $page = parsetemplate(gettemplate('multi'), $parse);
+    $page = $MustacheEngine->render(gettemplate('multi'), $parse);
     display($page, $lang['messages']);
 
 }

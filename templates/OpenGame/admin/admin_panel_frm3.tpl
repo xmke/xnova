@@ -11,7 +11,7 @@
 	  <th><input type="text" name="player" style="width:150"></th>
 	</tr>
 	<tr>
-	  <th colspan="2"><select name="authlvl">{{adm_level_lst}}</select></th>
+	  <th colspan="2"><select name="authlvl">{{{adm_level_lst}}}</select></th>
     </tr>
 	<tr>
 	  <th colspan="2"><input type="submit" value="{{adm_bt_change}}"></th>

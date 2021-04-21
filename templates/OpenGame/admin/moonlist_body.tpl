@@ -10,7 +10,7 @@
 	<th>Plan&egrave;te m&egrave;re</th>
 	<th>Galaxie</th>
 	<th>Syst&egrave;me</th>
-	<th>Plan&egrave;te</th>
+	<th>Activité</th>
 </tr>
-{{moon}}
+{{{moon}}}
 </table>

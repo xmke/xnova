@@ -8,7 +8,7 @@
 	<th width="20%">{{adm_mt_player}}</th>
 	<th width="80%">{{adm_mt_text}}</th>
 </tr>
-{{adm_mt_table}}
+{{{adm_mt_table}}}
 <tr>
 <th class="b" colspan="9">{{adm_mt_count}} {{adm_mt_multi}}</th>
 </tr>

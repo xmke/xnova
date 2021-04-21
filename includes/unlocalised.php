@@ -207,14 +207,12 @@ function saveToFile($filename, $content) {
     $content = file_put_contents($filename, $content);
 }
 
+/*
+ * @deprecated
+ */
 function parsetemplate($template, $array){
-    $template .= "<!-- ParseTemplate proccess -->\r\n";
-    trigger_error("ParseTemplate function is deprecated.", E_USER_NOTICE);
 	foreach($array as $a => $b) {
         if(is_array($b)){
-            //var_dump($array);
-            //var_dump(debug_backtrace());
-            //die("B IS ARRAY" . var_dump($b));
         }
         if(!is_array($b)){
             

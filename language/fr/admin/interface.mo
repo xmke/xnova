@@ -123,7 +123,6 @@ $lang['adm_rz_conf']  = "Confirmation";
 $lang['adm_rz_text']  = "En appuyant sur Accepter, vous remettrez à zéro votre Univers. Seul les comptes ne sont pas effacées. Cette opération ne peut pas être annulé par la suite, il est donc conseillé d'avoir une sauvegarde de votre base de donnée!";
 $lang['adm_rz_doit']  = "Accepter";
 
-$lang['adm_ch_ttle']  = "Administration du chat";
 $lang['adm_ch_list']  = "Liste des messages";
 $lang['adm_ch_clear'] = "vider";
 $lang['adm_ch_msg']   = "Message";

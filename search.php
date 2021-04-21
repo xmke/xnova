@@ -106,19 +106,19 @@ if(isset($searchtext) && isset($type)){
 			$s['coordinated'] = "{$s['galaxy']}:{$s['system']}:{$s['planet']}";
 			$s['buddy_request'] = $lang['buddy_request'];
 			$s['write_a_messege'] = $lang['write_a_messege'];
-			$result_list .= parsetemplate($row, $s);
+			$result_list .= $MustacheEngine->render($row, $s);
 		}elseif($type=='allytag'||$type=='allyname'){
 			$s=$r;
 
 			$s['ally_points'] = pretty_number($s['ally_points']);
 
 			$s['ally_tag'] = "<a href=\"alliance.php?mode=ainfo&tag={$s['ally_tag']}\">{$s['ally_tag']}</a>";
-			$result_list .= parsetemplate($row, $s);
+			$result_list .= $MustacheEngine->render($row, $s);
 		}
 	}
 	if($result_list!=''){
 		$lang['result_list'] = $result_list;
-		$search_results = parsetemplate($table, $lang);
+		$search_results = $MustacheEngine->render($table, $lang);
 	}
 }
 
@@ -130,6 +130,6 @@ $lang['type_allyname'] = ($_POST["type"] == "allyname") ? " SELECTED" : "";
 $lang['searchtext'] = $searchtext;
 $lang['search_results'] = $search_results;
 //esto es algo repetitivo ... w
-$page = parsetemplate(gettemplate('search_body'), $lang);
+$page = $MustacheEngine->render(gettemplate('search_body'), $lang);
 display($page,$lang['Search']);
 ?>

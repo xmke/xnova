@@ -36,7 +36,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR))) {
 		includeLang('admin/interface');
 
-		$mode      = $_POST['mode'];
+		$mode      = isset($_POST['mode']) ? $_POST['mode'] : "";
 
 		$PageTpl   = gettemplate("admin/add_money");
 		$parse     = $lang;
@@ -57,9 +57,9 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 			AdminMessage ( $lang['adm_am_done'], $lang['adm_am_ttle'] );
 		}
-		$Page = parsetemplate($PageTpl, $parse);
+		$Page = $MustacheEngine->render($PageTpl, $parse);
 
-		display ($Page, $lang['adm_am_ttle'], false, '', true);
+		display ($Page, $lang['adm_am_ttle'], false, true);
 	} else {
 		AdminMessage ( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}

@@ -124,7 +124,6 @@ $lang['adm_rz_conf']  = "Conferma";
 $lang['adm_rz_text']  = "Premendo <i>Accetta</i>, l'universo verr&agrave; resettato. Gli account non verranno cancellati. Questa operazione non pu&ograve; essere annullata e pertanto si consiglia di effettuare un backup!";
 $lang['adm_rz_doit']  = "Accetta";
 
-$lang['adm_ch_ttle']  = "Chat dell'amministrazione";
 $lang['adm_ch_list']  = "Lista messaggi";
 $lang['adm_ch_clear'] = "vuoto";
 $lang['adm_ch_idmsg'] = "ID";

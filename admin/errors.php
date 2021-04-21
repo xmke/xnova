@@ -62,7 +62,7 @@ $parse = $lang;
 			<th class=b colspan=5>". $i ." ". $lang['adm_er_nbs'] ."</th>
 		</tr>";
 
-		display(parsetemplate(gettemplate('admin/errors_body'), $parse), "Bledy", false, true);
+		display($MustacheEngine->render(gettemplate('admin/errors_body'), $parse), "Errors", false, true);
 	} else {
 		message( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}

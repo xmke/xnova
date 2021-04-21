@@ -58,7 +58,6 @@ function XNovaResetUnivers ( $CurrentUser ) {
 		doquery( "TRUNCATE TABLE {{table}}", 'annonce');
 		doquery( "TRUNCATE TABLE {{table}}", 'banned');
 		doquery( "TRUNCATE TABLE {{table}}", 'buddy');
-		doquery( "TRUNCATE TABLE {{table}}", 'chat');
 		doquery( "TRUNCATE TABLE {{table}}", 'galaxy');
 		doquery( "TRUNCATE TABLE {{table}}", 'errors');
 		doquery( "TRUNCATE TABLE {{table}}", 'fleets');
@@ -72,7 +71,7 @@ function XNovaResetUnivers ( $CurrentUser ) {
 		$AllUsers  = doquery ("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,`galaxy`,`system`,`planet`, `sex`, `dpath`, `onlinetime`, `register_time`, `id_planet` FROM {{table}} WHERE 1;", 'users_s');
 		$LimitTime = time() - (15 * (24 * (60 * 60)));
 		$TransUser = 0;
-		while ( $TheUser = mysql_fetch_assoc($AllUsers) ) {
+		while ( $TheUser = mysqli_fetch_assoc($AllUsers) ) {
 			if ( $TheUser['onlinetime'] > $LimitTime ) {
 				$UserPlanet     = doquery ("SELECT `name` FROM {{table}} WHERE `id` = '". $TheUser['id_planet']."';", 'planets_s', true);
 				if ($UserPlanet['name'] != "") {
@@ -121,7 +120,7 @@ function XNovaResetUnivers ( $CurrentUser ) {
 	} else {
 		AdminMessage ( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}
-	return $Page;
+	die;
 }
 
 	$mode      = $_POST['mode'];
@@ -131,7 +130,7 @@ function XNovaResetUnivers ( $CurrentUser ) {
 	if ($mode == 'reset') {
 		XNovaResetUnivers ( $user );
 	} else {
-		$Page = parsetemplate($PageTpl, $parse);
+		$Page = $MustacheEngine->render($PageTpl, $parse);
 		display ($Page, $lang['Reset'], false, true);
 	}
 

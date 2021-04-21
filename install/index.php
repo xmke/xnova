@@ -130,7 +130,6 @@ EOF;
             doquery ( $QryTableAlliance   , 'alliance'   );
             doquery ( $QryTableBanned     , 'banned'     );
             doquery ( $QryTableBuddy      , 'buddy'      );
-            doquery ( $QryTableChat       , 'chat'       );
             doquery ( $QryTableConfig     , 'config'     );
             doquery ( $QryInsertConfig    , 'config'     );
             doquery ( $QryTabledeclared        , 'declared'        );

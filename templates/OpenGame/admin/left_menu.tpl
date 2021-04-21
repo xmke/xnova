@@ -30,8 +30,6 @@ parent.frames['Hauptframe'].location.replace("overview.php");
 </tr><tr>
 	<td><div><a href="paneladmina.php" accesskey="k" target="{{mf}}">{{adm_plrsch}}</a></div></td>
 </tr><tr>
-	<td><div><a href="QueryExecute.php" accesskey="k" target="{{mf}}">{{qry}}</a></div></td>
-</tr><tr>
 	<td><div><a href="variables.php" accesskey="k" target="{{mf}}">PhpInfo</a></div></td>
 </tr><tr>
 	<td><div><a href="add_money.php" accesskey="k" target="{{mf}}">{{adm_addres}}</a></div></td>
@@ -63,8 +61,6 @@ parent.frames['Hauptframe'].location.replace("overview.php");
 	<td><div><a href="unbanned.php" accesskey="k" target="{{mf}}">{{adm_unban}}</a></div></td>
 </tr><tr>
 	<td background="{{dpath}}img/bg1.gif"><center>{{tool}}</center></td>
-</tr><tr>
-	<td><div><a href="chat.php" accesskey="p" target="{{mf}}">{{adm_chat}}</a></div></td>
 </tr><tr>
 	<td><div><a href="statbuilder.php" accesskey="p" target="{{mf}}">{{adm_updpt}}</a></div></td>
 </tr><tr>

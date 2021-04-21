@@ -35,7 +35,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 
 function DisplayGameSettingsPage ( $CurrentUser ) {
-	global $lang, $game_config;
+	global $lang, $game_config, $MustacheEngine;
 
 	includeLang('admin/settings');
 
@@ -57,15 +57,6 @@ function DisplayGameSettingsPage ( $CurrentUser ) {
 			} else {
 				$game_config['OverviewNewsFrame']     = "0";
 				$game_config['OverviewNewsText']      = "";
-			}
-
-			// Y a un TCHAT externe ??
-			if (isset($_POST['chatframe']) && $_POST['chatframe'] == 'on') {
-				$game_config['OverviewExternChat']     = "1";
-				$game_config['OverviewExternChatCmd']  = addslashes( $_POST['ExternChat'] );
-			} else {
-				$game_config['OverviewExternChat']     = "0";
-				$game_config['OverviewExternChatCmd']  = "";
 			}
 
 			if (isset($_POST['googlead']) && $_POST['googlead'] == 'on') {
@@ -202,8 +193,6 @@ $game_config['banner_source_post'] = $_POST['banner_source_post'];
 			// Page Generale
 			doquery("UPDATE {{table}} SET `config_value` = '". $game_config['OverviewNewsFrame']       ."' WHERE `config_name` = 'OverviewNewsFrame';", 'config');
 			doquery("UPDATE {{table}} SET `config_value` = '". $game_config['OverviewNewsText']        ."' WHERE `config_name` = 'OverviewNewsText';", 'config');
-			doquery("UPDATE {{table}} SET `config_value` = '". $game_config['OverviewExternChat']      ."' WHERE `config_name` = 'OverviewExternChat';", 'config');
-			doquery("UPDATE {{table}} SET `config_value` = '". $game_config['OverviewExternChatCmd']   ."' WHERE `config_name` = 'OverviewExternChatCmd';", 'config');
 			doquery("UPDATE {{table}} SET `config_value` = '". $game_config['OverviewBanner']          ."' WHERE `config_name` = 'OverviewBanner';", 'config');
 			doquery("UPDATE {{table}} SET `config_value` = '". $game_config['OverviewClickBanner']     ."' WHERE `config_name` = 'OverviewClickBanner';", 'config');
 			doquery("UPDATE {{table}} SET `config_value` = '". $game_config['ForumBannerFrame']       ."' WHERE `config_name` = 'ForumBannerFrame';", 'config');
@@ -272,9 +261,6 @@ $game_config['banner_source_post'] = $_POST['banner_source_post'];
 			$parse['newsframe']              = ($game_config['OverviewNewsFrame'] == 1) ? " checked = 'checked' ":"";
 			$parse['NewsTextVal']            = stripslashes( $game_config['OverviewNewsText'] );
 
-			$parse['chatframe']              = ($game_config['OverviewExternChat'] == 1) ? " checked = 'checked' ":"";
-			$parse['ExtTchatVal']            = stripslashes( $game_config['OverviewExternChatCmd'] );
-
 			$parse['googlead']               = ($game_config['OverviewBanner'] == 1) ? " checked = 'checked' ":"";
 			$parse['GoogleAdVal']            = stripslashes( $game_config['OverviewClickBanner'] );
 
@@ -283,16 +269,14 @@ $game_config['banner_source_post'] = $_POST['banner_source_post'];
 			$parse['bannerframe']            = ($game_config['ForumBannerFrame'] == 1) ? " checked = 'checked' ":"";
 
 			$PageTPL                         = gettemplate('admin/options_body');
-			$Page                           .= parsetemplate( $PageTPL,  $parse );
+			$Page                            = $MustacheEngine->render( $PageTPL,  $parse );
 
 			display ( $Page, $lang['adm_opt_title'], false, true );
 		}
 	} else {
 		AdminMessage ( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}
-	return $Page;
+	die;
 }
 
 	$Page = DisplayGameSettingsPage ( $user );
-
-?>

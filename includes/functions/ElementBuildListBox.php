@@ -29,7 +29,7 @@
  */
 
 function ElementBuildListBox ( $CurrentUser, $CurrentPlanet ) {
-	global $lang, $pricelist;
+	global $lang, $pricelist, $MustacheEngine;
 
 //	// Array del b_hangar_id
 //	$ElementQueue = explode(';', $CurrentPlanet['b_hangar_id']);
@@ -56,7 +56,7 @@ function ElementBuildListBox ( $CurrentUser, $CurrentPlanet ) {
 //
 //	$parse['pretty_time_b_hangar'] = pretty_time($QueueTime - $CurrentPlanet['b_hangar']);
 //
-//	$text .= parsetemplate(gettemplate('buildings_script'), $parse);
+//	$text .= $MustacheEngine->render(gettemplate('buildings_script'), $parse);
 //
 //	return $text;
 }

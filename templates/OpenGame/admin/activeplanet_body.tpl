@@ -8,5 +8,5 @@
 	<th>{{adm_pl_point}}</th>
 	<th>{{adm_pl_since}}</th>
 	</tr>
-	{{online_list}}
+	{{{online_list}}}
 </table>

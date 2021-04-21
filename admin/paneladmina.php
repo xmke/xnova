@@ -60,11 +60,11 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 $bloc['answer3']        = $SelUser['user_lastip'];
                 $bloc['answer4']        = $SelUser['email'];
                 $bloc['answer5']        = $lang['adm_usr_level'][ $SelUser['authlevel'] ];
-                $bloc['answer6']        = $lang['adm_usr_genre'][ $SelUser['sex'] ];
+                $bloc['answer6']        = isset($SelUser['sex']) && isset($lang['adm_usr_genre'][ $SelUser['sex'] ]) ? $lang['adm_usr_genre'][ $SelUser['sex'] ] : "N/A";
                 $bloc['answer7']        = "[".$SelUser['id_planet']."] ".$UsrMain['name'];
                 $bloc['answer8']        = "[".$SelUser['galaxy'].":".$SelUser['system'].":".$SelUser['planet']."] ";
                 $SubPanelTPL            = gettemplate('admin/admin_panel_asw1');
-                $parse['adm_sub_form2'] = parsetemplate( $SubPanelTPL, $bloc );
+                $parse['adm_sub_form2'] = $MustacheEngine->render( $SubPanelTPL, $bloc );
                 break;
 
             case 'usr_data':
@@ -78,16 +78,16 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 $bloc['answer3']         = $SelUser['user_lastip'];
                 $bloc['answer4']         = $SelUser['email'];
                 $bloc['answer5']         = $lang['adm_usr_level'][ $SelUser['authlevel'] ];
-                $bloc['answer6']         = $lang['adm_usr_genre'][ $SelUser['sex'] ];
+                $bloc['answer6']         = isset($SelUser['sex']) && isset($lang['adm_usr_genre'][ $SelUser['sex'] ]) ? $lang['adm_usr_genre'][ $SelUser['sex'] ] : "N/A";
                 $bloc['answer7']         = "[".$SelUser['id_planet']."] ".$UsrMain['name'];
                 $bloc['answer8']         = "[".$SelUser['galaxy'].":".$SelUser['system'].":".$SelUser['planet']."] ";
                 $SubPanelTPL             = gettemplate('admin/admin_panel_asw1');
-                $parse['adm_sub_form1']  = parsetemplate( $SubPanelTPL, $bloc );
+                $parse['adm_sub_form1']  = $MustacheEngine->render( $SubPanelTPL, $bloc );
 
                 $parse['adm_sub_form2']  = "<table><tbody>";
                 $parse['adm_sub_form2'] .= "<tr><td colspan=\"4\" class=\"c\">".$lang['adm_colony']."</td></tr>";
                 $UsrColo = doquery("SELECT * FROM {{table}} WHERE `id_owner` = '". $SelUser['id'] ." ORDER BY `galaxy` ASC, `planet` ASC, `system` ASC, `planet_type` ASC';", 'planets');
-                while ( $Colo = mysql_fetch_assoc($UsrColo) ) {
+                while ( $Colo = mysqli_fetch_assoc($UsrColo) ) {
                     if ($Colo['id'] != $SelUser['id_planet']) {
                         $parse['adm_sub_form2'] .= "<tr><th>".$Colo['id']."</th>";
                         $parse['adm_sub_form2'] .= "<th>". (($Colo['planet_type'] == 1) ? $lang['adm_planet'] : $lang['adm_moon'] ) ."</th>";
@@ -100,7 +100,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 $parse['adm_sub_form3']  = "<table><tbody>";
                 $parse['adm_sub_form3'] .= "<tr><td colspan=\"4\" class=\"c\">".$lang['adm_technos']."</td></tr>";
                 for ($Item = 100; $Item <= 199; $Item++) {
-                    if ($resource[$Item] != "") {
+                    if (isset($resource[$Item]) && $resource[$Item] != "") {
                         $parse['adm_sub_form3'] .= "<tr><th>".$lang['tech'][$Item]."</th>";
                         $parse['adm_sub_form3'] .= "<th>".$SelUser[$resource[$Item]]."</th></tr>";
                     }
@@ -142,12 +142,13 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 $SelUser    = doquery("SELECT * FROM {{table}} WHERE `user_lastip` = '". $pattern ."' LIMIT 10;", 'users');
                 $bloc                   = $lang;
                 $bloc['adm_this_ip']    = $pattern;
+                $bloc['adm_plyer_lst'] = "";
                 while ( $Usr = mysqli_fetch_assoc($SelUser) ) {
                     $UsrMain = doquery("SELECT `name` FROM {{table}} WHERE `id` = '". $Usr['id_planet'] ."';", 'planets', true);
                     $bloc['adm_plyer_lst'] .= "<tr><th>".$Usr['username']."</th><th>[".$Usr['galaxy'].":".$Usr['system'].":".$Usr['planet']."] ".$UsrMain['name']."</th></tr>";
                 }
                 $SubPanelTPL            = gettemplate('admin/admin_panel_asw2');
-                $parse['adm_sub_form2'] = parsetemplate( $SubPanelTPL, $bloc );
+                $parse['adm_sub_form2'] = $MustacheEngine->render( $SubPanelTPL, $bloc );
                 break;
             default:
                 break;
@@ -184,10 +185,10 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
             default:
                 break;
         }
-        $parse['adm_sub_form2'] = parsetemplate( $SubPanelTPL, $bloc );
+        $parse['adm_sub_form2'] = $MustacheEngine->render( $SubPanelTPL, $bloc );
     }
 
-    $page = parsetemplate( $PanelMainTPL, $parse );
+    $page = $MustacheEngine->render( $PanelMainTPL, $parse );
     display( $page, $lang['panel_mainttl'], false, true );
 } else {
     message( $lang['sys_noalloaw'], $lang['sys_noaccess'] );

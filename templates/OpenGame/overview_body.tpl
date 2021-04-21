@@ -69,7 +69,6 @@
 		<tr><td align="right" width="50%" style="background-color: transparent;"><b>{{RaidsLoose}} :</b></td>
 		<td align="left" width="50%" style="background-color: transparent;"><b>{{raidsloose}}</b></td></tr></tbody></table></th></tr>
 	{{bannerframe}}
-	{{ExternalTchatFrame}}
 </table>
 <br>
 {{ClickBanner}}

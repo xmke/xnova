@@ -40,7 +40,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$parse['adm_bt_delet'] = $lang['adm_bt_delet'];
 		}
 
-		$Page = parsetemplate( $PageTpl, $parse );
+		$Page = $MustacheEngine->render( $PageTpl, $parse );
 		display ( $Page, $lang['adminpanel'], false, true );
 
 	} else {

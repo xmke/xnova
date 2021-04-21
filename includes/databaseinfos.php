@@ -99,15 +99,6 @@
 	$QryTableBuddy      .= "PRIMARY KEY  (`id`) ";
 	$QryTableBuddy      .= ") ENGINE=MyISAM;";
 
-	// Table chat
-	$QryTableChat        = "CREATE TABLE `{{table}}` ( ";
-	$QryTableChat       .= "`messageid` int(5) unsigned NOT NULL auto_increment, ";
-	$QryTableChat       .= "`user` varchar(255) NOT NULL default '', ";
-	$QryTableChat       .= "`message` text NOT NULL, ";
-	$QryTableChat       .= "`timestamp` int(11) NOT NULL default '0', ";
-	$QryTableChat       .= "PRIMARY KEY  (`messageid`) ";
-	$QryTableChat       .= ") ENGINE=MyISAM;";
-
 	// Table config
 	$QryTableConfig      = "CREATE TABLE `{{table}}` ( ";
 	$QryTableConfig     .= "`config_name` varchar(64) character set latin1 NOT NULL default '', ";
@@ -144,8 +135,6 @@
 	$QryInsertConfig    .= "('forum_url'             , 'http://board.xnova-ng.org/' ), ";
 	$QryInsertConfig    .= "('OverviewNewsFrame'     , '1' ), ";
 	$QryInsertConfig    .= "('OverviewNewsText'      , 'Bienvenue sur le nouveau serveur XNova Legacies' ), ";
-	$QryInsertConfig    .= "('OverviewExternChat'    , '0' ), ";
-	$QryInsertConfig    .= "('OverviewExternChatCmd' , '' ), ";
 	$QryInsertConfig    .= "('OverviewBanner'        , '0' ), ";
 	$QryInsertConfig    .= "('OverviewClickBanner'   , '' ), ";
 	$QryInsertConfig    .= "('ExtCopyFrame'          , '0' ), ";

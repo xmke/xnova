@@ -17,7 +17,7 @@
 	<th>{{adm_ul_actio}}</th>
 
 </tr>
-{{adm_ul_table}}
+{{{adm_ul_table}}}
 <tr>
 <th class="b" colspan="10">{{adm_ul_count}}{{adm_ul_playe}}</th>
 </tr>

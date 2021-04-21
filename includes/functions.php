@@ -88,7 +88,7 @@ function message($mes, $title = 'Error', $dest = "", $time = "3", $color = 'oran
     $parse['title'] = $title;
     $parse['mes']   = $mes;
 
-    $page = $MustacheEngine->render(gettemplate('admin/message_body'), $parse);
+    $page = $MustacheEngine->render(gettemplate('message_body'), $parse);
 
     display ($page, $title, false, true);
 }

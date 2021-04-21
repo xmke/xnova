@@ -13,6 +13,6 @@
 	<th>Raison</th>
 	
 </tr>
-{{adm_ul_table}}
+{{{adm_ul_table}}}
 
 </table>

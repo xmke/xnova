@@ -113,14 +113,6 @@ KEY `FLEET` (`fleet_points`),
 KEY `TOTAL` (`total_points`)
 ) ENGINE=MyISAM;",
 
-"CREATE TABLE `{{prefix}}chat` (
-`messageid` int(5) unsigned NOT NULL auto_increment,
-`user` varchar(255) NOT NULL default '',
-`message` text NOT NULL,
-`timestamp` int(11) NOT NULL default '0',
-PRIMARY KEY  (`messageid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;",
-
 "INSERT INTO `{{prefix}}config` (`config_name`, `config_value`) VALUES
 ('Fleet_Cdr', '30'),
 ('Defs_Cdr', '30'),
@@ -134,8 +126,6 @@ PRIMARY KEY  (`messageid`)
 ('forum_url', 'http://board.xnova-ng.org/'),
 ('OverviewNewsFrame', '1'),
 ('OverviewNewsText', 'Vous avez correctement mis votre serveur UGamela sous XNova!'),
-('OverviewExternChat', '0'),
-('OverviewExternChatCmd', ''),
 ('OverviewBanner', '0'),
 ('OverviewClickBanner', ''),
 ('ExtCopyFrame', '0'),

@@ -40,7 +40,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse              = $lang;
 		$parse['flt_table'] = BuildFlyingFleetTable ();
 
-		$page               = parsetemplate( $PageTPL, $parse );
+		$page               = $MustacheEngine->render( $PageTPL, $parse );
 		display ( $page, $lang['flt_title'], false, true);
 
 	} else {

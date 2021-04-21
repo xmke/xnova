@@ -5,7 +5,7 @@
 <table width="305">
 <tbody>
 <tr>
-	<td class="c" colspan="6">DECLARATION DE MULTICOMPTE</td>
+	<td class="c" colspan="2">DECLARATION DE MULTICOMPTE</td>
 </tr><tr>
 	<th>Premier joueur implique</th>
 	<th><input name="dec1" type="text" value="" /></th>

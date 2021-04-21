@@ -71,7 +71,7 @@ switch ($mode) {
             $parse['galaxy_planet'] = $planetrow['planet'];
             $parse['planet_name'] = $planetrow['name'];
 
-            $page .= parsetemplate(gettemplate('overview_deleteplanet'), $parse);
+            $page .= $MustacheEngine->render(gettemplate('overview_deleteplanet'), $parse);
             // On affiche la forme pour l'abandon de la colonie
             display($page, $lang['rename_and_abandon_planet']);
         } elseif ($_POST['kolonieloeschen'] == 1 && $_POST['deleteid'] == $user['current_planet']) {
@@ -114,7 +114,7 @@ switch ($mode) {
         $parse['galaxy_planet'] = $planetrow['planet'];
         $parse['planet_name'] = $planetrow['name'];
 
-        $page .= parsetemplate(gettemplate('overview_renameplanet'), $parse);
+        $page .= $MustacheEngine->render(gettemplate('overview_renameplanet'), $parse);
         // On affiche la page permettant d'abandonner OU de renomme une Colonie / Planete
         display($page, $lang['rename_and_abandon_planet']);
         break;
@@ -215,7 +215,6 @@ switch ($mode) {
                             $Label = "oft";
                             if ($StayTime > time()) {
                                 $fpage[$StayTime] = BuildFleetEventTable ($FleetRow, 1, false, $Label, $Record);
-                                echo "<br />call buildfleeteventtable5 - ".$Record." ";
                             }
                         }
                     }
@@ -316,18 +315,12 @@ switch ($mode) {
             $parse = $lang;
             // -----------------------------------------------------------------------------------------------
             // News Frame ...
-            // External Chat Frame ...
             // Banner ADS Google (meme si je suis contre cela)
             $parse["OverviewNewsFrame_Enabled"] = $game_config['OverviewNewsFrame'] == '1';
             if($parse["OverviewNewsFrame_Enabled"]){
                 $parse["OverviewNewsFrame"] = stripslashes($game_config['OverviewNewsText']);
             }else{
                 $parse["OverviewNewsFrame"] = "";
-            }
-            if ($game_config['OverviewExternChat'] == '1') {
-                $parse['ExternalTchatFrame'] = "<tr><th colspan=\"4\">" . stripslashes($game_config['OverviewExternChatCmd']) . "</th></tr>";
-            }else{
-                $parse['ExternalTchatFrame'] = "";
             }
             if ($game_config['OverviewClickBanner'] != '') {
                 $parse['ClickBanner'] = stripslashes($game_config['OverviewClickBanner']);

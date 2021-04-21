@@ -100,11 +100,13 @@ class Legacies_Empire_Shipyard
         $escapedQueue = mysqli_real_escape_string (Database::$dbHandle, $this->_currentPlanet['b_hangar_id']);
 $sql .=<<<SQL_EOF
   b_hangar_id = "{$escapedQueue}",
-  b_hangar    = "{$this->_now()}"
+  b_hangar    = "{$this->_now()}",
+  last_update    = "{$this->_currentPlanet['last_update']}" 
   WHERE planet.id={$this->_currentPlanet['id']}
+  /*save*/
 SQL_EOF;
         doquery($sql, 'planets'); // FIXME
-
+        //die($this->_currentPlanet['energy_max'] + $this->_currentPlanet["energy_used"]);
         return $this->_currentPlanet;
     }
 

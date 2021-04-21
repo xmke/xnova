@@ -48,7 +48,7 @@ define('SPY_REPORT_ROW'           , 2);
 define('FIELDS_BY_MOONBASIS_LEVEL', 4);
 
 // Nombre maximum de colonie par joueur
-define('MAX_PLAYER_PLANETS'       , 9);
+define('MAX_PLAYER_PLANETS'       , 9000);
 // Nombre maximum d'element dans la liste de construction de batiments
 
 define('MAX_BUILDING_QUEUE_SIZE'  , 5);

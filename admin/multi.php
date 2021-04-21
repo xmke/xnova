@@ -45,17 +45,17 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$RowsTPL = gettemplate('admin/multi_rows');
 		$PageTPL = gettemplate('admin/multi_body');
 
-		while ($infos = mysql_fetch_assoc($query)) {
+		while ($infos = mysqli_fetch_assoc($query)) {
 			$Bloc['player'] = $infos['player'];
 			$Bloc['text']   = $infos['text'];
 
-			$parse['adm_mt_table'] .= parsetemplate( $RowsTPL, $Bloc );
+			$parse['adm_mt_table'] .= $MustacheEngine->render( $RowsTPL, $Bloc );
 			$i++;
 		}
 
 		$parse['adm_mt_count'] = $i;
 
-		$page = parsetemplate( $PageTPL, $parse );
+		$page = $MustacheEngine->render( $PageTPL, $parse );
 		display( $page, $lang['adm_mt_title'], false, true);
 
 	} else {

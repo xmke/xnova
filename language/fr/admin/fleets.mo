@@ -31,11 +31,11 @@
 $lang['flt_id']       = "ID";
 $lang['flt_fleet']    = "Flotte";
 $lang['flt_mission']  = "Mission";
-$lang['flt_owner']    = "D&eacute;part";
-$lang['flt_planet']   = "Plan&egrave;te";
-$lang['flt_time_st']  = "H. d&eacute;part";
-$lang['flt_e_owner']  = "Arriv&eacute;e";
-$lang['flt_time_en']  = "H. arriv&eacute;e";
+$lang['flt_owner']    = "Départ";
+$lang['flt_planet']   = "Planète";
+$lang['flt_time_st']  = "H. départ";
+$lang['flt_e_owner']  = "Arrivée";
+$lang['flt_time_en']  = "H. arrivée";
 $lang['flt_staying']  = "Stat.";
 $lang['flt_action']   = "Action";
 $lang['flt_title']    = "Flottes en vol";

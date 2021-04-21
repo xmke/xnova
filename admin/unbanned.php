@@ -38,7 +38,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse['dpath'] = $dpath;
 		$parse = $lang;
 
-		$mode = $_GET['mode'];
+		$mode = isset($_GET['mode']) ? $_GET['mode'] : "";
 
 		if ($mode != 'change') {
 			$parse['Name'] = "Nom du joueur";
@@ -49,7 +49,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			message("Le joueur {$nam} a bien &eacute;t&eacute; d&eacute;banni!", 'Information');
 		}
 
-		display(parsetemplate(gettemplate('admin/unbanned'), $parse), "Overview", false, true);
+		display($MustacheEngine->render(gettemplate('admin/unbanned'), $parse), "Overview", false, true);
 	} else {
 		message( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}

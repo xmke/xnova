@@ -45,8 +45,8 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
         $DelDat     = ( !empty($_POST['deldat']) ) ? true : false;
         $CurrPage   = ( !empty($_POST['curr'])   ) ? $_POST['curr'] : 1;
         $Selected   = ( !empty($_POST['sele'])   ) ? $_POST['sele'] : 0;
-        $SelType    = $_POST['type'];
-        $SelPage    = $_POST['page'];
+        $SelType    = isset($_POST['type']) ? $_POST['type'] : "";
+        $SelPage    = isset($_POST['page']) ? $_POST['page'] : "";
 
         $ViewPage = 1;
         if ( $Selected != $SelType ) {
@@ -123,7 +123,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$StartRec           = 1 + (($ViewPage - 1) * 25);
 		$Messages           = doquery("SELECT * FROM {{table}} WHERE `message_type` = '". $Selected ."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;", 'messages');
-		while ($row = mysql_fetch_assoc($Messages)) {
+		while ($row = mysqli_fetch_assoc($Messages)) {
 			$OwnerData = doquery ("SELECT `username` FROM {{table}} WHERE `id` = '". $row['message_owner'] ."';", 'users',true);
 			$bloc['mlst_id']      = $row['message_id'];
 			$bloc['mlst_from']    = $row['message_from'];
@@ -131,10 +131,10 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$bloc['mlst_text']    = $row['message_text'];
 			$bloc['mlst_time']    = gmdate ( "d. M Y H:i:s", $row['message_time'] );
 
-			$parse['mlst_data_rows'] .= parsetemplate($RowsTpl , $bloc);
+			$parse['mlst_data_rows'] .= $MustacheEngine->render($RowsTpl , $bloc);
 		}
 
-		$display            = parsetemplate($BodyTpl , $parse);
+		$display            = $MustacheEngine->render($BodyTpl , $parse);
 
 		if (isset($_POST['delit'])) {
 			doquery ("DELETE FROM {{table}} WHERE `message_id` = '". $_POST['delit'] ."';", 'messages');

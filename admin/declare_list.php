@@ -35,10 +35,10 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
     if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR))) {
 		includeLang('admin/interface');
-		if ($_GET['cmd'] == 'dele') {
+		if (isset($_GET['cmd']) && $_GET['cmd'] == 'dele' && isset($_GET['user'])) {
 			DeleteSelectedUser ( $_GET['user'] );
 		}
-		if ($_GET['cmd'] == 'sort') {
+		if (isset($_GET['cmd']) && $_GET['cmd'] == 'sort' && isset($_GET['type'])) {
 			$TypeSort = $_GET['type'];
 		} else {
 			$TypeSort = "id";
@@ -53,7 +53,8 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse['adm_ul_table'] = "";
 		$i                     = 0;
 		$Color                 = "lime";
-		while ($u = mysql_fetch_assoc ($query) ) {
+		$PrevIP = "";
+		while ($u = mysqli_fetch_assoc ($query) ) {
 			if ($PrevIP != "") {
 				if ($PrevIP == $u['declarator']) {
 					$Color = "red";
@@ -69,12 +70,12 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$Bloc['adm_ul_data_regd']   = stripslashes($u['reason']);
 
 
-			$parse['adm_ul_table']     .= parsetemplate( $RowsTPL, $Bloc );
+			$parse['adm_ul_table']     .= $MustacheEngine->render( $RowsTPL, $Bloc );
 			$i++;
 		}
 		$parse['adm_ul_count'] = $i;
 
-		$page = parsetemplate( $PageTPL, $parse );
+		$page = $MustacheEngine->render( $PageTPL, $parse );
 		display( $page, "Liste des joueurs ayant declare une IP collective", false, true);
 	} else {
 		message( $lang['sys_noalloaw'], $lang['sys_noaccess'] );

@@ -60,7 +60,7 @@ if($_POST["s"] == 1 || $_POST["s"] == 2){//Edicion y agregar notas
 		$id = intval($_POST["n"]);
 		$note_query = doquery("SELECT * FROM {{table}} WHERE id=$id AND owner=".$user["id"],"notes");
 
-		if(!$note_query){ error($lang['notpossiblethisway'],$lang['Notes']); }
+		if(!$note_query){ message($lang['notpossiblethisway'],$lang['Notes']); }
 
 		doquery("UPDATE {{table}} SET time=$time, priority=$priority, title='$title', text='$text' WHERE id=$id","notes");
 		message($lang['NoteUpdated'], $lang['Please_Wait'], 'notes.'.PHPEXT, "3");
@@ -108,7 +108,7 @@ elseif($_POST){//Borrar
 		$parse['title'] = '';
 		$parse['inputs'] = '<input type=hidden name=s value=1>';
 
-		$page .= parsetemplate(gettemplate('notes_form'), $parse);
+		$page .= $MustacheEngine->render(gettemplate('notes_form'), $parse);
 
 		display($page,$lang['Notes'],false);
 
@@ -135,7 +135,7 @@ elseif($_POST){//Borrar
 		$parse['TITLE'] = $lang['Editnote'];
 		$parse['inputs'] = '<input type=hidden name=s value=2><input type=hidden name=n value='.$note['id'].'>';
 
-		$page .= parsetemplate(gettemplate('notes_form'), $parse);
+		$page .= $MustacheEngine->render(gettemplate('notes_form'), $parse);
 
 		display($page,$lang['Notes'],false);
 
@@ -159,7 +159,7 @@ elseif($_POST){//Borrar
 			$parse['NOTE_TITLE'] = $note['title'];
 			$parse['NOTE_TEXT'] = strlen($note['text']);
 
-			$list .= parsetemplate(gettemplate('notes_body_entry'), $parse);
+			$list .= $MustacheEngine->render(gettemplate('notes_body_entry'), $parse);
 
 		}
 
@@ -170,7 +170,7 @@ elseif($_POST){//Borrar
 		$parse = $lang;
 		$parse['BODY_LIST'] = $list;
 		//fragmento de template
-		$page .= parsetemplate(gettemplate('notes_body'), $parse);
+		$page .= $MustacheEngine->render(gettemplate('notes_body'), $parse);
 
 		display($page,$lang['Notes'],false);
 	}

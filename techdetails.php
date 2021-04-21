@@ -32,14 +32,54 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
+$testID = 216;
+
+$reqarray = array();
+
+function buildRequirementsTree($tree, $depth = 0)
+{
+    global $requirements, $lang;
+    foreach ($tree as $key => $value) {
+        yield ['depth' => $depth, 'name' => $key, 'qty' => $value, 'label' => $lang['tech'][$key]];
+        if (isset($requirements[$key]) && is_array($requirements[$key])) {
+            yield from buildRequirementsTree($requirements[$key], $depth + 1);
+        }
+    }
+}
+
+    
+
+
+
 
 $Id                  = $_GET['techid'];
+$a = buildRequirementsTree($requirements[$Id]);
+
+
+$requirementsRaw = "";
+foreach($a as $node) {
+    for($i = 0; $i < $node['depth']; $i++){
+        $requirementsRaw .= "&nbsp;&nbsp;&nbsp;&nbsp;";
+    }
+    $rawText = $node['label'] ." (". $lang['level'] ." ". $node['qty'] .")";
+    $dbName = $resource[$node['name']];
+    
+    if((isset($user[$dbName]) && $user[$dbName] >= $node['qty']) || (isset($planetrow[$dbName]) && $planetrow[$dbName] >= $node['qty'])){
+        $requirementsRaw .= colorGreen($rawText);
+    }else{
+        $requirementsRaw .= colorRed($rawText);
+    }
+    $requirementsRaw .= "<br />";
+}
+       
+
 $PageTPL             = gettemplate('techtree_details');
 $RowsTPL             = gettemplate('techtree_details_rows');
 
 $parse               = $lang;
 $parse['te_dt_id']   = $Id;
 $parse['te_dt_name'] = $lang['tech'][$Id];
+$parse['te_req_tree'] = $requirementsRaw;
 $Liste = "";
 
 if ($Id == 12) {
@@ -50,7 +90,7 @@ if ($Id == 12) {
 }
 
 $parse['Liste'] = $Liste;
-$page = parsetemplate($PageTPL, $parse);
+$page = $MustacheEngine->render($PageTPL, $parse);
 
 display ($page, $lang['Tech'], false, '', false);
 

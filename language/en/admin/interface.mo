@@ -123,7 +123,6 @@ $lang['adm_rz_conf']  = "Confirmation";
 $lang['adm_rz_text']  = "By pressing Accept, you reset your universe. Only the accounts are not deleted. This operation can not be canceled later, it is advisable to have a backup of your database!";
 $lang['adm_rz_doit']  = "Accept";
 
-$lang['adm_ch_ttle']  = "Adminstrator Chat";
 $lang['adm_ch_list']  = "Message List";
 $lang['adm_ch_clear'] = "empty";
 $lang['adm_ch_msg']   = "Message";

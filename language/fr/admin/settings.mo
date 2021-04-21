@@ -45,7 +45,6 @@ $lang['adm_opt_game_debugmod'] = "Mode debugage";
 $lang['adm_opt_game_oth_info'] = "Autres infos";
 $lang['adm_opt_game_oth_bann'] = "Afficher cadre des banni&egrave;res-profil";
 $lang['adm_opt_game_oth_news'] = "Afficher cadre de News";
-$lang['adm_opt_game_oth_chat'] = "Afficher Chat externe";
 $lang['adm_opt_game_oth_adds'] = "ADS GOOGLE";
 $lang['adm_opt_game_oth_lstc'] = "Derni&egrave;re coordonn&eacute;es de plan&egrave;te m&egrave;re";
 $lang['adm_opt_game_oth_gala'] = "Galaxie";

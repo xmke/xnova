@@ -45,7 +45,6 @@ $lang['adm_opt_game_debugmod'] = "Modalit&agrave; debug";
 $lang['adm_opt_game_oth_info'] = "Altre informazioni";
 $lang['adm_opt_game_oth_bann'] = "profilo contesto banner";
 $lang['adm_opt_game_oth_news'] = "Visualizza news";
-$lang['adm_opt_game_oth_chat'] = "Visualizza chat";
 $lang['adm_opt_game_oth_adds'] = "ADS Google";
 $lang['adm_opt_game_oth_lstc'] = "Ultime coordinate del pianeta madre";
 $lang['adm_opt_game_oth_gala'] = "Galassia";

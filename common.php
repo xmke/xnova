@@ -33,6 +33,7 @@ function getmicrotime(){
 }
 $StartPageGeneration = getmicrotime();
 $SqlQueries = 0;
+
 session_start();
 
 if (in_array(strtolower(getenv('DEBUG')), array('1', 'on', 'true'))) {

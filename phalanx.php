@@ -81,7 +81,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 			$FleetToTarget  = doquery( $QryLookFleets, 'fleets' );
 
-			if (mysql_num_rows($FleetToTarget) <> 0 ) {
+			if (mysqli_num_rows($FleetToTarget) <> 0 ) {
 				while ($FleetRow = mysqli_fetch_array($FleetToTarget)) {
 					$Record++;
 
@@ -133,7 +133,7 @@ require_once dirname(__FILE__) .'/common.php';
 		}
 
 		$parse['phl_fleets_table'] = $Fleets;
-		$page = parsetemplate( $PageTPL, $parse );
+		$page = $MustacheEngine->render( $PageTPL, $parse );
 	}
 
 	display ($page, $lang['sys_phalanx'], false, '', false);

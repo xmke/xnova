@@ -32,14 +32,14 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-function ModuleMarchand ( $CurrentUser, &$CurrentPlanet ) {
-	global $lang, $_POST;
+function ModuleMarchand ( &$CurrentPlanet ) {
+	global $lang, $_POST, $MustacheEngine;
 
 	includeLang('marchand');
 
 	$parse   = $lang;
 
-	if ($_POST['ress'] != '') {
+	if (isset($_POST['ress']) && $_POST['ress'] != '') {
 		$PageTPL   = gettemplate('message_body');
 		$Error     = false;
 		$CheatTry  = false;
@@ -118,7 +118,7 @@ function ModuleMarchand ( $CurrentUser, &$CurrentPlanet ) {
 		}
 		$parse['mes']   = $Message;
 	} else {
-		if ($_POST['action'] != 2) {
+		if (!isset($_POST['action'])) {
 			$PageTPL = gettemplate('marchand_main');
 		} else {
 			$parse['mod_ma_res']   = "1";
@@ -142,11 +142,11 @@ function ModuleMarchand ( $CurrentUser, &$CurrentPlanet ) {
 		}
 	}
 
-	$Page    = parsetemplate ( $PageTPL, $parse );
+	$Page    = $MustacheEngine->render ( $PageTPL, $parse );
 	return  $Page;
 }
 
-	$Page = ModuleMarchand ( $user, $planetrow );
+	$Page = ModuleMarchand ( $planetrow );
 	display ( $Page, $lang['mod_marchand'], true, '', false );
 
 // -----------------------------------------------------------------------------------------------------------

@@ -111,5 +111,5 @@ EOF;
 }
 
 $parse = $lang;
-$page = parsetemplate(gettemplate('lostpassword'), $parse);
+$page = $MustacheEngine->render(gettemplate('lostpassword'), $parse);
 display($page, $lang['registry']);

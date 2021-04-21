@@ -15,14 +15,7 @@
 	<td class="c" >{{flt_staying}}</td>
 	<td class="c" >{{flt_time_en}}</td>
 	<td class="c" >{{flt_action}}</td>
-</tr><tr>
-	<th colspan="11" class="l">
-	<table width="100%">
-	<tbody>
-	{{flt_table}}
-	</tbody>
-	</table>
-	</th>
+</tr>{{{flt_table}}}
 </tr>
 </tbody>
 </table>

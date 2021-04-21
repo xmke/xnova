@@ -3,4 +3,4 @@
 <input type="text" name="name" />
 <input type="submit" value="{{Delet}}" />
 </form>
-</center>
+</center> 

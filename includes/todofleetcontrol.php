@@ -96,7 +96,6 @@ include(ROOT_PATH . 'includes/functions/ShowTopNavigationBar.'.PHPEXT);
 include(ROOT_PATH . 'includes/functions/SetSelectedPlanet.'.PHPEXT);
 include(ROOT_PATH . 'includes/functions/MessageForm.'.PHPEXT);
 include(ROOT_PATH . 'includes/functions/PlanetResourceUpdate.'.PHPEXT);
-include(ROOT_PATH . 'includes/functions/BuildFlyingFleetTable.'.PHPEXT);
 include(ROOT_PATH . 'includes/functions/SendNewPassword.'.PHPEXT);
 include(ROOT_PATH . 'includes/functions/UpdatePlanetBatimentQueueList.'.PHPEXT);
 include(ROOT_PATH . 'includes/functions/IsOfficierAccessible.'.PHPEXT);
@@ -107,4 +106,9 @@ include(ROOT_PATH . 'includes/functions/SortUserPlanets.'.PHPEXT);
 include(ROOT_PATH . 'includes/functions/BuildFleetEventTable.'.PHPEXT);
 include(ROOT_PATH . 'includes/functions/ResetThisFuckingCheater.'.PHPEXT);
 include(ROOT_PATH . 'includes/functions/IsVacationMode.'.PHPEXT);
+
+//Only if authlevel > player level 
+if(defined('IN_ADMIN') && IN_ADMIN == true){
+    include(ROOT_PATH . 'includes/functions/BuildFlyingFleetTable.'.PHPEXT);
+}
 

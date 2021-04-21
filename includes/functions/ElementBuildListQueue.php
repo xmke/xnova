@@ -42,7 +42,7 @@ change `b_building_queue` `b_building_queue` text NULL COLLATE latin1_general_ci
 change `unbau` `unbau` varchar (100) NULL COLLATE latin1_general_ci;
 
 */
-//	global $lang, $pricelist;
+//	global $lang, $pricelist, $MustacheEngine;
 //
 //	// Array del b_hangar_id
 //	$b_building_id = explode(';', $CurrentPlanet['b_building_queue']);
@@ -68,7 +68,7 @@ change `unbau` `unbau` varchar (100) NULL COLLATE latin1_general_ci;
 //
 //	$parse['pretty_time_b_hangar'] = pretty_time($totaltime - $CurrentPlanet['b_hangar']); // //$CurrentPlanet['last_update']
 //
-//	$text .= parsetemplate(gettemplate('buildings_script'), $parse);
+//	$text .= $MustacheEngine->render(gettemplate('buildings_script'), $parse);
 //
 //	return $text;
 }

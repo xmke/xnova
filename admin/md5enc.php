@@ -38,7 +38,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$parse   = $lang;
 
-		if ($_POST['md5q'] != "") {
+		if (isset($_POST['md5q']) && $_POST['md5q'] != "") {
 			$parse['md5_md5'] = $_POST['md5q'];
 			$parse['md5_enc'] = md5 ($_POST['md5q']);
 		} else {
@@ -47,7 +47,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		}
 
 		$PageTpl = gettemplate("admin/md5enc");
-		$Page    = parsetemplate( $PageTpl, $parse);
+		$Page    = $MustacheEngine->render( $PageTpl, $parse);
 
 		display( $Page, $lang['md5_title'], false, true );
 	} else {
