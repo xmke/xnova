@@ -133,11 +133,6 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
         $errors++;
     }
 
-    if ($_POST['sex'] != '' && $_POST['sex'] != 'F' && $_POST['sex'] != 'M') {
-        $errorlist .= $lang['error_sex'];
-        $errors++;
-    }
-
     if ($errors != 0) {
         message ($errorlist, $lang['Register']);
     } else {
@@ -152,7 +147,6 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
         $QryInsertUser .= "`username` = '" . mysqli_real_escape_string(Database::$dbHandle, strip_tags($UserName)) . "', ";
         $QryInsertUser .= "`email` = '" . mysqli_real_escape_string(Database::$dbHandle, $UserEmail) . "', ";
         $QryInsertUser .= "`email_2` = '" . mysqli_real_escape_string(Database::$dbHandle, $UserEmail) . "', ";
-        $QryInsertUser .= "`sex` = '" . mysqli_real_escape_string(Database::$dbHandle, $_POST['sex']) . "', ";
 		$QryInsertUser .= "`ip_at_reg` = '" . $_SERVER["REMOTE_ADDR"] . "', ";
         $QryInsertUser .= "`id_planet` = '0', ";
         $QryInsertUser .= "`register_time` = '" . time() . "', ";

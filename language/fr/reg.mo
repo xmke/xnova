@@ -44,7 +44,6 @@ $lang['Multiverse']        = 'XNova';
 $lang['E-Mail']            = 'Adresse e-Mail';
 $lang['MainPlanet']        = 'Nom de votre planète mère';
 $lang['GameName']          = 'Pseudo';
-$lang['Sex']               = 'Sexe';
 $lang['accept']            = 'J\'accèpte le règlement';
 $lang['signup']            = ' S\'enregistrer ';
 $lang['neededpass']        = 'Mot de passe';
@@ -70,7 +69,6 @@ $lang['error_password']    = 'Le mot de passe doit faire 4 caracteres au minimum
 $lang['error_rgt']         = 'Vous devez accepter les conditions d\'utilisation.<<br />';
 $lang['error_userexist']   = 'Ce nom de joueur existe déjà !<br />';
 $lang['error_emailexist']  = 'Cet e-mail est déjà utilisé !<br />';
-$lang['error_sex']         = 'Erreur dans le sexe !<br />';
 $lang['error_mailsend']    = 'Une erreur s\'est produite lors de l\'envoi du courriel! Votre mot de passe est : ';
 $lang['reg_welldone']      = 'Inscription terminée !';
 

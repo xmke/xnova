@@ -27,14 +27,6 @@
      if (event.keyCode==60 || event.keyCode==62) event.returnValue = false;
      if (event.which==60 || event.which==62) return false;"></td>
   </tr>
-  <tr>
-    <td>{{ins_acc_sex}}:</td>
-    <td><select name="adm_sex">
-	<option value="">{{ins_acc_sex0}}</option>
-	<option value="M">{{ins_acc_sex1}}</option>
-	<option value="F">{{ins_acc_sex2}}</option>
-	</select></td>
-  </tr>
 </table>
 <br>
 </th>

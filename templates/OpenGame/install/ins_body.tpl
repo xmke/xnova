@@ -23,6 +23,6 @@
     </table></th>
     </tr>
 <form action="{{dis_ins_btn}}" method="post">
-{{ins_page}}
+{{{ins_page}}}
 </form>
 </table>

@@ -2,3 +2,4 @@
 queries.sql.txt
 *.cache
 regmass.php
+config.php

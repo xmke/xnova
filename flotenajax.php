@@ -30,6 +30,7 @@
 
 define('INSIDE' , true);
 define('INSTALL' , false);
+define('IS_AJAX_SCRIPT', true);
 require_once dirname(__FILE__) .'/common.php';
 
 	includeLang('galaxy');
@@ -44,10 +45,11 @@ require_once dirname(__FILE__) .'/common.php';
 	$speedalls      = array();
 	$PartialFleet   = false; // 610
 	$PartialCount   = 0;
-
+	$fleet['fleetlist'] = "";
+	$fleet['amount'] = 0;
 	foreach ($reslist['fleet'] as $Node => $ShipID) {
 		$TName = "ship".$ShipID;
-		if ($ShipID > 200 && $ShipID < 300 && $_POST[$TName] > 0) {
+		if ($ShipID > 200 && $ShipID < 300 && isset($_POST[$TName]) && $_POST[$TName] > 0) {
 			if ($_POST[$TName] > $planetrow[$resource[$ShipID]]) {
 				$fleet['fleetarray'][$ShipID]   = $planetrow[$resource[$ShipID]];
 				$fleet['fleetlist']            .= $ShipID .",". $planetrow[$resource[$ShipID]] .";";

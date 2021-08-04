@@ -70,7 +70,6 @@ $lang['opt_adm_planet_prot'] = "Protezione dei pianeti";
 $lang['thanksforregistry'] = "Grazie per esservi registrati.<br />Riceverete un'email con la vostra password a breve.";
 $lang['general_settings'] = "Impostazioni generali";
 $lang['skins_example'] = "Skin (p.e. /css/)";
-$lang['avatar_example'] = "Avatar (p.e. /img/avatar.jpg)";
 $lang['untoggleip'] = "Disattiva controllo IP";
 $lang['untoggleip_tip'] = "Il controllo Ip consiste in una misura di sicurezza che effettuer&agrave; un logout di sicurezza nel caso di un cambio IP o quando due utenti si collegano con uno stesso IP. Attivare il controllo IP &egrave; una misura di sicurezza che permette di evitare il ban per multiaccount!";
 

@@ -297,11 +297,9 @@
 	$QryTablePlanets    .= "`b_tech_id` int(11) NOT NULL default '0', ";
 	$QryTablePlanets    .= "`b_hangar` int(11) NOT NULL default '0', ";
 	$QryTablePlanets    .= "`b_hangar_id` text character set latin1, ";
-	$QryTablePlanets    .= "`b_hangar_plus` int(11) NOT NULL default '0', ";
 	$QryTablePlanets    .= "`image` varchar(32) character set latin1 NOT NULL default 'normaltempplanet01', ";
 	$QryTablePlanets    .= "`diameter` int(11) NOT NULL default '12800', ";
 	$QryTablePlanets    .= "`points` bigint(20) default '0', ";
-	$QryTablePlanets    .= "`ranks` bigint(20) default '0', ";
 	$QryTablePlanets    .= "`field_current` int(11) NOT NULL default '0', ";
 	$QryTablePlanets    .= "`field_max` int(11) NOT NULL default '163', ";
 	$QryTablePlanets    .= "`temp_min` int(3) NOT NULL default '-17', ";
@@ -428,9 +426,6 @@
 	$QryTableUsers      .= "`email_2` varchar(64) character set latin1 NOT NULL default '', ";
 	$QryTableUsers      .= "`lang` varchar(8) character set latin1 NOT NULL default 'fr', ";
 	$QryTableUsers      .= "`authlevel` tinyint(4) NOT NULL default '0', ";
-	$QryTableUsers      .= "`sex` char(1) character set latin1 default NULL, ";
-	$QryTableUsers      .= "`avatar` varchar(255) character set latin1 NOT NULL default '', ";
-	$QryTableUsers      .= "`sign` text character set latin1, ";
 	$QryTableUsers      .= "`id_planet` int(11) NOT NULL default '0', ";
 	$QryTableUsers      .= "`galaxy` int(11) NOT NULL default '0', ";
 	$QryTableUsers      .= "`system` int(11) NOT NULL default '0', ";

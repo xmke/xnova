@@ -70,7 +70,6 @@ $lang['opt_adm_planet_prot'] = "Protection des planètes";
 $lang['thanksforregistry'] = "Merci de votre inscription.<br />Vous recevrez dans un moment, un e-mail avec votre mot de passe.";
 $lang['general_settings'] = "Réglage général";
 $lang['skins_example'] = "Skins (p.e. /css/)";
-$lang['avatar_example'] = "Avatar (p.e. /img/avatar.jpg)";
 $lang['untoggleip'] = "Désactiver la vérification d'IP";
 $lang['untoggleip_tip'] = "La vérification d'IP signifie qu'on effectuera un logout de sécurité automatiquement quand il y aura un changement  d'IP ou quand 2 personnes entreront sur le même compte en utilisant différentes IPs. Activer la vérification d'IP peut être un atout de sécurité !";
 

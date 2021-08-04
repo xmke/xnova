@@ -1,3 +1,7 @@
+<script type="text/javascript">
+
+</script>
+
 <div style="top: 10px;" id="content">
 
 <body>
@@ -53,19 +57,46 @@
 	  <td class="c">{{Actions}}</td>
 	</tr>
     {{#ViewData}}
-    <!-- coucou -->
         {{#existant}}
         <tr>
             <th width="30">{{planet}}</th>
             <th width="30"><img src="skins/epicblue/planeten/small/s_{{image}}.jpg" height="30" width="30" /></th>
             <th style="white-space: nowrap;" width="130">{{name}}</th>
             {{#hasMoon}}
-            <th style="white-space: nowrap;" width=30>
+            <th style="white-space: nowrap;" width="30">
               <a style="cursor: pointer;" 
-                 onmouseover='return overlib("<table width=240><tr><td class=c colspan=2>*Lune:* {{moon_name}} [{{ViewGalaxy}}:{{ViewSystem}}:{{planet}}]</td></tr><tr><th width=80><img src=skins/epicblue/planeten/mond.jpg height=75 width=75 /></th><th><table><tr><td class=c colspan=2>*Caractéristiques*</td></tr><tr><th>*Diamètre*</th><th>{{moon_diameter}}</th></tr><tr><th>*Températures*</th><th>{{moon_temp_min}}/{{moon_temp_max}}</th></tr><tr><td class=c colspan=2>*Actions*</td></tr><tr><th colspan=2 align=center><a href=fleet.php?galaxy=1&system=1&planet=1&planettype=3&target_mission=3>*Transporter*</a><br /><a href=fleet.php?galaxy=1&system=1&planet=1&planettype=3&target_mission=4>*Stationner*</a><br /></tr></table></th></tr></table>",
-                 STICKY, MOUSEOFF, DELAY, 750, CENTER, OFFSETX, -40, OFFSETY, -40 );' 
-                 onmouseout='return nd();'>
-                  <img src=skins/epicblue/planeten/small/s_mond.jpg height=22 width=22>
+                 onmouseover="return overlib('\
+                 <table width=&quot;240&quot;>\
+                  <tr>\
+                    <td class=&quot;c&quot; colspan=&quot;2&quot;>{{Moon}} {{moon_name}} [{{ViewGalaxy}}:{{ViewSystem}}:{{planet}}]</td>\
+                  </tr><tr>\
+                    <th width=&quot;80&quot;>\
+                      <img src=&quot;skins/epicblue/planeten/mond.jpg&quot; height=&quot;75&quot; width=&quot;75&quot; />\
+                    </th><th>\
+                      <table>\
+                        <tr>\
+                          <td class=&quot;c&quot; colspan=&quot;2&quot;>{{caracters}}</td>\
+                        </tr><tr>\
+                          <th>{{diameter}}</th>\
+                          <th>{{moon_diameter}}</th>\
+                        </tr><tr>\
+                          <th>{{temperature}}</th>\
+                          <th>{{moon_temp_min}}/{{moon_temp_max}}</th>\
+                        </tr><tr>\
+                          <td class=&quot;c&quot; colspan=&quot;2&quot;>{{Actions}}</td>\
+                        </tr><tr>\
+                          <th colspan=&quot;2&quot; align=&quot;center&quot;>\
+                            <a href=&quot;fleet.php?galaxy=[{{ViewGalaxy}}&system={{ViewSystem}}&planet={{planet}}&planettype=3&target_mission=3&quot;>{{mission_transport}}</a><br />\
+                            <a href=&quot;fleet.php?galaxy=[{{ViewGalaxy}}&system={{ViewSystem}}&planet={{planet}}&planettype=3&target_mission=4&quot;>{{mission_station}}</a><br />\
+                          </th>\
+                        </tr>\
+                      </table>\
+                    </th>\
+                    </tr>\
+                    </table>',
+                 STICKY, MOUSEOFF, DELAY, 750, CENTER, OFFSETX, -40, OFFSETY, -40 );" 
+                 onmouseout="return nd();">
+                  <img src="skins/epicblue/planeten/small/s_mond.jpg" height="22" width="22" />
                 </a>
             </th>
 
@@ -88,7 +119,32 @@
             {{/hasDebrisField}}
             <th width="150">{{username}}</th>
             <th width="80">{{ally_tag}}</th>
-            <th style="white-space: nowrap;" width="125">*</th>
+            {{#isMySelf}}
+            
+
+            <th style="white-space: nowrap;" width="30">
+              <a href="overview.php?cp={{id}}&re=0">
+              <img src="images/r6.png" alt="Vue générale de {{name}}" title="Vue générale de {{name}}" />
+              </a>
+            </th>
+            
+            {{/isMySelf}}
+            {{^isMySelf}}
+            <th style="white-space: nowrap;" width=125>
+              <a href="#"
+                 onClick="javascript:doit(6, {{ViewGalaxy}}, {{ViewSystem}}, {{planet}}, 1, 1);" >
+                 <img src="skins/epicblue/img/e.gif" alt="Espionner" title="Espionner" />
+              </a>
+              <a href="messages.php?mode=write&id={{id_owner}}">
+                <img src="skins/epicblue/img/m.gif" alt="Ecrire un message" title="Ecrire un message" />
+              </a>
+              <a href="buddy.php?a=2&u={{id_owner}}">
+                <img src="skins/epicblue/img/b.gif" alt="Demander a être amis" title="Demander a être amis" />
+              </a>
+            </th>
+            {{/isMySelf}}
+
+            
 	    </tr>
         {{/existant}}
         {{^existant}}

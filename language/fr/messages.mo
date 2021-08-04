@@ -42,6 +42,7 @@ $lang['type'][4]    = "Rapport(s) d'exploitation(s)";
 $lang['type'][5]    = "Transport(s) de flotte(s)";
 $lang['type'][15]   = "Rapport(s) d'expédition(s)";
 $lang['type'][99]   = "Rapport(s) Liste de construction";
+$lang['type'][97]   = "Messages du staff";
 $lang['type'][100]  = "Voir tous les Messages";
 
 $lang['mess_pagetitle']      = "Envoyer un message";

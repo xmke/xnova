@@ -40,17 +40,27 @@ $lang['treeinfo']     = "[i]";
 $lang['comingsoon']   = "Bientot";
 $lang['te_dt_tx_pre'] = "Prérequis pour";
 
+$lang['mission_attack']         = "Attaquer";
+$lang['mission_attack_grouped'] = "Attaque groupée";
+$lang['mission_transport']      = "Transporter";
+$lang['mission_station']        = "Stationner";
+$lang['mission_station_ally']   = "Stationner chez un allié";
+$lang['mission_spy']            = "Espionner";
+$lang['mission_colonize']       = "Coloniser";
+$lang['mission_recycle']        = "Recycler";
+$lang['mission_destroy']        = "Détruire";
+$lang['mission_expedition']     = "Expéditions";
 
-$lang['type_mission'][1]  = "Attaquer";
-$lang['type_mission'][2]  = "Attaque groupée";
-$lang['type_mission'][3]  = "Transporter";
-$lang['type_mission'][4]  = "Stationner";
-$lang['type_mission'][5]  = "Stationner chez un allié";
-$lang['type_mission'][6]  = "Espionner";
-$lang['type_mission'][7]  = "Coloniser";
-$lang['type_mission'][8]  = "Recycler";
-$lang['type_mission'][9]  = "Détruire";
-$lang['type_mission'][15] = "Expéditions";
+$lang['type_mission'][1]  = $lang['mission_attack'];
+$lang['type_mission'][2]  = $lang['mission_attack_grouped'];
+$lang['type_mission'][3]  = $lang['mission_transport'];
+$lang['type_mission'][4]  = $lang['mission_station'];
+$lang['type_mission'][5]  = $lang['mission_station_ally'];
+$lang['type_mission'][6]  = $lang['mission_spy'];
+$lang['type_mission'][7]  = $lang['mission_colonize'];
+$lang['type_mission'][8]  = $lang['mission_recycle'];
+$lang['type_mission'][9]  = $lang['mission_destroy'];
+$lang['type_mission'][15] = $lang['mission_expedition'];
 
 // Short names for fight report
 $lang['tech_rc'] = array (

@@ -30,6 +30,7 @@
 
 define('INSIDE' , true);
 define('INSTALL' , false);
+define('NO_TEMPLATE_CACHE', true);
 require_once dirname(__FILE__) .'/common.php';
 
 includeLang('galaxy');
@@ -128,7 +129,6 @@ while ($results = mysqli_fetch_assoc($GalaxyViewRows)){
     $GalaxyPlanetsRows[$results['planet']] = $results;
 }
 
-echo "<!-- Xperimental Galaxy view without Galaxy Table :\r\n";
 $GalaxyViewData = array();
 for($pos = 0; $pos < MAX_PLANET_IN_SYSTEM; $pos++){
     if(isset($GalaxyPlanetsRows[$pos+1])){
@@ -138,7 +138,7 @@ for($pos = 0; $pos < MAX_PLANET_IN_SYSTEM; $pos++){
         $GalaxyViewData[$pos]['hasDebrisField'] = (isset($GalaxyPlanetsRows[$pos+1]['metal_debris']) && $GalaxyPlanetsRows[$pos+1]['metal_debris'] != 0) || (isset($GalaxyPlanetsRows[$pos+1]['cristal_debris']) && $GalaxyPlanetsRows[$pos+1]['cristal_debris'] != 0);
         $GalaxyViewData[$pos]['hasMoon'] = isset($GalaxyPlanetsRows[$pos+1]['moon_id']);
         $GalaxyViewData[$pos]['count'] = "true";
-        echo " - ". $GalaxyPlanetsRows[$pos+1]['name']." [".$Position_Galaxy.":".$Position_System.":".$GalaxyPlanetsRows[$pos+1]['planet']."] \r\n";
+        $GalaxyViewData[$pos]['isMySelf'] = $GalaxyViewData[$pos]['id_owner'] == $user['id'];
     }else{
         $GalaxyViewData[$pos]['existant'] = false;
         $GalaxyViewData[$pos]['planet'] = $pos+1;
@@ -149,14 +149,13 @@ for($pos = 0; $pos < MAX_PLANET_IN_SYSTEM; $pos++){
         $GalaxyViewData[$pos]['system'] = $Position_System;
         $GalaxyViewData[$pos]['hasMoon'] = false;
         $GalaxyViewData[$pos]['hasDebrisField'] = false; //Peut-être utile pour introduire des champs de débris flottants dans l'espace ?
-        echo " - BLANK SPACE AT POSITION " . ($pos +1 )."\r\n";
     }
     $GalaxyViewData[$pos]['position'] = $pos+1;
     
 }
 
 
-echo "-->";
+
 
 $parse = $lang;
 $parse['ExpeditionPosition'] = MAX_PLANET_IN_SYSTEM + 1;
@@ -170,7 +169,7 @@ $parse['ViewGalaxy'] = $Position_Galaxy;
 $parse['ViewSystem'] = $Position_System;
 $parse["ViewData"] = $GalaxyViewData;
 $NumberOfPlanets = array_count_values(array_column($GalaxyViewData, 'count'));
-$NumberOfPlanets = $NumberOfPlanets['true'];
+$NumberOfPlanets = isset($NumberOfPlanets['true']) ? $NumberOfPlanets['true'] : "0";
 $PopulatedPlanetsLabel = $lang['gf_cntmnone'];
 if($NumberOfPlanets == 1){
     $PopulatedPlanetsLabel = $lang['gf_cntmone'];

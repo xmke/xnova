@@ -44,7 +44,6 @@ $lang['Multiverse']        = 'xnova';
 $lang['E-Mail']            = 'Indirizzo email';
 $lang['MainPlanet']        = 'Nome del pianeta madre';
 $lang['GameName']          = 'Nome in gioco';
-$lang['Sex']               = 'Sesso';
 $lang['accept']            = 'Ho letto ed accetto le regole';
 $lang['signup']            = ' Registrati ';
 $lang['neededpass']        = 'Password';
@@ -70,7 +69,6 @@ $lang['error_password']    = 'La password deve essere almeno di 4 caratteri!<br 
 $lang['error_rgt']         = 'Occorre accettare i Termini di utilizzo.<<br />';
 $lang['error_userexist']   = 'Il nome del giocatore esiste gi&agrave;!<br />';
 $lang['error_emailexist']  = 'Questa email &egrave; gi&agrave; utilizzata!<br />';
-$lang['error_sex']         = 'Errore nella sessione!<br />';
 $lang['error_mailsend']    = 'Si &egrave; verificato un errore durante l\'invio dell\'email! La password &egrave; :';
 $lang['return']            = '<a href="http://battlesclub.awardspace.info/reg.php"><FONT color="#45E525">registrazione</a> </FONT>';   
 $lang['reg_welldone']      = 'Registrazione terminata con successo!';    

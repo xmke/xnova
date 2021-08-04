@@ -42,6 +42,7 @@ $lang['type'][4]    = "Operating Report(s)";
 $lang['type'][5]    = "Fleet Transport(s)";
 $lang['type'][15]   = "Expedition Report(s)";
 $lang['type'][99]   = "Contruction Queue Report(s)";
+$lang['type'][97]   = "Staff Message(s)";
 $lang['type'][100]  = "See all message's";
 
 $lang['mess_pagetitle']      = "Send a message";

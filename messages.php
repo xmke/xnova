@@ -51,16 +51,15 @@ if ($DeleteWhat != '') {
 $UsrMess       = doquery("SELECT * FROM {{table}} WHERE `message_owner` = '".strval($user['id'])."' ORDER BY `message_time` DESC", 'messages');
 $UnRead        = doquery("SELECT * FROM {{table}} WHERE `id` = '". strval($user['id']) ."'", 'users', true);
 
-$MessageType   = array (0, 1, 2, 3, 4, 5, 15, 99, 100 );
-$TitleColor    = array (0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 99 => '#007070', 100 => '#ABABAB');
-$BackGndColor  = array (0 => '#663366', 1 => '#336666', 2 => '#000099', 3 => '#666666', 4 => '#999999', 5 => '#999999', 15 => '#999999', 99 => '#999999', 100 => '#999999');
+$MessageType   = array (100, 0, 1, 2, 3, 4, 5, 15, 99, 97 );
+$TitleColor    = array (0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#030070', 99 => '#007070', 100 => '#ABABAB', 97 => '#666666');
+$BackGndColor  = array (0 => '#663366', 1 => '#336666', 2 => '#000099', 3 => '#666666', 4 => '#999999', 5 => '#999999', 15 => '#999999', 99 => '#999999', 100 => '#999999', 97 => '#999999');
 
-for ($MessType = 0; $MessType < 101; $MessType++) {
-	if (in_array($MessType, $MessageType) ) {
-		$WaitingMess[$MessType] = $UnRead[$messfields[$MessType]];
-		$TotalMess[$MessType] = 0;
-	}
+foreach($MessageType as $MessType){
+	$WaitingMess[$MessType] = $UnRead[$messfields[$MessType]];
+	$TotalMess[$MessType] = 0;
 }
+
 
 while ($CurMess = mysqli_fetch_array($UsrMess)) {
 	$MessType              = $CurMess['message_type'];
@@ -76,7 +75,7 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 				message ($lang['mess_no_ownerid'], $lang['mess_error']);
 			}
 
-			$OwnerRecord = doquery("SELECT * FROM {{table}} WHERE `id` = '".strval($OwnerID)."';", 'users', true);
+			$OwnerRecord = doquery("SELECT `username`, `id_planet` FROM {{table}} WHERE `id` = '".intval($OwnerID)."';", 'users', true);
 
 			if (!$OwnerRecord) {
 				message ($lang['mess_no_owner']  , $lang['mess_error']);
@@ -312,19 +311,12 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 			$page .= "	<th>". $lang['head_count'] ."</th>";
 			$page .= "	<th>". $lang['head_total'] ."</th>";
 			$page .= "</tr>";
-			$page .= "<tr>";
-			$page .= "	<th colspan=\"3\"><a href=\"messages.php?mode=show&amp;messcat=100\"><font color=\"". $TitleColor[100] ."\">". $lang['type'][100] ."</a></th>";
-			$page .= "	<th><font color=\"". $TitleColor[100] ."\">". $WaitingMess[100] ."</font></th>";
-			$page .= "	<th><font color=\"". $TitleColor[100] ."\">". $TotalMess[100] ."</font></th>";
-			$page .= "</tr>";
-			for ($MessType = 0; $MessType < 100; $MessType++) {
-				if ( in_array($MessType, $MessageType) ) {
+			foreach($MessageType as $MessType){
 					$page .= "<tr>";
-					$page .= "	<th colspan=\"3\"><a href=\"messages.php?mode=show&amp;messcat=". $MessType ." \"><font color=\"". $TitleColor[$MessType] ."\">". $lang['type'][$MessType] ."</a></th>";
-					$page .= "	<th><font color=\"". $TitleColor[$MessType] ."\">". $WaitingMess[$MessType] ."</font></th>";
-					$page .= "	<th><font color=\"". $TitleColor[$MessType] ."\">". $TotalMess[$MessType] ."</font></th>";
+					$page .= "	<th colspan=\"3\"><a href=\"messages.php?mode=show&amp;messcat=". $MessType ." \"><font color=\"#FFFFFF\">". $lang['type'][$MessType] ."</a></th>";
+					$page .= "	<th><font color=\"#FFFFFF\">". $WaitingMess[$MessType] ."</font></th>";
+					$page .= "	<th><font color=\"#FFFFFF\">". $TotalMess[$MessType] ."</font></th>";
 					$page .= "</tr>";
-				}
 			}
 			$page .= "</table>";
 			$page .= "</center>";

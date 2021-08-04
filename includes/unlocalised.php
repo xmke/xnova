@@ -27,7 +27,7 @@
  * documentation for further information about customizing XNova.
  *
  */
-
+include(ROOT_PATH . 'includes/TinyHTMLMinifier/TinyMinify.'.PHPEXT);
 function GetTargetDistance($OrigGalaxy, $DestGalaxy, $OrigSystem, $DestSystem, $OrigPlanet, $DestPlanet) {
     $distance = 0;
 
@@ -226,8 +226,24 @@ function parsetemplate($template, $array){
 function getTemplate($templateName) {
 
     $filename = TEMPLATE_DIR . '/' . TEMPLATE_NAME . "/{$templateName}.tpl";
-    $fileContent  = "\r\n<!-- ". $filename ." -->\r\n";
-    $fileContent .= ReadFromFile($filename);
+    $cacheFile = ROOT_PATH . 'cache/' . $templateName . '.tpl.cache';
+
+    $fileContent = "";
+    if(!defined('NO_TEMPLATE_CACHE')){
+        if(!file_exists($cacheFile)){
+        
+            $fileContent = ReadFromFile($filename);
+            $fileContent = TinyMinify::html($fileContent);
+            file_put_contents($cacheFile, $fileContent);
+        }else{
+            $fileContent = file_get_contents($cacheFile);
+        }
+    }else{
+        $fileContent = file_get_contents($filename);
+    }
+    
+    
+   
     return $fileContent;
 }
 

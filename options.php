@@ -72,7 +72,6 @@ require_once dirname(__FILE__) .'/common.php';
     }
     if ($_POST && $mode == "change") { // Array ( [db_character]
        $iduser = $user["id"];
-       $avatar = $_POST["avatar"];
 
 	   if ($_POST["dpath"] != "")
 			$dpath = $_POST["dpath"];
@@ -218,7 +217,6 @@ require_once dirname(__FILE__) .'/common.php';
 
        doquery("UPDATE {{table}} SET
        `email` = '$db_email',
-       `avatar` = '$avatar',
        `dpath` = '$dpath',
        `design` = '$design',
        `noipcheck` = '$noipcheck',
@@ -274,7 +272,6 @@ require_once dirname(__FILE__) .'/common.php';
        $parse['opt_mail1_data'] = $user['email'];
        $parse['opt_mail2_data'] = $user['email_2'];
        $parse['opt_dpath_data'] = $user['dpath'];
-       $parse['opt_avata_data'] = $user['avatar'];
        $parse['opt_probe_data'] = $user['spio_anz'];
        $parse['opt_toolt_data'] = $user['settings_tooltiptime'];
        $parse['opt_fleet_data'] = $user['settings_fleetactions'];

@@ -39,7 +39,6 @@ function ResetThisFuckingCheater ( $UserID ) {
 		$QryInsertUser .= "`username` = '".      $TheUser['username']      ."', ";
 		$QryInsertUser .= "`email` = '".         $TheUser['email']         ."', ";
 		$QryInsertUser .= "`email_2` = '".       $TheUser['email_2']       ."', ";
-		$QryInsertUser .= "`sex` = '".           $TheUser['sex']           ."', ";
 		$QryInsertUser .= "`id_planet` = '0', ";
 		$QryInsertUser .= "`authlevel` = '".     $TheUser['authlevel']     ."', ";
 		$QryInsertUser .= "`dpath` = '".         $TheUser['dpath']         ."', ";

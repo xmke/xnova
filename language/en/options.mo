@@ -72,7 +72,6 @@ $lang['opt_adm_planet_prot'] = "Protection of planet's";
 $lang['thanksforregistry'] = "Thank you for your registration. <br /> You will receive in a moment, an e-mail with your password.";
 $lang['general_settings'] = "General Setting's";
 $lang['skins_example'] = "Skins (i.e. /css/)";
-$lang['avatar_example'] = "Avatar (i.e. /img/avatar.jpg)";
 $lang['untoggleip'] = "Disable IP Verification";
 $lang['untoggleip_tip'] = "Verification of IP means that you will conduct a safety logout automatically when there is a change of IP or when 2 people enter the same account using different IPs. Enable verification IP can be a safety plus!";
 

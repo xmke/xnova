@@ -77,9 +77,5 @@ $lang['ins_acc_user']     = "Pseudo";
 $lang['ins_acc_pass']     = ""Password";";
 $lang['ins_acc_email']    = "Adresse e-Mail";
 $lang['ins_acc_planet']   = "Pianeta madre";
-$lang['ins_acc_sex']      = "Sex";
-$lang['ins_acc_sex0']     = "-indefinito-";
-$lang['ins_acc_sex1']     = "Maschio";
-$lang['ins_acc_sex2']     = "Femmina";
 
 ?>

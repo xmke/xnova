@@ -39,7 +39,6 @@ $lang['PHP_SELF'] = 'neusuw.'.PHPEXT;
 if($_POST && $mode == "change"){ //Array ( [db_character]
 
 	$iduser = $user["id"];
-	$avatar = $_POST["avatar"];
 	$dpath = $_POST["dpath"];
 	//Mostrar skin
 	if(isset($_POST["design"])&& $_POST["design"] == 'on'){
@@ -127,7 +126,6 @@ if($_POST && $mode == "change"){ //Array ( [db_character]
 	}
 	doquery("UPDATE {{table}} SET
 	`email` = '$db_email',
-	`avatar` = '$avatar',
 	`dpath` = '$dpath',
 	`design` = '$design',
 	`noipcheck` = '$noipcheck',
@@ -179,7 +177,6 @@ else
 	$parse['user_email'] = $user['email'];
 	$parse['user_email_2'] = $user['email_2'];
 	$parse['user_dpath'] = $user['dpath'];
-	$parse['user_avatar'] = $user['avatar'];
 	$parse['user_spio_anz'] = $user['spio_anz'];
 	$parse['user_settings_tooltiptime'] = $user['settings_tooltiptime'];
 	$parse['user_settings_fleetactions'] = $user['settings_fleetactions'];
