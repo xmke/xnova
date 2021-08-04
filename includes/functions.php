@@ -106,11 +106,17 @@ function display ($page, $title = '', $topnav = true, $AdminPage = false) {
 	global $link, $user, $planetrow, $MustacheEngine, $StartPageGeneration, $SqlQueries;
 	if(!defined('FRAMES_PAGE')){
 		
-		if (!$AdminPage) {
-			$DisplayPage  = StdUserHeader ($title);
-		} else {
-			$DisplayPage  = AdminUserHeader ($title);
+		$DisplayPage  = "";
+		if(!defined('IN_INSTALL')){
+			if (!$AdminPage) {
+				$DisplayPage  = StdUserHeader ($title);
+			} else {
+				$DisplayPage  = AdminUserHeader ($title);
+			}
+		}else{
+			$DisplayPage  = InstallHeader ($title);
 		}
+		
 	
 		if ($topnav) {
 			$DisplayPage .= ShowTopNavigationBar( $user, $planetrow );
@@ -123,9 +129,12 @@ function display ($page, $title = '', $topnav = true, $AdminPage = false) {
 			mysqli_close($link);
 		}
 		echo $DisplayPage;
-		$EndPageGeneration = getmicrotime();
+		if(!defined('IN_INSTALL')){
+			$EndPageGeneration = getmicrotime();
 
-		echo "\r\n<br />Page générée en ".round($EndPageGeneration-$StartPageGeneration, 3) ." secondes avec ".$SqlQueries." requêtes.<br />\r\n";
+			echo "\r\n<br />Page générée en ".round($EndPageGeneration-$StartPageGeneration, 3) ." secondes avec ".$SqlQueries." requêtes.<br />\r\n";
+		}
+		
 
 	}else{
 		echo $page;
@@ -166,6 +175,21 @@ function AdminUserHeader ($title = '', $metatags = '') {
 	$parse['-meta-'] = ($metatags) ? $metatags : "";
 	$parse['-body-'] = "<body>"; //  class=\"style\" topmargin=\"0\" leftmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">";
 	return $MustacheEngine->render(gettemplate('admin/simple_header'), $parse);
+}
+
+// ----------------------------------------------------------------------------------------------------------------
+//
+// Entete de page d'installation du jeu
+//
+function InstallHeader ($title = '', $metatags = '') {
+	global $dpath, $langInfos, $MustacheEngine;
+
+	$parse           = $langInfos;
+	$parse['dpath']  = $dpath;
+	$parse['title']  = $title;
+	$parse['-meta-'] = ($metatags) ? $metatags : "";
+	$parse['-body-'] = "<body>"; //  class=\"style\" topmargin=\"0\" leftmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">";
+	return $MustacheEngine->render(gettemplate('install/simple_header'), $parse);
 }
 
 

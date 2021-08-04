@@ -30,6 +30,7 @@
 define('INSIDE' , true);
 define('INSTALL', false);
 define('IN_INSTALL', true);
+define('NO_TEMPLATE_CACHE', true);
 
 define('ROOT_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 define('PHPEXT', include ROOT_PATH . 'extension.inc');
@@ -39,6 +40,10 @@ define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');
 define('DEFAULT_LANG', 'fr');
 $dpath = DEFAULT_SKINPATH;
+
+require ROOT_PATH.'/includes/Mustache/Autoloader.php';
+Mustache_Autoloader::register();
+$MustacheEngine = new Mustache_Engine;
 
 include(ROOT_PATH . 'includes/debug.class.'.PHPEXT);
 
@@ -65,7 +70,7 @@ switch ($mode) {
             $subTpl = gettemplate('install/ins_intro');
             $bloc = $lang;
             $bloc['dpath'] = $dpath;
-            $frame  = parsetemplate($subTpl, $bloc);
+            $frame  = $MustacheEngine->render($subTpl, $bloc);
          break;
 
     case 'ins':
@@ -80,7 +85,7 @@ switch ($mode) {
             $subTpl = gettemplate('install/ins_form');
             $bloc   = $lang;
             $bloc['dpath'] = $dpath;
-            $frame  = parsetemplate($subTpl, $bloc);
+            $frame  = $MustacheEngine->render($subTpl, $bloc);
         } else if ($page == 2) {
             $host   = $_POST['host'];
             $user   = $_POST['user'];
@@ -149,7 +154,7 @@ EOF;
             $subTpl = gettemplate ('install/ins_form_done');
             $bloc   = $lang;
             $bloc['dpath']        = $dpath;
-            $frame  = parsetemplate ( $subTpl, $bloc );
+            $frame  = $MustacheEngine->render ( $subTpl, $bloc );
         } elseif ($page == 3) {
             if (isset($_GET['error']) && intval($_GET['error']) == 3) {
             adminMessage($lang['ins_error3'], $lang['ins_error']);
@@ -158,13 +163,12 @@ EOF;
             $subTpl = gettemplate ('install/ins_acc');
             $bloc   = $lang;
             $bloc['dpath']        = $dpath;
-            $frame  = parsetemplate ( $subTpl, $bloc );
+            $frame  = $MustacheEngine->render ( $subTpl, $bloc );
         } elseif ($page == 4) {
             $adm_user   = $_POST['adm_user'];
             $adm_pass   = $_POST['adm_pass'];
             $adm_email  = $_POST['adm_email'];
             $adm_planet = $_POST['adm_planet'];
-            $adm_sex    = $_POST['adm_sex'];
             $md5pass    = md5($adm_pass);
 
             if (!isset($_POST['adm_user'])) {
@@ -211,7 +215,6 @@ EOF;
             $QryInsertAdm .= "`email`             = '". $adm_email ."', ";
             $QryInsertAdm .= "`email_2`           = '". $adm_email ."', ";
             $QryInsertAdm .= "`authlevel`         = '3', ";
-            $QryInsertAdm .= "`sex`               = '". $adm_sex ."', ";
             $QryInsertAdm .= "`id_planet`         = '1', ";
             $QryInsertAdm .= "`galaxy`            = '1', ";
             $QryInsertAdm .= "`system`            = '1', ";
@@ -260,7 +263,7 @@ EOF;
             $subTpl = gettemplate ('install/ins_acc_done');
             $bloc   = $lang;
             $bloc['dpath']        = $dpath;
-            $frame  = parsetemplate ( $subTpl, $bloc );
+            $frame  = $MustacheEngine->render ( $subTpl, $bloc );
         }
         break;
 
@@ -269,7 +272,7 @@ EOF;
             $subTpl = gettemplate ('install/ins_goto_intro');
             $bloc   = $lang;
             $bloc['dpath']        = $dpath;
-            $frame  = parsetemplate ( $subTpl, $bloc );
+            $frame  = $MustacheEngine->render ( $subTpl, $bloc );
         } elseif ($page == 2) {
             if ($_GET['error'] == 1) {
             adminMessage ($lang['ins_error1'], $lang['ins_error']);
@@ -281,7 +284,7 @@ EOF;
             $subTpl = gettemplate ('install/ins_goto_form');
             $bloc   = $lang;
             $bloc['dpath']        = $dpath;
-            $frame  = parsetemplate ( $subTpl, $bloc );
+            $frame  = $MustacheEngine->render ( $subTpl, $bloc );
         } elseif ($page == 3) {
             $host   = $_POST['host'];
             $user   = $_POST['user'];
@@ -332,7 +335,7 @@ EOF;
             $subTpl = gettemplate('install/ins_goto_done');
             $bloc   = $lang;
             $bloc['dpath']        = $dpath;
-            $frame  = parsetemplate($subTpl, $bloc);
+            $frame  = $MustacheEngine->render($subTpl, $bloc);
          }
          break;
 
@@ -351,6 +354,6 @@ $parse['ins_state']    = $page;
 $parse['ins_page']     = $frame;
 $parse['dis_ins_btn']  = "?mode=$mode&page=$nextPage";
 $parse['dpath']        = $dpath;
-$data                 = parsetemplate($mainTpl, $parse);
+$data                 = $MustacheEngine->render($mainTpl, $parse);
 
 display($data, "Installeur", false, false);
