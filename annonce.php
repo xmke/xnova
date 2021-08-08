@@ -31,48 +31,59 @@
 define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
+
 $users   = doquery("SELECT * FROM {{table}} WHERE id='".$user['id']."';", 'users');
 $annonce = doquery("SELECT * FROM {{table}} ", 'annonce');
-$action  = $_GET['action'];
+$action  = isset($_GET['action']) ? intval($_GET['action']) : "";
 
 if ($action == 5) {
-	$metalvendre = $_POST['metalvendre'];
-	$cristalvendre = $_POST['cristalvendre'];
-	$deutvendre = $_POST['deutvendre'];
+	$metalvendre = is_numeric($_POST['metalvendre']) ? $_POST['metalvendre'] : 0;
+	$cristalvendre = is_numeric($_POST['cristalvendre']) ? $_POST['cristalvendre'] : 0;
+	$deutvendre = is_numeric($_POST['deutvendre']) ? $_POST['deutvendre'] : 0;
 
-	$metalsouhait = $_POST['metalsouhait'];
-	$cristalsouhait = $_POST['cristalsouhait'];
-	$deutsouhait = $_POST['deutsouhait'];
+	$metalsouhait = is_numeric($_POST['metalsouhait']) ? $_POST['metalsouhait'] : 0;
+	$cristalsouhait = is_numeric($_POST['cristalsouhait']) ? $_POST['cristalsouhait'] : 0;
+	$deutsouhait = is_numeric($_POST['deutsouhait']) ? $_POST['deutsouhait'] : 0;
 
-	while ($v_annonce = mysqli_fetch_array($users)) {
-		$user = $v_annonce['username'];
-		$galaxie = $v_annonce['galaxy'];
-		$systeme = $v_annonce['system'];
+	$page2 = "";
+	if($metalvendre == 0 &&
+	$cristalvendre == 0 &&
+	$deutvendre == 0 &&
+	$metalsouhait == 0 &&
+	$cristalsouhait == 0 &&
+	$deutsouhait == 0){
+		$page2 = <<<HTML
+		<center>
+		<br>
+		<p>Votre annonce est incorrecte. Elle n'a pas été ajoutée.</p>
+		<br><p><a href="annonce.php">Retour aux annonces</a></p>
+		
+		HTML;
+	}else{
+	
+		doquery("INSERT INTO {{table}} SET
+	user='{$user['username']}',
+	galaxie='{$planetrow['galaxy']}',
+	systeme='{$planetrow['system']}',
+	metala='{$metalvendre}',
+	cristala='{$cristalvendre}',
+	deuta='{$deutvendre}',
+	metals='{$metalsouhait}',
+	cristals='{$cristalsouhait}',
+	deuts='{$deutsouhait}'" , "annonce");
+	
+	$page2 = <<<HTML
+	<center>
+	<br>
+	<p>Votre Annonce a bien &eacute;t&eacute; enregistr&eacute;e !</p>
+	<br><p><a href="annonce.php">Retour aux annonces</a></p>
+	
+	HTML;
 	}
-
-	doquery("INSERT INTO {{table}} SET
-user='{$user}',
-galaxie='{$galaxie}',
-systeme='{$systeme}',
-metala='{$metalvendre}',
-cristala='{$cristalvendre}',
-deuta='{$deutvendre}',
-metals='{$metalsouhait}',
-cristals='{$cristalsouhait}',
-deuts='{$deutsouhait}'" , "annonce");
-
-	$page2 .= <<<HTML
-<center>
-<br>
-<p>Votre Annonce a bien &eacute;t&eacute; enregistr&eacute;e !</p>
-<br><p><a href="annonce.php">Retour aux annonces</a></p>
-
-HTML;
+	
 
 	display($page2);
-}
-
-if ($action != 5) {
+}else{
 	$annonce = doquery("SELECT * FROM {{table}} ORDER BY `id` DESC ", "annonce");
 
 	$page2 = "<HTML>
@@ -97,7 +108,7 @@ if ($action != 5) {
 		$page2 .= '</th><th>';
 		$page2 .= $b["metala"];
 		$page2 .= '</th><th>';
-		$page2 .= $b["gcristala"];
+		$page2 .= $b["cristala"];
 		$page2 .= '</th><th>';
 		$page2 .= $b["deuta"];
 		$page2 .= '</th><th>';
@@ -116,7 +127,7 @@ if ($action != 5) {
 </table>
 </HTML>";
 
-	display($page2);
+	display($page2, "Annonces", false);
 }
 
 // Créer par Tom1991 Copyright 2008

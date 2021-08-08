@@ -34,14 +34,15 @@ require_once dirname(__FILE__) .'/common.php';
 
 	includeLang('buddy');
 
-$a = $_GET['a'];
-$e = $_GET['e'];
-$s = $_GET['s'];
-$u = intval( $_GET['u'] );
+$a = isset($_GET['a']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['a']) : "";
+$e = isset($_GET['e']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['e']) : "";
+$s = isset($_GET['s']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['s']) : "";
+$u = isset($_GET['u']) ? intval($_GET['u']) : 0;
+
 
 if ( $s == 1 && isset( $_GET['bid'] ) ) {
 	// Effacer une entree de la liste d'amis
-	$bid = intval( $_GET['bid'] );
+	$bid = isset($_GET['bid']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['bid']) : "";
 
 	$buddy = doquery( "SELECT * FROM {{table}} WHERE `id` = '".$bid."';", 'buddy', true );
 	if ( $buddy['owner'] == $user['id'] ) {
@@ -55,10 +56,10 @@ if ( $s == 1 && isset( $_GET['bid'] ) ) {
 	} elseif ( $buddy['sender'] == $user['id'] ) {
 		doquery( "DELETE FROM {{table}} WHERE `id` = '".$bid."';", 'buddy' );
 	}
-} elseif ( $_POST["s"] == 3 && $_POST["a"] == 1 && $_POST["e"] == 1 && isset( $_POST["u"] ) ) {
+} elseif ( isset($_POST['s']) && $_POST["s"] == 3 && $_POST["a"] == 1 && $_POST["e"] == 1 && isset( $_POST["u"] ) ) {
 	// Traitement de l'enregistrement de la demande d'entree dans la liste d'amis
 	$uid = $user["id"];
-	$u = intval( $_POST["u"] );
+	$u = isset($_POST['u']) ? intval($_POST['u']) : 0;
 
 	$buddy = doquery( "SELECT * FROM {{table}} WHERE sender={$uid} AND owner={$u} OR sender={$u} AND owner={$uid}", 'buddy', true );
 
@@ -78,7 +79,7 @@ $page = "<br>";
 
 if ( $a == 2 && isset( $u ) ) {
 	// Saisie texte de demande d'entree dans la liste d'amis
-	$u = doquery( "SELECT * FROM {{table}} WHERE id='$u'", "users", true );
+	$u = doquery( "SELECT id, username FROM {{table}} WHERE id='$u'", "users", true );
 	if ( isset( $u ) && $u["id"] != $user["id"] ) {
 		$page .= "
 		<script src=\"scripts/cntchar.js\" type=\"text/javascript\"></script>

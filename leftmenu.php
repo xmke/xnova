@@ -30,6 +30,7 @@
 
 define('INSIDE' , true);
 define('INSTALL' , false);
+define('LEFTMENU', true);
 require_once dirname(__FILE__) .'/common.php';
 
 function ShowLeftMenu ( $Level , $Template = 'left_menu') {
@@ -48,8 +49,6 @@ function ShowLeftMenu ( $Level , $Template = 'left_menu') {
 	$parse['dpath']           = $dpath;
 	$parse['forum_url']       = $game_config['forum_url'];
 	$parse['mf']              = "Hauptframe";
-	$rank                     = doquery("SELECT `total_rank` FROM {{table}} WHERE `stat_code` = '1' AND `stat_type` = '1' AND `id_owner` = '". $user['id'] ."';",'statpoints',true);
-	$parse['user_rank']       = isset($rank) && isset($rank['total_rank']) ? $rank['total_rank'] : 1;
 	$parse['userIsAdmin'] = $Level > 0;
 	
 	//Lien suppl�mentaire d�termin� dans le panel admin

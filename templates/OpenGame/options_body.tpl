@@ -32,14 +32,17 @@
 	<th>{{opt_lst_ord}}</th>
 	<th>
 		<select name="settings_sort">
-		{{opt_lst_ord_data}}
+			<option value="sort_id" {{planetsort_id}}>Tri par ancienneté</option>
+			<option value="sort_name" {{planetsort_name}}>Tri par Nom</option>
+			<option value="sort_coord" {{planetsort_coords}}>Tri par Coordonnées</option>
 		</select>
 	</th>
 </tr><tr>
 	<th>{{opt_lst_cla}}</th>
 	<th>
 		<select name="settings_order">
-		{{opt_lst_cla_data}}
+			<option value="DESC" {{planetsortorder_desc}}>Descendant</option>
+			<option value="ASC" {{planetsortorder_asc}}>Ascendant</option>
 		</select>
 	</th>
 </tr><tr>

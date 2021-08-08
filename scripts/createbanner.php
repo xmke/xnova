@@ -299,9 +299,6 @@ $image
     ->addText('Total:', 14, FONT_FILE, 205, 70, 0, $textColor)
     ->addText(number_format_custom($data['total_points']), 14, FONT_FILE, 320, 70, 0, $textColor)
 ;
-
-foreach ($image->getHeaders() as $headerName => $headerValue) {
-    header(sprintf('%s: %s', $headerName, $headerValue));
-}
+header("Content-type: image/png");
 
 echo $image->render();

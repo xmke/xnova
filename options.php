@@ -30,6 +30,7 @@
 
 define('INSIDE' , true);
 define('INSTALL' , false);
+define('NO_TEMPLATE_CACHE', true); //debug
 require_once dirname(__FILE__) .'/common.php';
 
     includeLang('options');
@@ -37,7 +38,7 @@ require_once dirname(__FILE__) .'/common.php';
     $lang['PHP_SELF'] = 'options.' . PHPEXT;
 
     $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
-    $mode = $_GET['mode'];
+    $mode = isset($_GET['mode']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['mode']) : "";
 
     if ($_POST && $mode == "exit") { // Array ( [db_character]
        if (isset($_POST["exit_modus"]) && $_POST["exit_modus"] == 'on' and $user['urlaubs_until'] <= time()){
@@ -77,15 +78,6 @@ require_once dirname(__FILE__) .'/common.php';
 			$dpath = $_POST["dpath"];
 		else
 			$dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
-
-       // Gestion des options speciales pour les admins
-       if ($user['authlevel'] != LEVEL_PLAYER) {
-          if ($_POST['adm_pl_prot'] == 'on') {
-             doquery ("UPDATE {{table}} SET `id_level` = '".$user['authlevel']."' WHERE `id_owner` = '".$user['id']."';", 'planets');
-          } else {
-             doquery ("UPDATE {{table}} SET `id_level` = '0' WHERE `id_owner` = '".$user['id']."';", 'planets');
-          }
-       }
 
        // Mostrar skin
        if (isset($_POST["design"]) && $_POST["design"] == 'on') {
@@ -212,16 +204,41 @@ require_once dirname(__FILE__) .'/common.php';
        } else {
           $db_deaktjava = "0";
        }
-       $SetSort  = $_POST['settings_sort'];
-       $SetOrder = $_POST['settings_order'];
+
+       /* Tri des planètes (topnav, empire....) */
+       $SetSort = isset($_POST['settings_sort']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['settings_sort']) : "";
+       $SortMode = 0; //default : sort by ID
+       switch($SetSort){
+          case "sort_id":
+            $SortMode = 0;
+            break;
+         case "sort_name":
+            $SortMode = 1;
+            break;
+         case "sort_coord":
+            $SortMode = 2;
+            break;
+       }
+
+       $SortOrder = isset($_POST['settings_order']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['settings_order']) : "";
+       $SortOrderMode = 0; //default : ASC
+       switch($SortOrder){
+          case "DESC":
+            $SortOrderMode = 0;
+            break;
+         case "ASC":
+            $SortOrderMode = 1;
+            break;
+         
+       }
 
        doquery("UPDATE {{table}} SET
        `email` = '$db_email',
        `dpath` = '$dpath',
        `design` = '$design',
        `noipcheck` = '$noipcheck',
-       `planet_sort` = '$SetSort',
-       `planet_sort_order` = '$SetOrder',
+       `planet_sort` = '$SortMode',
+       `planet_sort_order` = '$SortOrderMode',
        `spio_anz` = '$spio_anz',
        `settings_tooltiptime` = '$settings_tooltiptime',
        `settings_fleetactions` = '$settings_fleetactions',
@@ -232,10 +249,7 @@ require_once dirname(__FILE__) .'/common.php';
        `settings_mis` = '$settings_mis',
        `settings_rep` = '$settings_rep',
        `urlaubs_modus` = '$urlaubs_modus',
-       `db_deaktjava` = '$db_deaktjava',
-       `kolorminus` = '$kolorminus',
-       `kolorplus` = '$kolorplus',
-       `kolorpoziom` = '$kolorpoziom'
+       `db_deaktjava` = '$db_deaktjava'
        WHERE `id` = '$iduser' LIMIT 1", "users");
 
        if (isset($_POST["db_password"]) && md5($_POST["db_password"]) == $user["password"]) {
@@ -261,12 +275,6 @@ require_once dirname(__FILE__) .'/common.php';
        $parse['dpath'] = $dpath;
        $parse['opt_lst_skin_data']   = "<option value =\"skins/epicblue/\">skins/epicblue/</option>";
        $parse['opt_lst_skin_data']  .= "<option value =\"skins/xnova/\">skins/xnova/</option>";
-       $parse['opt_lst_ord_data']   = "<option value =\"0\"". (($user['planet_sort'] == 0) ? " selected": "") .">". $lang['opt_lst_ord0'] ."</option>";
-       $parse['opt_lst_ord_data']  .= "<option value =\"1\"". (($user['planet_sort'] == 1) ? " selected": "") .">". $lang['opt_lst_ord1'] ."</option>";
-       $parse['opt_lst_ord_data']  .= "<option value =\"2\"". (($user['planet_sort'] == 2) ? " selected": "") .">". $lang['opt_lst_ord2'] ."</option>";
-
-       $parse['opt_lst_cla_data']   = "<option value =\"0\"". (($user['planet_sort_order'] == 0) ? " selected": "") .">". $lang['opt_lst_cla0'] ."</option>";
-       $parse['opt_lst_cla_data']  .= "<option value =\"1\"". (($user['planet_sort_order'] == 1) ? " selected": "") .">". $lang['opt_lst_cla1'] ."</option>";
 
        $parse['opt_usern_data'] = $user['username'];
        $parse['opt_mail1_data'] = $user['email'];
@@ -288,9 +296,15 @@ require_once dirname(__FILE__) .'/common.php';
        $parse['user_settings_wri'] = ($user['settings_wri'] == 1) ? " checked='checked'/":'';
        $parse['user_settings_mis'] = ($user['settings_mis'] == 1) ? " checked='checked'/":'';
        $parse['user_settings_bud'] = ($user['settings_bud'] == 1) ? " checked='checked'/":'';
-       $parse['kolorminus']  = $user['kolorminus'];
-       $parse['kolorplus']   = $user['kolorplus'];
-       $parse['kolorpoziom'] = $user['kolorpoziom'];
+
+
+       //Pour le tri des planètes (@Todo, réécrire)
+       $parse['planetsort_id'] = $user['planet_sort'] == 0 ? "selected" : "";
+       $parse['planetsort_name'] = $user['planet_sort'] == 1 ? "selected" : "";
+       $parse['planetsort_coords'] = $user['planet_sort'] == 2 ? "selected" : "";
+
+       $parse['planetsortorder_desc'] = $user['planet_sort_order'] == 0 ? "selected" : "";
+       $parse['planetsortorder_asc'] = $user['planet_sort_order'] == 1 ? "selected" : "";
 
        if($user['urlaubs_modus']){
 

@@ -139,10 +139,7 @@ if($_POST && $mode == "change"){ //Array ( [db_character]
 	`settings_mis` = '$settings_mis',
 	`settings_rep` = '$settings_rep',
 	`urlaubs_modus` = '$urlaubs_modus',
-	`db_deaktjava` = '$db_deaktjava',
-	`kolorminus` = '$kolorminus',
-	`kolorplus` = '$kolorplus',
-	`kolorpoziom` = '$kolorpoziom'
+	`db_deaktjava` = '$db_deaktjava' 
 	WHERE `id` = '$iduser' LIMIT 1","users");
 
 
@@ -190,9 +187,7 @@ else
 	$parse['user_settings_wri'] = ($user['settings_wri'] == 1) ? " checked='checked'/":'';
 	$parse['user_settings_mis'] = ($user['settings_mis'] == 1) ? " checked='checked'/":'';
 	$parse['user_settings_bud'] = ($user['settings_bud'] == 1) ? " checked='checked'/":'';
-	$parse['kolorminus'] = $user['kolorminus'];
-	$parse['kolorplus'] = $user['kolorplus'];
-	$parse['kolorpoziom'] = $user['kolorpoziom'];
+	
 	$page = $MustacheEngine->render(gettemplate('usuw_body'), $parse);
 
 	display($page,$lang['Usuw']);

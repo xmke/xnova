@@ -41,7 +41,7 @@ if (file_exists(ROOT_PATH . "includes/raketenangriff.php")) {
 } else
 	die('Fatal error!');
 
-if (isset($resource) && !empty($resource[401])) {
+if (!defined('LEFTMENU') && isset($resource) && !empty($resource[401])) {
 	$iraks = doquery("SELECT * FROM {{table}} WHERE zeit <= '" . time() . "'", 'iraks');
 
 	while ($selected_row = mysqli_fetch_array($iraks)) {

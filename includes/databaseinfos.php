@@ -480,9 +480,6 @@
 	$QryTableUsers      .= "`ally_register_time` int(11) NOT NULL default '0', ";
 	$QryTableUsers      .= "`ally_rank_id` int(11) NOT NULL default '0', ";
 	$QryTableUsers      .= "`current_luna` int(11) NOT NULL default '0', ";
-	$QryTableUsers      .= "`kolorminus` varchar(11) character set latin1 NOT NULL default 'red', ";
-	$QryTableUsers      .= "`kolorplus` varchar(11) character set latin1 NOT NULL default '#00FF00', ";
-	$QryTableUsers      .= "`kolorpoziom` varchar(11) character set latin1 NOT NULL default 'yellow', ";
 	$QryTableUsers      .= "`rpg_geologue` int(11) NOT NULL default '0', ";
 	$QryTableUsers      .= "`rpg_amiral` int(11) NOT NULL default '0', ";
 	$QryTableUsers      .= "`rpg_ingenieur` int(11) NOT NULL default '0', ";

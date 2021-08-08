@@ -33,7 +33,6 @@ function getmicrotime(){
 }
 $StartPageGeneration = getmicrotime();
 $SqlQueries = 0;
-
 session_start();
 
 if (in_array(strtolower(getenv('DEBUG')), array('1', 'on', 'true'))) {
@@ -97,7 +96,8 @@ if (empty($user) && !defined('DISABLE_IDENTITY_CHECK')) {
     header('Location: login.php');
     exit(0);
 }else{
-    $now = time();
+    if(!defined('LEFTMENU')){
+       $now = time();
     $sql =<<<SQL_EOF
     SELECT
       fleet_start_galaxy AS galaxy,
@@ -121,7 +121,9 @@ if (empty($user) && !defined('DISABLE_IDENTITY_CHECK')) {
         FlyingFleetHandler($row);
     }
     
-    unset($_fleets);
+    unset($_fleets); 
+    }
+    
 }
  
 
@@ -134,7 +136,7 @@ if (!defined('IN_ADMIN')) {
 }
 
 
-if (!empty($user)) {
+if (!empty($user) && !defined('LEFTMENU')) {
     SetSelectedPlanet($user);
     
     $planetrowQry  = "SELECT game_planets.*,";

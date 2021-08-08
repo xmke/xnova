@@ -28,7 +28,7 @@
  *
  */
 
-function GetBuildingTime ($user, $planet, $Element) {
+function GetBuildingTime ($user, $planet, $Element, $ResearchMode = false) {
 	global $pricelist, $resource, $reslist, $game_config;
 
 
@@ -52,12 +52,13 @@ function GetBuildingTime ($user, $planet, $Element) {
 		if       ( $intergal_lab < "1" ) {
 			$lablevel = $planet[$resource['31']];
 		} elseif ( $intergal_lab >= "1" ) {
-			$empire = doquery("SELECT * FROM {{table}} WHERE id_owner='". $user['id'] ."';", 'planets');
+			$empire = doquery("SELECT `".$resource['31']."` FROM {{table}} WHERE id_owner='". $user['id'] ."';", 'planets');
 			$NbLabs = 0;
 			while ($colonie = mysqli_fetch_array($empire)) {
 				$techlevel[$NbLabs] = $colonie[$resource['31']];
 				$NbLabs++;
 			}
+
 			if ($intergal_lab >= "1") {
 				$lablevel = 0;
 				for ($lab = 1; $lab <= $intergal_lab; $lab++) {

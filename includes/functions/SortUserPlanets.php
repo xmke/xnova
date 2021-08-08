@@ -36,10 +36,10 @@ function SortUserPlanets ( $CurrentUser ) {
 	if       ( $Sort == 0 ) {
 		$QryPlanets .= "`id` ". $Order;
 	} elseif ( $Sort == 1 ) {
-		$QryPlanets .= "`galaxy`, `system`, `planet`, `planet_type` ". $Order;
-	} elseif ( $Sort == 2 ) {
 		$QryPlanets .= "`name` ". $Order;
-	}
+	} elseif ( $Sort == 2 ) {
+		$QryPlanets .= "`galaxy`, `system`, `planet`, `planet_type` ". $Order;
+	} 
 	$Planets = doquery ( $QryPlanets, 'planets');
 
 	return $Planets;

@@ -36,11 +36,20 @@ function CheckCookies($IsUserChecked)
     
     $userData = array();
     if (isset($_SESSION['user_id'])) {
-        $sql =<<<EOF
-SELECT * FROM {{table}}
+        if(!defined('LEFTMENU')){
+            $sql =<<<EOF
+            SELECT * FROM {{table}}
+                WHERE id      ={$_SESSION['user_id']}
+                LIMIT 1
+            EOF;
+        }else{
+            $sql =<<<EOF
+SELECT authlevel, bana FROM {{table}}
     WHERE id      ={$_SESSION['user_id']}
     LIMIT 1
 EOF;
+        }
+        
         $userData = doquery($sql, 'users', true);
     } else if (isset($_COOKIE['nova-cookie'])) {
         $cookieData = unserialize(stripslashes($_COOKIE['nova-cookie']));
@@ -72,7 +81,8 @@ EOF;
         'remote_addr' => mysqli_real_escape_string (Database::$dbHandle, $_SERVER['REMOTE_ADDR']/* . (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? '|' . $_SERVER['HTTP_X_FORWARDED_FOR'] : '')*/),
         'user_agent' => mysqli_real_escape_string (Database::$dbHandle, $_SERVER['HTTP_USER_AGENT'])
         );
-    $now = time();
+        if(!defined('LEFTMENU')){ //la page chargée s'en chargera
+            $now = time();
     $sql =<<<EOF
 UPDATE {{table}}
     SET `onlinetime` = "{$now}",
@@ -83,6 +93,8 @@ UPDATE {{table}}
     LIMIT 1;
 EOF;
     doquery($sql, 'users');
+        }
+    
     $IsUserChecked = true;
 
     return array(

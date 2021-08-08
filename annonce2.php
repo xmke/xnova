@@ -32,11 +32,13 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-$actions = $_GET['action'];
+$actions = isset($_GET['action']) ? intval($_GET['action']) : 0;
+
 
 if($actions == 2)
 {
-$page .=<<<HTML
+
+$page =<<<HTML
 <center>
 <br>
 <table width="600">
@@ -57,6 +59,6 @@ $page .=<<<HTML
 </table>
 HTML;
 
-display($page);
+display($page, "Ajout d'annonce", true);
 }
 ?>

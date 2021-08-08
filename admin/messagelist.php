@@ -122,7 +122,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse['mlst_title'] = $lang['mlst_title'];
 
 		$StartRec           = 1 + (($ViewPage - 1) * 25);
-		$Messages           = doquery("SELECT * FROM {{table}} WHERE `message_type` = '". $Selected ."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;", 'messages');
+		$Messages           = doquery("SELECT `message_id`, `message_from`, `message_owner`, `message_text`, `message_time` FROM {{table}} WHERE `message_type` = '". $Selected ."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;", 'messages');
 		while ($row = mysqli_fetch_assoc($Messages)) {
 			$OwnerData = doquery ("SELECT `username` FROM {{table}} WHERE `id` = '". $row['message_owner'] ."';", 'users',true);
 			$bloc['mlst_id']      = $row['message_id'];

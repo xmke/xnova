@@ -328,7 +328,13 @@ switch ($mode) {
                 $parse['ClickBanner'] = "";
             }
             if ($game_config['ForumBannerFrame'] == '1') {
-                $BannerURL = "".dirname($_SERVER["HTTP_REFERER"])."/scripts/createbanner.php?id=".$user['id']."";
+                
+                $BannerURL = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+                $BannerURL = explode("/", $BannerURL);
+                array_pop($BannerURL);
+                $BannerURL = array_splice($BannerURL, -1);
+                $BannerURL = implode("/", $BannerURL);
+                $BannerURL = $_SERVER['REQUEST_SCHEME']."://".$BannerURL."/scripts/createbanner.php?id=".$user['id'];
                 $parse['bannerframe'] = "<th colspan=\"4\"><img src=\"scripts/createbanner.php?id=".$user['id']."\"><br>".$lang['InfoBanner']."<br><input name=\"bannerlink\" type=\"text\" id=\"bannerlink\" value=\"[img]".$BannerURL."[/img]\" size=\"62\"></th></tr>";
             }else{
                 $parse['bannerframe'] = "";

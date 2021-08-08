@@ -34,8 +34,10 @@ require_once dirname(__FILE__) .'/common.php';
 
 $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 
-$a = $_GET['a'];
-$n = intval($_GET['n']);
+$a = isset($_GET['a']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['a']) : "";
+$n = isset($_GET['n']) ? intval($_GET['n']) : 0;
+$s = isset($_POST['s']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['s']) : "";
+
 $lang['Please_Wait'] = "Patientez...";
 
 //lenguaje
@@ -43,21 +45,22 @@ includeLang('notes');
 
 $lang['PHP_SELF'] = 'notes.'.PHPEXT;
 
-if($_POST["s"] == 1 || $_POST["s"] == 2){//Edicion y agregar notas
+if($s == 1 || $s == 2){//Edicion y agregar notas
 
 	$time = time();
-	$priority = $_POST["u"];
+	$priority = ($_POST["u"]) ? mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST["u"])) : $lang['NoTitle'];
 	$title = ($_POST["title"]) ? mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST["title"])) : $lang['NoTitle'];
 	$text = ($_POST["text"]) ? mysqli_real_escape_string(Database::$dbHandle, strip_tags($_POST["text"])) : $lang['NoText'];
 
-	if($_POST["s"] ==1){
+	if($s ==1){
 		doquery("INSERT INTO {{table}} SET owner={$user['id']}, time=$time, priority=$priority, title='$title', text='$text'","notes");
 		message($lang['NoteAdded'], $lang['Please_Wait'],'notes.'.PHPEXT,"3");
-	}elseif($_POST["s"] == 2){
+	}elseif($s == 2){
 		/*
 		  pequeño query para averiguar si la nota que se edita es del propio jugador
 		*/
-		$id = intval($_POST["n"]);
+		$id = isset($_POST['n']) ? intval($_POST['n']) : 0;
+
 		$note_query = doquery("SELECT * FROM {{table}} WHERE id=$id AND owner=".$user["id"],"notes");
 
 		if(!$note_query){ message($lang['notpossiblethisway'],$lang['Notes']); }
@@ -76,7 +79,7 @@ elseif($_POST){//Borrar
 		*/
 		if(preg_match("/delmes/i",$a) && $b == "y"){
 
-			$id = str_replace("delmes","",$a);
+			$id = intval(str_replace("delmes","",$a));
 			$note_query = doquery("SELECT * FROM {{table}} WHERE id=$id AND owner={$user['id']}","notes");
 			//comprobamos,
 			if($note_query){
@@ -91,7 +94,7 @@ elseif($_POST){//Borrar
 	}else{header("Location: notes.". PHPEXT);}
 
 }else{//sin post...
-	if($_GET["a"] == 1){//crear una nueva nota.
+	if($a == 1){//crear una nueva nota.
 		/*
 		  Formulario para crear una nueva nota.
 		*/
@@ -108,12 +111,12 @@ elseif($_POST){//Borrar
 		$parse['title'] = '';
 		$parse['inputs'] = '<input type=hidden name=s value=1>';
 
-		$page .= $MustacheEngine->render(gettemplate('notes_form'), $parse);
+		$page = $MustacheEngine->render(gettemplate('notes_form'), $parse);
 
 		display($page,$lang['Notes'],false);
 
 	}
-	elseif($_GET["a"] == 2){//editar
+	elseif($a == 2){//editar
 		/*
 		  Formulario donde se puestra la nota y se puede editar.
 		*/
@@ -146,6 +149,7 @@ elseif($_POST){//Borrar
 		//Loop para crear la lista de notas que el jugador tiene
 		$count = 0;
 		$parse=$lang;
+		$list = "";
 		while($note = mysqli_fetch_array($notes_query)){
 			$count++;
 			//Colorea el titulo dependiendo de la prioridad
@@ -170,7 +174,7 @@ elseif($_POST){//Borrar
 		$parse = $lang;
 		$parse['BODY_LIST'] = $list;
 		//fragmento de template
-		$page .= $MustacheEngine->render(gettemplate('notes_body'), $parse);
+		$page = $MustacheEngine->render(gettemplate('notes_body'), $parse);
 
 		display($page,$lang['Notes'],false);
 	}

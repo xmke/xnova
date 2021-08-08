@@ -32,15 +32,15 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-$searchtext = mysqli_real_escape_string(Database::$dbHandle, $_POST['searchtext']);
-$type = $_POST['type'];
+$searchtext = isset($_POST['searchtext']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['searchtext']) : "";
+$type = isset($_POST['type']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['type']) : ""; ;
 
 $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 
 includeLang('search');
 $i = 0;
+$search_results = "";
 //creamos la query
-$searchtext = mysqli_real_escape_string(Database::$dbHandle, $_POST["searchtext"]);
 switch($type){
 	case "playername":
 		$table = gettemplate('search_user_table');
@@ -123,10 +123,10 @@ if(isset($searchtext) && isset($type)){
 }
 
 //el resto...
-$lang['type_playername'] = ($_POST["type"] == "playername") ? " SELECTED" : "";
-$lang['type_planetname'] = ($_POST["type"] == "planetname") ? " SELECTED" : "";
-$lang['type_allytag'] = ($_POST["type"] == "allytag") ? " SELECTED" : "";
-$lang['type_allyname'] = ($_POST["type"] == "allyname") ? " SELECTED" : "";
+$lang['type_playername'] = (isset($_POST['type']) && $_POST["type"] == "playername") ? " SELECTED" : "";
+$lang['type_planetname'] = (isset($_POST['type']) && $_POST["type"] == "planetname") ? " SELECTED" : "";
+$lang['type_allytag'] = (isset($_POST['type']) && $_POST["type"] == "allytag") ? " SELECTED" : "";
+$lang['type_allyname'] = (isset($_POST['type']) && $_POST["type"] == "allyname") ? " SELECTED" : "";
 $lang['searchtext'] = $searchtext;
 $lang['search_results'] = $search_results;
 //esto es algo repetitivo ... w
