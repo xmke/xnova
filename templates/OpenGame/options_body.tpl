@@ -46,20 +46,6 @@
 		</select>
 	</th>
 </tr><tr>
-	<th>{{skins_example}}<br> <a href="http://80.237.203.201/download/" target="_blank">{{Download}}</a></th>
-	<th><input name="dpath" maxlength="80" size="40" value="{{opt_dpath_data}}" type="text"> <br>
-		<select name="dpaths" size="1">
-			<option selected="selected">  </option>
-			{{opt_lst_skin_data}}
-		</select>
-	</th>
-</tr><tr>
-	<th>{{opt_chk_skin}}</th>
-	<th><input name="design"{{opt_sskin_data}} type="checkbox"></th>
-</tr><tr>
-	<th><a title="{{untoggleip_tip}}">{{untoggleip}}</a></th>
-	<th><input name="noipcheck"{{opt_noipc_data}} type="checkbox" /></th>
-</tr><tr>
 	<td class="c" colspan="2">{{galaxyvision_options}}</td>
 </tr><tr>
 	<th><a title="{{spy_cant_tip}}">{{spy_cant}}</a></th>
@@ -77,20 +63,17 @@
 	<th>{{shortcut}}</th>
 	<th>{{show}}</th>
 </tr><tr>
-	<th><img src="{{dpath}}img/e.gif" alt="">   {{spy}}</th>
+	<th><img src="skins/epicblue/img/e.gif" alt="">   {{spy}}</th>
 	<th><input name="settings_esp"{{user_settings_esp}} type="checkbox" /></th>
 </tr><tr>
-	<th><img src="{{dpath}}img/m.gif" alt="">   {{write_a_messege}}</th>
+	<th><img src="skins/epicblue/img/m.gif" alt="">   {{write_a_messege}}</th>
 	<th><input name="settings_wri"{{user_settings_wri}} type="checkbox" /></th>
 </tr><tr>
-	<th><img src="{{dpath}}img/b.gif" alt="">   {{add_to_buddylist}}</th>
+	<th><img src="skins/epicblue/img/b.gif" alt="">   {{add_to_buddylist}}</th>
 	<th><input name="settings_bud"{{user_settings_bud}} type="checkbox" /></th>
 </tr><tr>
-	<th><img src="{{dpath}}img/r.gif" alt="">   {{attack_with_missile}}</th>
+	<th><img src="skins/epicblue/img/r.gif" alt="">   {{attack_with_missile}}</th>
 	<th><input name="settings_mis"{{user_settings_mis}} type="checkbox" /></th>
-</tr><tr>
-	<th><img src="{{dpath}}img/s.gif" alt="">   {{show_report}}</th>
-	<th><input name="settings_rep"{{user_settings_rep}} type="checkbox" /></th>
 </tr><tr>
 	<td class="c" colspan="2">{{delete_vacations}}</td>
 </tr><tr>

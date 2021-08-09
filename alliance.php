@@ -450,7 +450,6 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 				$u["ally_range"] = $lang['Novate'];
 			}
 
-			$u["dpath"]  = $dpath;
 			$u['points'] = "" . pretty_number($UserPoints['total_points']) . "";
 
 			if ($u['ally_register_time'] > 0)
@@ -661,7 +660,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 				if ($ally['ally_owner'] == $user['id']) {
 					// $i++;u2r5
 					$lang['id'] = $a;
-					$lang['delete'] = "<a href=\"alliance.php?mode=admin&edit=rights&d={$a}\"><img src=\"{$dpath}pic/abort.gif\" alt=\"{$lang['Delete_range']}\" border=0></a>";
+					$lang['delete'] = "<a href=\"alliance.php?mode=admin&edit=rights&d={$a}\"><img src=\"./skins/epicblue/pic/abort.gif\" alt=\"{$lang['Delete_range']}\" border=0></a>";
 					$lang['r0'] = $b['name'];
 					$lang['a'] = $a;
 					$lang['r1'] = "<input type=checkbox name=\"u{$a}r0\"" . (($b['delete'] == 1)?' checked="checked"':'') . ">"; //{$b[1]}
@@ -678,7 +677,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 				} else {
 					$lang['id'] = $a;
 					$lang['r0'] = $b['name'];
-					$lang['delete'] = "<a href=\"alliance.php?mode=admin&edit=rights&d={$a}\"><img src=\"{$dpath}pic/abort.gif\" alt=\"{$lang['Delete_range']}\" border=0></a>";
+					$lang['delete'] = "<a href=\"alliance.php?mode=admin&edit=rights&d={$a}\"><img src=\"./skins/epicblue/pic/abort.gif\" alt=\"{$lang['Delete_range']}\" border=0></a>";
 					$lang['a'] = $a;
 					$lang['r1'] = "<b>-</b>";
 					$lang['r2'] = "<input type=checkbox name=\"u{$a}r1\"" . (($b['kick'] == 1)?' checked="checked"':'') . ">";
@@ -700,7 +699,6 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 		}
 
 		$lang['list'] = $list;
-		$lang['dpath'] = $dpath;
 		$page .= parsetemplate(gettemplate('alliance_admin_laws'), $lang);
 
 		display($page, $lang['Law_settings']);
@@ -760,7 +758,6 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 				WHERE `id`='{$ally['id']}'", "alliance");
 			}
 		}
-		$lang['dpath'] = $dpath;
 		/*
 	  Depende del $t, muestra el formulario para cada tipo de texto.
 	*/
@@ -902,7 +899,6 @@ while($data=mysqli_fetch_array($selection)){
 			if ($ally['ally_owner'] == $u['id'] || $rank == $u['id']) {
 				$u["functions"] = '';
 			} elseif ($ally_ranks[$user['ally_rank_id']-1][5] == 1 || $ally['ally_owner'] == $user['id']) {
-				$f['dpath'] = $dpath;
 				$f['Expel_user'] = $lang['Expel_user'];
 				$f['Set_range'] = $lang['Set_range'];
 				$f['You_are_sure_want_kick_to'] = str_replace("%s", $u['username'], $lang['You_are_sure_want_kick_to']);
@@ -911,7 +907,6 @@ while($data=mysqli_fetch_array($selection)){
 			} else {
 				$u["functions"] = '';
 			}
-			$u["dpath"] = $dpath;
 			// por el formulario...
 			if ($rank != $u['id']) {
 				$u['ally_range'] = $ally_range;

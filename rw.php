@@ -41,7 +41,7 @@ require_once dirname(__FILE__) .'/common.php';
 		 $open) {
 		$Page  = "<html>";
 		$Page .= "<head>";
-		$Page .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$dpath."/formate.css\">";
+		$Page .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"skins/epicblue/formate.css\">";
 		$Page .= "<meta http-equiv=\"content-type\" content=\"text/html; charset=iso-8859-2\" />";
 		$Page .= "</head>";
 		$Page .= "<body>";

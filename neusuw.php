@@ -39,19 +39,6 @@ $lang['PHP_SELF'] = 'neusuw.'.PHPEXT;
 if($_POST && $mode == "change"){ //Array ( [db_character]
 
 	$iduser = $user["id"];
-	$dpath = $_POST["dpath"];
-	//Mostrar skin
-	if(isset($_POST["design"])&& $_POST["design"] == 'on'){
-		$design = "1";
-	}else{
-		$design = "0";
-	}
-	//Desactivar comprobaci? de IP
-	if(isset($_POST["noipcheck"])&& $_POST["noipcheck"] == 'on'){
-		$noipcheck = "1";
-	}else{
-		$noipcheck = "0";
-	}
 	//Nombre de usuario
 	if(isset($_POST["db_character"])&& $_POST["db_character"] != ''){
 		$username = $_POST['db_character'];
@@ -106,12 +93,6 @@ if($_POST && $mode == "change"){ //Array ( [db_character]
 	}else{
 		$settings_mis = "0";
 	}
-	//Ver reporte
-	if(isset($_POST["settings_rep"]) && $_POST["settings_rep"] == 'on'){
-		$settings_rep = "1";
-	}else{
-		$settings_rep = "0";
-	}
 	//Modo vacaciones
 	if(isset($_POST["urlaubs_modus"]) && $_POST["urlaubs_modus"] == 'on'){
 		$urlaubs_modus = "1";
@@ -126,9 +107,6 @@ if($_POST && $mode == "change"){ //Array ( [db_character]
 	}
 	doquery("UPDATE {{table}} SET
 	`email` = '$db_email',
-	`dpath` = '$dpath',
-	`design` = '$design',
-	`noipcheck` = '$noipcheck',
 	`spio_anz` = '$spio_anz',
 	`settings_tooltiptime` = '$settings_tooltiptime',
 	`settings_fleetactions` = '$settings_fleetactions',
@@ -137,7 +115,6 @@ if($_POST && $mode == "change"){ //Array ( [db_character]
 	`settings_wri` = '$settings_wri',
 	`settings_bud` = '$settings_bud',
 	`settings_mis` = '$settings_mis',
-	`settings_rep` = '$settings_rep',
 	`urlaubs_modus` = '$urlaubs_modus',
 	`db_deaktjava` = '$db_deaktjava' 
 	WHERE `id` = '$iduser' LIMIT 1","users");
@@ -169,20 +146,15 @@ else
 
 	$parse = $lang;
 
-	$parse['dpath'] = $dpath;
 	$parse['user_username'] = $user['username'];
 	$parse['user_email'] = $user['email'];
 	$parse['user_email_2'] = $user['email_2'];
-	$parse['user_dpath'] = $user['dpath'];
 	$parse['user_spio_anz'] = $user['spio_anz'];
 	$parse['user_settings_tooltiptime'] = $user['settings_tooltiptime'];
 	$parse['user_settings_fleetactions'] = $user['settings_fleetactions'];
-	$parse['user_design'] = ($user['design'] == 1) ? " checked='checked'":'';
-	$parse['user_noipcheck'] = ($user['noipcheck'] == 1) ? " checked='checked'":'';
 	$parse['user_settings_allylogo'] = ($user['settings_allylogo'] == 1) ? " checked='checked'/":'';
 	$parse['user_db_deaktjava'] = ($user['db_deaktjava'] == 1) ? " checked='checked'/":'';
 	$parse['user_urlaubs_modus'] = ($user['urlaubs_modus'] == 1)?" checked='checked'/":'';
-	$parse['user_settings_rep'] = ($user['settings_rep'] == 1) ? " checked='checked'/":'';
 	$parse['user_settings_esp'] = ($user['settings_esp'] == 1) ? " checked='checked'/":'';
 	$parse['user_settings_wri'] = ($user['settings_wri'] == 1) ? " checked='checked'/":'';
 	$parse['user_settings_mis'] = ($user['settings_mis'] == 1) ? " checked='checked'/":'';

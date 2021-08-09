@@ -37,7 +37,6 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		includeLang('admin/interface');
 
 		$parse          = $lang;
-		$parse['dpath'] = $dpath;
 
 		$PageTPL        = gettemplate('admin/activeplanet_body');
 		$ActiveTime = time() - (15 * 60);

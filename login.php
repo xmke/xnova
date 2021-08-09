@@ -32,6 +32,7 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 define('LOGIN'   , true);
 define('DISABLE_IDENTITY_CHECK', true);
+define('QRYLESS', true);
 require_once dirname(__FILE__) .'/common.php';
 
 includeLang('login');

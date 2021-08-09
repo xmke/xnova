@@ -30,11 +30,11 @@
 
 define('INSIDE' , true);
 define('INSTALL' , false);
-define('LEFTMENU', true);
+define('QRYLESS', true);
 require_once dirname(__FILE__) .'/common.php';
 
 function ShowLeftMenu ( $Level , $Template = 'left_menu') {
-	global $lang, $user, $dpath, $game_config, $MustacheEngine;
+	global $lang, $user, $game_config, $MustacheEngine;
 
 	includeLang('leftmenu');
 
@@ -46,7 +46,6 @@ function ShowLeftMenu ( $Level , $Template = 'left_menu') {
 	$parse['lm_tx_queue']     = MAX_FLEET_OR_DEFS_PER_ROW;
 
 	$parse['XNovaRelease']    = VERSION;
-	$parse['dpath']           = $dpath;
 	$parse['forum_url']       = $game_config['forum_url'];
 	$parse['mf']              = "Hauptframe";
 	$parse['userIsAdmin'] = $Level > 0;

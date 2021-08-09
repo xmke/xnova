@@ -17,7 +17,7 @@ function f(target_url,win_name) {
 <tr>
 	<td colspan="2" style="border-top: 1px #545454 solid"><div><center>{{servername}}<br>(<a href="changelog.php" target={{mf}}><font color=red>{{XNovaRelease}}</font></a>)<center></div></td>
 </tr><tr>
-	<td colspan="2" background="{{dpath}}img/bg1.gif"><center>{{devlp}}</center></td>
+	<td colspan="2" background="skins/epicblue/img/bg1.gif"><center>{{devlp}}</center></td>
 </tr><tr>
 	<td colspan="2"><div><a href="overview.php" accesskey="g" target="{{mf}}">{{Overview}}</a></div></td>
 </tr><tr>
@@ -39,7 +39,7 @@ function f(target_url,win_name) {
 {{/enable_marchand}}
 
 <tr>
-	<td colspan="2" background="{{dpath}}img/bg1.gif"><center>{{navig}}</center></td>
+	<td colspan="2" background="skins/epicblue/img/bg1.gif"><center>{{navig}}</center></td>
 </tr><tr>
 	<td colspan="2"><div><a href="alliance.php" accesskey="a" target="{{mf}}">{{Alliance}}</a></div></td>
 </tr><tr>
@@ -48,7 +48,7 @@ function f(target_url,win_name) {
 	<td colspan="2"><div><a href="messages.php" accesskey="c" target="{{mf}}">{{Messages}}</a></div></td>
 </tr><tr>
 
-	<td colspan="2" background="{{dpath}}img/bg1.gif"><center>{{observ}}</center></td>
+	<td colspan="2" background="skins/epicblue/img/bg1.gif"><center>{{observ}}</center></td>
 </tr><tr>
 	<td colspan="2"><div><a href="galaxy.php?mode=0" accesskey="s" target="{{mf}}">{{Galaxy}}</a></div></td>
 </tr><tr>
@@ -73,7 +73,7 @@ function f(target_url,win_name) {
 </tr><tr>
 
 
-	<td colspan="2" background="{{dpath}}img/bg1.gif"><center>{{commun}}</center></td>
+	<td colspan="2" background="skins/epicblue/img/bg1.gif"><center>{{commun}}</center></td>
 	</tr><tr>
 	<td colspan="2"><div><a href="#" onClick="f('buddy.php', '');" accesskey="c">{{Buddylist}}</a></div></td>
 </tr></tr>
@@ -123,7 +123,7 @@ function f(target_url,win_name) {
 <tr>
 	<td colspan="2"><div><a href="javascript:top.location.href='logout.php'" accesskey="s" style="color:red">{{Logout}}</a></div></td>
 </tr><tr>
-	<td colspan="2" background="{{dpath}}img/bg1.gif"><center>{{infog}}</center></td>
+	<td colspan="2" background="skins/epicblue/img/bg1.gif"><center>{{infog}}</center></td>
 </tr>
 	<tr>
     <td style="padding-left: 3px">{{lm_ifo_game}}</td>

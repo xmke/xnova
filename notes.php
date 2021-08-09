@@ -32,7 +32,6 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-$dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 
 $a = isset($_GET['a']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['a']) : "";
 $n = isset($_GET['n']) ? intval($_GET['n']) : 0;

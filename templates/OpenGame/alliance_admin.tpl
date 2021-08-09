@@ -13,11 +13,11 @@
 	<tr>
 	  <th colspan=2><a href="?mode=admin&edit=tag">{Change_the_ally_tag}</a></th>
 	</tr>
-	<!--<img src="{dpath}pic/appwiz.gif" border=0 alt="">-->
+	<!--<img src="skins/epicblue/pic/appwiz.gif" border=0 alt="">-->
 	<tr>
 	  <th colspan=2><a href="?mode=admin&edit=name">{Change_the_ally_name}</a></th>
 	</tr>
-	<!--<img src="{dpath}pic/appwiz.gif" border=0 alt="">-->
+	<!--<img src="skins/epicblue/pic/appwiz.gif" border=0 alt="">-->
 </table>
 <br>
 <form action="" method="POST">

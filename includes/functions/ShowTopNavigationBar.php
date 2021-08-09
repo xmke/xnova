@@ -38,9 +38,7 @@ function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) {
 		PlanetResourceUpdate($CurrentUser, $CurrentPlanet, time());
 		$NavigationTPL       = gettemplate('topnav');
 
-		$dpath               = (!$CurrentUser["dpath"]) ? DEFAULT_SKINPATH : $CurrentUser["dpath"];
 		$parse               = $lang;
-		$parse['dpath']      = $dpath;
 		$parse['image']      = $CurrentPlanet['image'];
 
 		// Genearation de la combo des planetes du joueur
@@ -49,7 +47,7 @@ function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) {
 		$ThisUsersPlanets    = SortUserPlanets ( $CurrentUser );
 		while ($CurPlanet = mysqli_fetch_array($ThisUsersPlanets)) {
 			if ($CurPlanet["destruyed"] == 0) {
-				$PlanetList[] = array("currentSelectedPlanet" => $CurPlanet['id'] == $CurrentUser['current_planet'], "name" => $CurPlanet['name'], "galaxy" => $CurPlanet['galaxy'], "system" => $CurPlanet['system'], "planet" => $CurPlanet['planet']);
+				$PlanetList[] = array("currentSelectedPlanet" => $CurPlanet['id'] == $CurrentUser['current_planet'], "id" => $CurPlanet['id'], "name" => $CurPlanet['name'], "galaxy" => $CurPlanet['galaxy'], "system" => $CurPlanet['system'], "planet" => $CurPlanet['planet']);
 				/* $parse['planetlist'] .= "\n<option ";
 				if ($CurPlanet['id'] == $CurrentUser['current_planet']) {
 					// Bon puisque deja on s'y trouve autant le marquer

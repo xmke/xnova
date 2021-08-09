@@ -68,7 +68,7 @@ function XNovaResetUnivers ( $CurrentUser ) {
 		doquery( "TRUNCATE TABLE {{table}}", 'rw');
 		doquery( "TRUNCATE TABLE {{table}}", 'statpoints');
 
-		$AllUsers  = doquery ("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,`galaxy`,`system`,`planet`, `dpath`, `onlinetime`, `register_time`, `id_planet` FROM {{table}} WHERE 1;", 'users_s');
+		$AllUsers  = doquery ("SELECT `username`,`password`,`email`, `email_2`,`authlevel`,`galaxy`,`system`,`planet`, `onlinetime`, `register_time`, `id_planet` FROM {{table}} WHERE 1;", 'users_s');
 		$LimitTime = time() - (15 * (24 * (60 * 60)));
 		$TransUser = 0;
 		while ( $TheUser = mysqli_fetch_assoc($AllUsers) ) {
@@ -82,7 +82,6 @@ function XNovaResetUnivers ( $CurrentUser ) {
 					$QryInsertUser .= "`email_2` = '".       $TheUser['email_2']       ."', ";
 					$QryInsertUser .= "`id_planet` = '0', ";
 					$QryInsertUser .= "`authlevel` = '".     $TheUser['authlevel']     ."', ";
-					$QryInsertUser .= "`dpath` = '".         $TheUser['dpath']         ."', ";
 					$QryInsertUser .= "`galaxy` = '".        $TheUser['galaxy']        ."', ";
 					$QryInsertUser .= "`system` = '".        $TheUser['system']        ."', ";
 					$QryInsertUser .= "`planet` = '".        $TheUser['planet']        ."', ";

@@ -181,7 +181,7 @@ function setcoookie($a, $b, $c = '') {
 
     <head>
         <title>OGame Clone</title>
-        <link rel="stylesheet" type="text/css" href="<?php echo $dpath?>formate.css">
+        <link rel="stylesheet" type="text/css" href="./skins/epicblue/formate.css">
     </head>
 
     <center>

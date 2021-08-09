@@ -35,8 +35,6 @@ require_once dirname(__FILE__) .'/common.php';
 $searchtext = isset($_POST['searchtext']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['searchtext']) : "";
 $type = isset($_POST['type']) ? mysqli_real_escape_string(Database::$dbHandle, $_POST['type']) : ""; ;
 
-$dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
-
 includeLang('search');
 $i = 0;
 $search_results = "";
@@ -102,7 +100,6 @@ if(isset($searchtext) && isset($type)){
 
 
 			$s['position'] = isset($s) && isset($s['rank']) ? "<a href=\"stat.php?start=".$s['rank']."\">".$s['rank']."</a>" : "-";
-			$s['dpath'] = $dpath;
 			$s['coordinated'] = "{$s['galaxy']}:{$s['system']}:{$s['planet']}";
 			$s['buddy_request'] = $lang['buddy_request'];
 			$s['write_a_messege'] = $lang['write_a_messege'];

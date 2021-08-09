@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of XNova:Legacies
+ * Tis file is part of XNova:Legacies
  *
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
  * @see http://www.xnova-ng.org/
@@ -29,35 +29,47 @@
  */
 
 define('INSIDE' , true);
-define('INSTALL' , false);
-require_once dirname(__FILE__) .'/common.php';
+define('INSTALL' , false); 
+define('IN_ADMIN', true);
+define('QRYLESS', true);
+require_once dirname(dirname(__FILE__)) .'/common.php';
+
+	if (in_array($user['authlevel'], array(LEVEL_ADMIN))) {
+		includeLang('admin/interface');
+
+		if(isset($_GET["sure"]) && $_GET["sure"] == "yes"){
+			//wipe cache
+			$baseGameDir = dirname(dirname(__FILE__));
+			$cacheDir = $baseGameDir."/cache";
+
+			$cacheFiles = glob($cacheDir."/*");
+			$cacheFilesAdm = glob($cacheDir."/admin/*");
+			$cacheFilesInstall = glob($cacheDir."/install/*");
+			
+			$cacheFilesToDelete = array_merge($cacheFiles, $cacheFilesAdm, $cacheFilesInstall);
+
+			$i = 0;
+			foreach($cacheFilesToDelete as $file){ // iterate files
+			  if(is_file($file)) {
+				unlink($file); // delete file
+				$i++;
+			  }
+			}
 
 
-includeLang('banned');
+			AdminMessage ("deleted ".$i." cache files.", "Done");
+			
+		}else{
+			$parse = $lang;
+			$PageTPL  = gettemplate('admin/clearTplCache');
+			$Page = $MustacheEngine->render($PageTPL, $parse);
+	
+			display ( $Page, "Clear cache", false, true);
+		}
 
-$parse = $lang;
+		
+	} else {
+		AdminMessage ( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
+	}
 
-$query = doquery("SELECT * FROM {{table}} ORDER BY `id`;",'banned');
-$i=0;
-//@todo template dynamique Mustache
-$parse['banned'] = "";
-while($u = mysqli_fetch_array($query)){
-	$parse['banned'] .=
-        "<tr><td class=b><center><b>".$u[1]."</center></td></b>".
-	"<td class=b><center><b>".$u[2]."</center></b></td>".
-	"<td class=b><center><b>".date("d/m/Y G:i:s",$u[4])."</center></b></td>".
-	"<td class=b><center><b>".date("d/m/Y G:i:s",$u[5])."</center></b></td>".
-	"<td class=b><center><b>".$u[6]."</center></b></td></tr>";
-	$i++;
-}
-
-if ($i=="0")
- $parse['banned'] .= "<tr><th class=b colspan=5>Il n'y a pas de joueurs bannis</th></tr>";
-else
-  $parse['banned'] .= "<tr><th class=b colspan=5>Il y a {$i} joueurs bannis</th></tr>";
-
-display($MustacheEngine->render(gettemplate('banned_body'), $parse),'Banned',true);
-
-
-// Created by e-Zobar (XNova Team). All rights reversed (C) 2008
 ?>

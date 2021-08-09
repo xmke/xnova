@@ -36,7 +36,7 @@ function CheckCookies($IsUserChecked)
     
     $userData = array();
     if (isset($_SESSION['user_id'])) {
-        if(!defined('LEFTMENU')){
+        if(!defined('QRYLESS')){
             $sql =<<<EOF
             SELECT * FROM {{table}}
                 WHERE id      ={$_SESSION['user_id']}
@@ -81,7 +81,7 @@ EOF;
         'remote_addr' => mysqli_real_escape_string (Database::$dbHandle, $_SERVER['REMOTE_ADDR']/* . (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? '|' . $_SERVER['HTTP_X_FORWARDED_FOR'] : '')*/),
         'user_agent' => mysqli_real_escape_string (Database::$dbHandle, $_SERVER['HTTP_USER_AGENT'])
         );
-        if(!defined('LEFTMENU')){ //la page chargée s'en chargera
+        if(!defined('QRYLESS')){ //la page chargée s'en chargera
             $now = time();
     $sql =<<<EOF
 UPDATE {{table}}

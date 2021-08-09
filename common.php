@@ -96,7 +96,7 @@ if (empty($user) && !defined('DISABLE_IDENTITY_CHECK')) {
     header('Location: login.php');
     exit(0);
 }else{
-    if(!defined('LEFTMENU')){
+    if(!defined('QRYLESS')){
        $now = time();
     $sql =<<<SQL_EOF
     SELECT
@@ -126,17 +126,9 @@ if (empty($user) && !defined('DISABLE_IDENTITY_CHECK')) {
     
 }
  
-
-
 include(ROOT_PATH . 'rak.'.PHPEXT);
-if (!defined('IN_ADMIN')) {
-    $dpath = (isset($user['dpath']) && !empty($user["dpath"])) ? $user['dpath'] : DEFAULT_SKINPATH;
-} else {
-    $dpath = '../' . DEFAULT_SKINPATH;
-}
 
-
-if (!empty($user) && !defined('LEFTMENU')) {
+if (!empty($user) && !defined('QRYLESS')) {
     SetSelectedPlanet($user);
     
     $planetrowQry  = "SELECT game_planets.*,";

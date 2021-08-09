@@ -547,7 +547,6 @@ function MissionCaseDestruction($FleetRow)
          $SimMessage        = sprintf($lang['sys_rapport_build_time'], $totaltime);
          $raport           .= $SimMessage ."</table>";
 
-         $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
          $rid = md5($raport);
          $QryInsertRapport  = "INSERT INTO {{table}} SET ";
          $QryInsertRapport .= "`time` = UNIX_TIMESTAMP(), ";

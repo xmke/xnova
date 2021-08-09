@@ -201,7 +201,6 @@ doquery("INSERT INTO {{table}} SET
 
 doquery("UPDATE {{table}} SET interplanetary_misil = '".($iraks_anzahl - $anz)."' WHERE id = '".$user['current_planet']."'", 'planets');
 
-	$dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 
 if ($anz == 1)
 	$n = "";
@@ -214,7 +213,7 @@ else
 <head>
 <title>Attaque par missiles interplanetaire</title>
 <link rel="SHORTCUT ICON" href="favicon.ico">
-<link rel="stylesheet" type="text/css" href="<?php echo $dpath ?>/formate.css" />
+<link rel="stylesheet" type="text/css" href="skins/epicblue/formate.css" />
 <meta http-equiv="refresh" content="3; URL=galaxy.php?mode=3&galaxy=<?php echo $g; ?>&system=<?php echo $s; ?>&target=<?php echo $i; ?>">
 
 

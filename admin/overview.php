@@ -46,7 +46,6 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$RowsTPL  = gettemplate('admin/overview_rows');
 
 		$parse                      = $lang;
-		$parse['dpath']             = $dpath;
 		//@Todo fix ce truc là, je sais même pas d'où ça vient
 		$parse['mf']                = "Hauptframe";
 		$parse['adm_ov_data_yourv'] = VERSION;
@@ -68,7 +67,6 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			}
 
 			$UserPoints = doquery("SELECT total_points FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $TheUser['id'] . "';", 'statpoints', true);
-			$Bloc['dpath']               = $dpath;
 			$Bloc['adm_ov_altpm']        = $lang['adm_ov_altpm'];
 			$Bloc['adm_ov_wrtpm']        = $lang['adm_ov_wrtpm'];
 			$Bloc['adm_ov_data_id']      = $TheUser['id'];

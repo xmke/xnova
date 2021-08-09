@@ -2,7 +2,7 @@
 <tr>
 	<td class="l">
 		<a href="infos.php?gid={{i}}">
-		<img border="0" src="{{dpath}}gebaeude/{{i}}.gif" align="top" width="120" height="120">
+		<img border="0" src="skins/epicblue/gebaeude/{{i}}.gif" align="top" width="120" height="120">
 		</a>
 	</td>
 	<td class="l">

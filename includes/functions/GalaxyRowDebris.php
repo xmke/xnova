@@ -29,7 +29,7 @@
  */
 
 function GalaxyRowDebris ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy, $System, $Planet, $PlanetType ) {
-	global $lang, $dpath, $CurrentRC, $user, $pricelist;
+	global $lang, $CurrentRC, $user, $pricelist;
 	// Cdr
 	$Result  = "<th style=\"white-space: nowrap;\" width=30>";
 	if ($GalaxyRow) {
@@ -60,7 +60,7 @@ function GalaxyRowDebris ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy
 			$Result .= "</td>";
 			$Result .= "</tr><tr>";
 			$Result .= "<th width=80>";
-			$Result .= "<img src=". $dpath ."planeten/debris.jpg height=75 width=75 />";
+			$Result .= "<img src=skins/epicblue/planeten/debris.jpg height=75 width=75 />";
 			$Result .= "</th>";
 			$Result .= "<th>";
 			$Result .= "<table>";
@@ -83,7 +83,7 @@ function GalaxyRowDebris ( $GalaxyRow, $GalaxyRowPlanet, $GalaxyRowUser, $Galaxy
 //			$Result .= ", STICKY, MOUSEOFF, DELAY, ". ($user["settings_tooltiptime"] * 1000) .", CENTER, OFFSETX, -40, OFFSETY, -40 );'";
             $Result .= ", STICKY, MOUSEOFF, DELAY, 750, CENTER, OFFSETX, -40, OFFSETY, -40 );'";
 			$Result .= " onmouseout='return nd();'>";
-			$Result .= "<img src=". $dpath ."planeten/debris.jpg height=22 width=22></a>";
+			$Result .= "<img src=skins/epicblue/planeten/debris.jpg height=22 width=22></a>";
 		}
 	}
 	$Result .= "</th>";

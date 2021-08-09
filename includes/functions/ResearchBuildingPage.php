@@ -30,7 +30,7 @@
 
 function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $ThePlanet)
 {
-	global $lang, $resource, $reslist, $dpath, $game_config, $_GET, $MustacheEngine;
+	global $lang, $resource, $reslist, $game_config, $_GET, $MustacheEngine;
 
 
 	$NoResearchMessage = "";
@@ -124,7 +124,6 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 		if ($Tech > 105 && $Tech <= 199) {
 			if ( IsTechnologieAccessible($CurrentUser, $CurrentPlanet, $Tech)) {
 				$RowParse                = $lang;
-				$RowParse['dpath']       = $dpath;
 				$RowParse['tech_id']     = $Tech;
 				$building_level          = $CurrentUser[$resource[$Tech]];
 				$RowParse['tech_level']  = ($building_level == 0) ? "" : "( ". $lang['level']. " ".$building_level." )";

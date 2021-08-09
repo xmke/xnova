@@ -202,7 +202,7 @@ SQL_EOF;
 			} else {
 				$parse['player_name']     = $StatRow['username'];
 			}
-			$parse['player_mes']      = "<a href=\"messages.php?mode=write&id=" . $StatRow['id'] . "\"><img src=\"" . $dpath . "img/m.gif\" border=\"0\" alt=\"". $lang['Ecrire'] ."\" /></a>";
+			$parse['player_mes']      = "<a href=\"messages.php?mode=write&id=" . $StatRow['id'] . "\"><img src=\"skins/epicblue/img/m.gif\" border=\"0\" alt=\"". $lang['Ecrire'] ."\" /></a>";
 			if ($StatRow['ally_name'] == $user['ally_name']) {
 				$parse['player_alliance'] = "<font color=\"#33CCFF\">".$StatRow['ally_name']."</font>";
 			} else {

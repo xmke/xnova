@@ -226,7 +226,7 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 					$page .= "<th>". stripslashes( $CurMess['message_subject'] ) ." ";
 					if ($CurMess['message_type'] == 1) {
 						$page .= "<a href=\"messages.php?mode=write&amp;id=". $CurMess['message_sender'] ."&amp;subject=".$lang['mess_answer_prefix'] . htmlspecialchars( $CurMess['message_subject']) ."\">";
-						$page .= "<img src=\"". $dpath ."img/m.gif\" alt=\"".$lang['mess_answer']."\" border=\"0\"></a></th>";
+						$page .= "<img src=\"skins/epicblue/img/m.gif\" alt=\"".$lang['mess_answer']."\" border=\"0\"></a></th>";
 					} else {
 						$page .= "</th>";
 					}
@@ -255,7 +255,7 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 						$page .= "<th>". stripslashes( $CurMess['message_subject'] ) ." ";
 						if ($CurMess['message_type'] == 1) {
 							$page .= "<a href=\"messages.php?mode=write&amp;id=". $CurMess['message_sender'] ."&amp;subject=".$lang['mess_answer_prefix'] . htmlspecialchars( $CurMess['message_subject']) ."\">";
-							$page .= "<img src=\"". $dpath ."img/m.gif\" alt=\"".$lang['mess_answer']."\" border=\"0\"></a></th>";
+							$page .= "<img src=\"skins/epicblue/img/m.gif\" alt=\"".$lang['mess_answer']."\" border=\"0\"></a></th>";
 						} else {
 							$page .= "</th>";
 						}

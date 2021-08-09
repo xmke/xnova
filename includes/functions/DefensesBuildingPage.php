@@ -31,7 +31,7 @@
 require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
 function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
-    global $lang, $resource, $dpath, $MustacheEngine;
+    global $lang, $resource, $MustacheEngine;
 
     // S'il n'y a pas de Chantier
     if (!isset($currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]]) || $currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]] == 0) {
@@ -76,7 +76,7 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
             // Imagette + Link vers la page d'info
             $PageTable .= "<th class=l>";
             $PageTable .= "<a href=infos.".PHPEXT."?gid=".$shipId.">";
-            $PageTable .= "<img border=0 src=\"".$dpath."gebaeude/".$shipId.".gif\" align=top width=120 height=120></a>";
+            $PageTable .= "<img border=0 src=\"skins/epicblue/gebaeude/".$shipId.".gif\" align=top width=120 height=120></a>";
             $PageTable .= "</th>";
 
             // Description

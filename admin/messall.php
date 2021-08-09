@@ -66,7 +66,6 @@ if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERA
 		}
 	} else {
 			$parse = $game_config;
-			$parse['dpath'] = $dpath;
 			$parse['debug'] = ($game_config['debug'] == 1) ? " checked='checked'/":'';
 			$page = $MustacheEngine->render(gettemplate('admin/messall_body'), $parse);
 			display($page, '', false, true);

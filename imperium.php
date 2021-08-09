@@ -70,7 +70,7 @@ $parse['file_deuterium'] 	= "";
 $parse['file_energy'] 		= "";
 foreach ($planet as $p) {
 	// {file_images}
-	$data['text'] = '<a href="overview.php?cp=' . $p['id'] . '&amp;re=0"><img src="' . $dpath . 'planeten/small/s_' . $p['image'] . '.jpg" border="0" height="71" width="75"></a>';
+	$data['text'] = '<a href="overview.php?cp=' . $p['id'] . '&amp;re=0"><img src="skins/epicblue/planeten/small/s_' . $p['image'] . '.jpg" border="0" height="71" width="75"></a>';
 	$parse['file_images'] .= $MustacheEngine->render($row, $data);
 	// {file_names}
 	$data['text'] = $p['name'];

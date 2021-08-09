@@ -154,7 +154,6 @@ function StdUserHeader ($title = '') {
 	$parse             = $langInfos;
 	$parse['title']    = $title;
 	//@todo remove
-	$parse['dpath']    = "skins/epicblue/";
 
 	$parse['defined_login'] = defined('LOGIN') && LOGIN == true ? true : false;
 	
@@ -167,10 +166,9 @@ function StdUserHeader ($title = '') {
 // Entete de page administration
 //
 function AdminUserHeader ($title = '', $metatags = '') {
-	global $user, $dpath, $langInfos, $MustacheEngine;
+	global $user, $langInfos, $MustacheEngine;
 
 	$parse           = $langInfos;
-	$parse['dpath']  = $dpath;
 	$parse['title']  = $title;
 	$parse['-meta-'] = ($metatags) ? $metatags : "";
 	$parse['-body-'] = "<body>"; //  class=\"style\" topmargin=\"0\" leftmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">";
@@ -182,10 +180,9 @@ function AdminUserHeader ($title = '', $metatags = '') {
 // Entete de page d'installation du jeu
 //
 function InstallHeader ($title = '', $metatags = '') {
-	global $dpath, $langInfos, $MustacheEngine;
+	global $langInfos, $MustacheEngine;
 
 	$parse           = $langInfos;
-	$parse['dpath']  = $dpath;
 	$parse['title']  = $title;
 	$parse['-meta-'] = ($metatags) ? $metatags : "";
 	$parse['-body-'] = "<body>"; //  class=\"style\" topmargin=\"0\" leftmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">";

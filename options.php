@@ -37,7 +37,6 @@ require_once dirname(__FILE__) .'/common.php';
 
     $lang['PHP_SELF'] = 'options.' . PHPEXT;
 
-    $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
     $mode = isset($_GET['mode']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['mode']) : "";
 
     if ($_POST && $mode == "exit") { // Array ( [db_character]
@@ -63,34 +62,16 @@ require_once dirname(__FILE__) .'/common.php';
                    solar_satelit_porcent = '10'
                  WHERE id = '{$id['id']}' AND `planet_type` = 1 ", 'planets');}
 
-          $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
           message($lang['succeful_save'], $lang['Options'],"options.php",1);
        }else{
        $urlaubs_modus = "1";
-       $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
        message($lang['You_cant_exit_vmode'], $lan['Error'] ,"options.php",1);
        }
     }
     if ($_POST && $mode == "change") { // Array ( [db_character]
        $iduser = $user["id"];
 
-	   if ($_POST["dpath"] != "")
-			$dpath = $_POST["dpath"];
-		else
-			$dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
-
-       // Mostrar skin
-       if (isset($_POST["design"]) && $_POST["design"] == 'on') {
-          $design = "1";
-       } else {
-          $design = "0";
-       }
-       // Desactivar comprobaci? de IP
-       if (isset($_POST["noipcheck"]) && $_POST["noipcheck"] == 'on') {
-          $noipcheck = "1";
-       } else {
-          $noipcheck = "0";
-       }
+      
        // Nombre de usuario
        if (isset($_POST["db_character"]) && $_POST["db_character"] != '') {
           $username = CheckInputStrings ( $_POST['db_character'] );
@@ -151,12 +132,7 @@ require_once dirname(__FILE__) .'/common.php';
        } else {
           $settings_mis = "0";
        }
-       // Ver reporte
-       if (isset($_POST["settings_rep"]) && $_POST["settings_rep"] == 'on') {
-          $settings_rep = "1";
-       } else {
-          $settings_rep = "0";
-       }
+
        // Modo vacaciones
        if (isset($_POST["urlaubs_modus"]) && $_POST["urlaubs_modus"] == 'on') {
        //Selectionne si le joueur a des flottes en vol
@@ -234,9 +210,6 @@ require_once dirname(__FILE__) .'/common.php';
 
        doquery("UPDATE {{table}} SET
        `email` = '$db_email',
-       `dpath` = '$dpath',
-       `design` = '$design',
-       `noipcheck` = '$noipcheck',
        `planet_sort` = '$SortMode',
        `planet_sort_order` = '$SortOrderMode',
        `spio_anz` = '$spio_anz',
@@ -247,7 +220,6 @@ require_once dirname(__FILE__) .'/common.php';
        `settings_wri` = '$settings_wri',
        `settings_bud` = '$settings_bud',
        `settings_mis` = '$settings_mis',
-       `settings_rep` = '$settings_rep',
        `urlaubs_modus` = '$urlaubs_modus',
        `db_deaktjava` = '$db_deaktjava'
        WHERE `id` = '$iduser' LIMIT 1", "users");
@@ -272,26 +244,21 @@ require_once dirname(__FILE__) .'/common.php';
     } else {
        $parse = $lang;
 
-       $parse['dpath'] = $dpath;
        $parse['opt_lst_skin_data']   = "<option value =\"skins/epicblue/\">skins/epicblue/</option>";
        $parse['opt_lst_skin_data']  .= "<option value =\"skins/xnova/\">skins/xnova/</option>";
 
        $parse['opt_usern_data'] = $user['username'];
        $parse['opt_mail1_data'] = $user['email'];
        $parse['opt_mail2_data'] = $user['email_2'];
-       $parse['opt_dpath_data'] = $user['dpath'];
        $parse['opt_probe_data'] = $user['spio_anz'];
        $parse['opt_toolt_data'] = $user['settings_tooltiptime'];
        $parse['opt_fleet_data'] = $user['settings_fleetactions'];
-       $parse['opt_sskin_data'] = ($user['design'] == 1) ? " checked='checked'":'';
-       $parse['opt_noipc_data'] = ($user['noipcheck'] == 1) ? " checked='checked'":'';
        $parse['opt_allyl_data'] = ($user['settings_allylogo'] == 1) ? " checked='checked'/":'';
        $parse['opt_delac_data'] = ($user['db_deaktjava'] == 1) ? " checked='checked'/":'';
        $parse['opt_modev_data'] = ($user['urlaubs_modus'] == 1)?" checked='checked'/":'';
        $parse['opt_modev_exit'] = ($user['urlaubs_modus'] == 0)?" checked='1'/":'';
        $parse['Vaccation_mode'] = $lang['Vaccation_mode'];
        $parse['vacation_until'] = date("d.m.Y G:i:s",$user['urlaubs_until']);
-       $parse['user_settings_rep'] = ($user['settings_rep'] == 1) ? " checked='checked'/":'';
        $parse['user_settings_esp'] = ($user['settings_esp'] == 1) ? " checked='checked'/":'';
        $parse['user_settings_wri'] = ($user['settings_wri'] == 1) ? " checked='checked'/":'';
        $parse['user_settings_mis'] = ($user['settings_mis'] == 1) ? " checked='checked'/":'';

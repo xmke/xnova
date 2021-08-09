@@ -35,7 +35,6 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR))) {
 
-		$parse['dpath'] = $dpath;
 		$parse = $lang;
 
 		$mode = isset($_GET['mode']) ? $_GET['mode'] : "";

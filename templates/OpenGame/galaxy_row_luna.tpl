@@ -6,5 +6,5 @@ this.T_OFFSETY=-30;
 this.T_STICKY=true;
 this.T_TEMP={T_TEMP};
 this.T_STATIC=true;
-return escape('<table width=\'240\'><tr><td class=\'c\' colspan=\'2\'>Ksi�yc {luna_name} [{g}:{s}:{i}]</td></tr><tr><th width=\'80\'><img src=\'{dpath}planeten/small/s_{image}.jpg\' height=\'75\' width=\'75\'/></th><th style=\'text-align: left\'><a href=\'#\' onclick=\'doit(6, {g}, {s}, {p}, 1, 1)\'>Espiar</a><br /><br /><a href=\'fleet.php?g={g}&s={s}&p={p}&t=1&m=1\'>Atacar</a><br /><a href=\'fleet.php?g={g}&s={s}&p={p}&t=1&m=3\'>Transportar</a></th></tr></table>');">
-<img src="{dpath}planeten/small/s_{image}.jpg" height="30" width="30"></a>
+return escape('<table width=\'240\'><tr><td class=\'c\' colspan=\'2\'>Ksi�yc {luna_name} [{g}:{s}:{i}]</td></tr><tr><th width=\'80\'><img src=\'skins/epicblue/planeten/small/s_{image}.jpg\' height=\'75\' width=\'75\'/></th><th style=\'text-align: left\'><a href=\'#\' onclick=\'doit(6, {g}, {s}, {p}, 1, 1)\'>Espiar</a><br /><br /><a href=\'fleet.php?g={g}&s={s}&p={p}&t=1&m=1\'>Atacar</a><br /><a href=\'fleet.php?g={g}&s={s}&p={p}&t=1&m=3\'>Transportar</a></th></tr></table>');">
+<img src="skins/epicblue/planeten/small/s_{image}.jpg" height="30" width="30"></a>

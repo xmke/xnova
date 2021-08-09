@@ -298,12 +298,12 @@ function BuildPlanetAdressLink ( $CurrentPlanet ) {
 
 // Création d'un lien pour le joueur hostile
 function BuildHostileFleetPlayerLink ( $FleetRow ) {
-    global $lang, $dpath;
+    global $lang;
 
     $PlayerName = doquery ("SELECT `username` FROM {{table}} WHERE `id` = '". $FleetRow['fleet_owner']."';", 'users', true);
     $Link  = $PlayerName['username']. " ";
     $Link .= "<a href=\"messages.php?mode=write&id=".$FleetRow['fleet_owner']."\">";
-    $Link .= "<img src=\"".$dpath."/img/m.gif\" alt=\"". $lang['ov_message']."\" title=\"". $lang['ov_message']."\" border=\"0\"></a>";
+    $Link .= "<img src=\"skins/epicblue/img/m.gif\" alt=\"". $lang['ov_message']."\" title=\"". $lang['ov_message']."\" border=\"0\"></a>";
     return $Link;
 }
 

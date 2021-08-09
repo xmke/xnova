@@ -14,23 +14,15 @@ parent.frames['Hauptframe'].location.replace("overview.php");
 <tr>
 	<td style="border-top: 1px #545454 solid"><div><center>{{servername}}<br>(<a href="changelog.php" target={{mf}}><font color=red>{{XNovaRelease}}</font></a>)<center></div></td>
 </tr><tr>
-	<td background="{{dpath}}img/bg1.gif"><center>{{admin}}</center></td>
+	<td background="../skins/epicblue/img/bg1.gif"><center>{{admin}}</center></td>
 </tr><tr>
 	<td><div><a href="overview.php" accesskey="v" target="{{mf}}">{{adm_over}}</a></div></td>
 </tr><tr>
-	<td><div><a href="settings.php" accesskey="e" target="{{mf}}">{{adm_conf}}</a></div></td>
-</tr><tr>
-	<td><div><a href="XNovaResetUnivers.php" accesskey="e" target="{{mf}}">{{adm_reset}}</a></div></td>
-</tr><tr>
-	<td background="{{dpath}}img/bg1.gif"><center>{{player}}</center></td>
+	<td background="../skins/epicblue/img/bg1.gif"><center>{{player}}</center></td>
 </tr><tr>
 	<td><div><a href="userlist.php" accesskey="a" target="{{mf}}">{{adm_plrlst}}</a></div></td>
 </tr><tr>
     <td><div><a href="multi.php" accesskey="a" target="{{mf}}">{{adm_multi}}</a></div></td>
-</tr><tr>
-	<td><div><a href="paneladmina.php" accesskey="k" target="{{mf}}">{{adm_plrsch}}</a></div></td>
-</tr><tr>
-	<td><div><a href="variables.php" accesskey="k" target="{{mf}}">PhpInfo</a></div></td>
 </tr><tr>
 	<td><div><a href="add_money.php" accesskey="k" target="{{mf}}">{{adm_addres}}</a></div></td>
 </tr><tr>
@@ -60,7 +52,7 @@ parent.frames['Hauptframe'].location.replace("overview.php");
 </tr><tr>
 	<td><div><a href="unbanned.php" accesskey="k" target="{{mf}}">{{adm_unban}}</a></div></td>
 </tr><tr>
-	<td background="{{dpath}}img/bg1.gif"><center>{{tool}}</center></td>
+	<td background="../skins/epicblue/img/bg1.gif"><center>{{tool}}</center></td>
 </tr><tr>
 	<td><div><a href="statbuilder.php" accesskey="p" target="{{mf}}">{{adm_updpt}}</a></div></td>
 </tr><tr>
@@ -72,13 +64,34 @@ parent.frames['Hauptframe'].location.replace("overview.php");
 </tr><tr>
 	<td style="background-color:#FFFFFF" height="1px"></td>
 </tr><tr>
+	<td><div><a href="http://www.xnova-ng.org/forum/index.php" accesskey="3" target="{{mf}}">{{adm_help}}</a></div></td>
+</tr>
+<tr>
+	<td><div><a href="paneladmina.php" accesskey="k" target="{{mf}}">{{adm_plrsch}}</a></div></td>
+</tr>
+{{#isAdminLevel}}
+<!-- Admin Tools -->
+<tr>
+	<td><div><a href="settings.php" accesskey="e" target="{{mf}}">{{adm_conf}}</a></div></td>
+</tr>
+<tr>
+	<td background="../skins/epicblue/img/bg1.gif"><center>Admin Tools</center></td>
+</tr>
+<tr>
+	<td><div><a href="variables.php" accesskey="k" target="{{mf}}">PhpInfo</a></div></td>
+</tr><tr>
+	<td><div><a href="XNovaResetUnivers.php" accesskey="e" target="{{mf}}">{{adm_reset}}</a></div></td>
+</tr><tr>
 	<td><div><a href="errors.php" accesskey="e" target="{{mf}}">{{adm_error}}</a></div></td>
 </tr><tr>
-	<td><div><a href="http://www.xnova-ng.org/forum/index.php" accesskey="3" target="{{mf}}">{{adm_help}}</a></div></td>
-</tr><tr>
+	<td><div><a href="ClearTplCache.php" accesskey="e" target="{{mf}}">Clear TPL Cache</a></div></td>
+</tr>
+{{/isAdminLevel}}
+
+<tr>
 	<td><div><a href="../frames.php" accesskey="i" target="_top" style="color:red">{{adm_back}}</a></div></td>
 </tr><tr>
-	<td background="{{dpath}}img/bg1.gif"><center>{{infog}}</center></td>
+	<td background="../skins/epicblue/img/bg1.gif"><center>{{infog}}</center></td>
 </tr>
 </table>
 </div>

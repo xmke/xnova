@@ -8,11 +8,11 @@
 		<table class="header">
 		<tbody>
 		<tr class="header">
-			<td class="header"><img src="{{dpath}}planeten/small/s_{{image}}.jpg" height="50" width="50"></td>
+			<td class="header"><img src="skins/epicblue/planeten/small/s_{{image}}.jpg" height="50" width="50"></td>
 			<td  class="header" valign="middle">
 				<select size="1" onChange="eval('location=\''+this.options[this.selectedIndex].value+'\'');">
 				{{#planetlist}}
-					<option {{#currentSelectedPlanet}}selected="selected"{{/currentSelectedPlanet}} value="?cp=1&amp;amp;re=0">{{name}} [{{galaxy}}:{{system}}:{{planet}}]</option>
+					<option {{#currentSelectedPlanet}}selected="selected"{{/currentSelectedPlanet}} value="?cp={{id}}&re=0">{{name}} [{{galaxy}}:{{system}}:{{planet}}]</option>
 				{{/planetlist}}
 
 				</select>
@@ -26,11 +26,11 @@
 		<table style="width: 508px;" class="header" id="resources" padding-right="30" border="0" cellpadding="0" cellspacing="0">
 		<tbody>
 		<tr class="header">
-			<td class="header" align="center" width="140"><img src="{{dpath}}images/metall.gif" border="0" height="22" width="42"></td>
-			<td class="header" align="center" width="140"><img src="{{dpath}}images/kristall.gif" border="0" height="22" width="42"></td>
-			<td class="header" align="center" width="140"><img src="{{dpath}}images/deuterium.gif" border="0" height="22" width="42"></td>
-			<td class="header" align="center" width="140"><img src="{{dpath}}images/energie.gif" border="0" height="22" width="42"></td>
-			<td class="header" align="center" width="140"><img src="{{dpath}}images/message.gif" border="0" height="22" width="42"></td>
+			<td class="header" align="center" width="140"><img src="skins/epicblue/images/metall.gif" border="0" height="22" width="42"></td>
+			<td class="header" align="center" width="140"><img src="skins/epicblue/images/kristall.gif" border="0" height="22" width="42"></td>
+			<td class="header" align="center" width="140"><img src="skins/epicblue/images/deuterium.gif" border="0" height="22" width="42"></td>
+			<td class="header" align="center" width="140"><img src="skins/epicblue/images/energie.gif" border="0" height="22" width="42"></td>
+			<td class="header" align="center" width="140"><img src="skins/epicblue/images/message.gif" border="0" height="22" width="42"></td>
 		</tr>
 		<tr class="header">
 			<td class="header" align="center" width="140"><i><b><font color="#ffffff">{{Metal}}</font></b></i></td>

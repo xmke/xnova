@@ -38,9 +38,12 @@ includeLang('leftmenu');
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
 		$parse                 = $lang;
 		$parse['mf']           = "Hauptframe";
-		$parse['dpath']        = $dpath;
 		$parse['XNovaRelease'] = VERSION;
 		$parse['servername']   = $game_config['game_name'];
+
+		//Special admin tools
+		$parse['isAdminLevel'] = $user['authlevel'] == LEVEL_ADMIN;
+
 		$Page                  = $MustacheEngine->render(gettemplate('admin/left_menu'), $parse);
 		display( $Page, "", false, true);
 	} else {

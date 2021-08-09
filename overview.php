@@ -242,7 +242,7 @@ switch ($mode) {
                 //Pourquoi vouloir mettre à jour toutes les planètes alors qu'on ne veut que les afficher ?!
                 if ($UserPlanet["id"] != $user["current_planet"] && $UserPlanet['planet_type'] != 3) {
                     $AllPlanets .= "<th>" . $UserPlanet['name'] . "<br>";
-                    $AllPlanets .= "<a href=\"?cp=" . $UserPlanet['id'] . "&re=0\" title=\"" . $UserPlanet['name'] . "\"><img src=\"" . $dpath . "planeten/small/s_" . $UserPlanet['image'] . ".jpg\" height=\"50\" width=\"50\"></a><br>";
+                    $AllPlanets .= "<a href=\"?cp=" . $UserPlanet['id'] . "&re=0\" title=\"" . $UserPlanet['name'] . "\"><img src=\"skins/epicblue/planeten/small/s_" . $UserPlanet['image'] . ".jpg\" height=\"50\" width=\"50\"></a><br>";
                     $AllPlanets .= "<center>";
 
                     if ($UserPlanet['b_building'] != 0) {
@@ -343,7 +343,7 @@ switch ($mode) {
             if (isset($lunarow) && isset($lunarow['id']) && $lunarow['id'] <> 0) {
                 if ($planetrow['planet_type'] == 1) {
                     $lune = doquery ("SELECT `id`, `name`, `image` FROM {{table}} WHERE `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `planet` = '" . $planetrow['planet'] . "' AND `planet_type` = '3'", 'planets', true);
-                    $parse['moon_img'] = "<a href=\"?cp=" . $lune['id'] . "&re=0\" title=\"" . $lune['name'] . "\"><img src=\"" . $dpath . "planeten/" . $lune['image'] . ".jpg\" height=\"50\" width=\"50\"></a>";
+                    $parse['moon_img'] = "<a href=\"?cp=" . $lune['id'] . "&re=0\" title=\"" . $lune['name'] . "\"><img src=\"skins/epicblue/planeten/" . $lune['image'] . ".jpg\" height=\"50\" width=\"50\"></a>";
                     $parse['moon'] = $lune['name'];
                 } else {
                     $parse['moon_img'] = "";
@@ -406,7 +406,6 @@ switch ($mode) {
             $parse['Have_new_level_mineur'] = $HaveNewLevelMineur;
             $parse['Have_new_level_raid'] = $HaveNewLevelRaid;
             $parse['time'] = "<div id=\"dateheure\"></div>";
-            $parse['dpath'] = $dpath;
             $parse['planet_image'] = $planetrow['image'];
             $parse['anothers_planets'] = $AllPlanets;
             $parse['max_users'] = $game_config['users_amount'];
