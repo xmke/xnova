@@ -145,7 +145,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 		$QryInsertPlanet .= "`planet` = '".            $planet['planet']            ."', ";
 		$QryInsertPlanet .= "`last_update` = '".       $planet['last_update']       ."', ";
 		$QryInsertPlanet .= "`planet_type` = '".       $planet['planet_type']       ."', ";
-		$QryInsertPlanet .= "`b_building_id` = '', ";
+		$QryInsertPlanet .= "`b_building_id` = '0', ";
 		$QryInsertPlanet .= "`image` = '".             $planet['image']             ."', ";
 		$QryInsertPlanet .= "`diameter` = '".          $planet['diameter']          ."', ";
 		$QryInsertPlanet .= "`field_max` = '".         $planet['field_max']         ."', ";

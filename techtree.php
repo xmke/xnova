@@ -34,6 +34,9 @@ require_once dirname(__FILE__) .'/common.php';
 	$HeadTpl = gettemplate('techtree_head');
 	$RowTpl  = gettemplate('techtree_row');
 	$page = "";
+
+	$user = MergeUserTechnology($user);
+
 	foreach($lang['tech'] as $Element => $ElementName) {
 		$parse            = array();
 		$parse['tt_name'] = $ElementName;

@@ -148,7 +148,6 @@ else
 
 	$parse['user_username'] = $user['username'];
 	$parse['user_email'] = $user['email'];
-	$parse['user_email_2'] = $user['email_2'];
 	$parse['user_spio_anz'] = $user['spio_anz'];
 	$parse['user_settings_tooltiptime'] = $user['settings_tooltiptime'];
 	$parse['user_settings_fleetactions'] = $user['settings_fleetactions'];

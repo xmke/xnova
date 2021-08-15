@@ -64,6 +64,7 @@ includeLang('fleet');
 		$TargetGalaxy     = doquery( $QrySelectGalaxy, 'galaxy', true);
 		$DebrisSize       = $TargetGalaxy['metal'] + $TargetGalaxy['crystal'];
 		$RecyclerNeeded   = floor($DebrisSize / ($pricelist[209]['capacity'])) + 1;
+		$user = MergeUserTechnology($user);
 		$RecyclerSpeed    = $pricelist[209]['speed'] + (($pricelist[209]['speed'] * $user['combustion_tech']) * 0.1);
 
 		$RecyclerCount    = $planetrow[$resource[209]];

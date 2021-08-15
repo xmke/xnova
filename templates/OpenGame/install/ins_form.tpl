@@ -1,8 +1,8 @@
 <tr>
   <th colspan="2">
-<br>{{ins_tx_inst1}}<br>
-{{ins_tx_inst2}}<br>
-{{ins_tx_inst3}}<br><br>
+<br>{{ins_tx_inst1}}<br /><br />
+{{{ins_tx_inst2}}}<br /><br />
+{{ins_tx_inst3}}<br /><br />
 <table width="270" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td>{{ins_form_server}}:</td>

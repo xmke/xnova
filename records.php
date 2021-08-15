@@ -77,20 +77,44 @@ if(!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > $timeDelay)
             $data = array();
             if($element >= 0 && $element <  100 || $element >= 200 && $element < 600)
             {
+              
                 $record = doquery(sprintf(
-                    'SELECT IF(COUNT(u.username)<=10,GROUP_CONCAT(DISTINCT u.username ORDER BY u.username DESC SEPARATOR ", "),"Plus de 10 joueurs ont ce record") AS players, p.%1$s AS level ' .
+                    'SELECT IF(COUNT(DISTINCT u.username)<=10,GROUP_CONCAT(DISTINCT u.username ORDER BY u.username DESC SEPARATOR ", "),"Plus de 10 joueurs ont ce record") AS players, p.%1$s AS level ' .
                     'FROM {{table}}users AS u ' .
                     'LEFT JOIN {{table}}planets AS p ON (u.id=p.id_owner) ' .
+                    'LEFT JOIN {{table}}users_tech AS t ON (u.id=t.uid) ' .
                     'WHERE p.%1$s=(SELECT MAX(p2.%1$s) FROM {{table}}planets AS p2) AND p.%1$s>0 ' .
                     'GROUP BY p.%1$s ORDER BY players ASC', $resource[$element]), '', true);
             }
             else if($element >= 100 && $element < 200)
             {
-                $record = doquery(sprintf(
-                    'SELECT IF(COUNT(u.username)<=10,GROUP_CONCAT(DISTINCT u.username ORDER BY u.username DESC SEPARATOR ", "),"Plus de 10 joueurs ont ce record") AS players, u.%1$s AS level ' .
-                    'FROM {{table}}users AS u ' .
-                    'WHERE u.%1$s=(SELECT MAX(u2.%1$s) FROM {{table}}users AS u2) AND u.%1$s>0 ' .
-                    'GROUP BY u.%1$s ORDER BY players ASC', $resource[$element]), '', true);
+                
+
+                    $techRecordQry = <<<SQL
+                        SELECT 
+                            IF(COUNT(DISTINCT u.username) <= 10,
+                                GROUP_CONCAT(DISTINCT u.username
+                                    ORDER BY u.username DESC
+                                    SEPARATOR ', '),
+                                'Plus de 10 joueurs ont ce record') AS players,
+                                t.%1\$s AS level
+                        FROM
+                            {{table}}users AS u
+                        LEFT JOIN
+                            {{table}}users_tech AS t ON (u.id = t.uid)
+                        WHERE
+                            t.%1\$s = (SELECT 
+                                    MAX(t2.%1\$s)
+                                FROM
+                                {{table}}users_tech AS t2)
+                                AND t.%1\$s > 0
+                        GROUP BY t.%1\$s
+                        ORDER BY players ASC
+SQL;
+
+
+                $record = doquery(sprintf($techRecordQry, $resource[$element]), '', true);
+                    
             }
             else
             {

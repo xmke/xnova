@@ -37,7 +37,7 @@ includeLang('imperium');
 
 $Order = ($user['planet_sort_order'] == 1) ? "DESC" : "ASC";
 $Sort  = $user['planet_sort'];
-
+$user = MergeUserTechnology($user);
 $QryPlanets  = "SELECT * FROM {{table}} WHERE `id_owner` = '" . $user['id'] . "' ORDER BY ";
 if ($Sort == 0) {
 	$QryPlanets .= "`id` " . $Order;

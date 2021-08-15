@@ -58,9 +58,14 @@ function ShowOfficierPage ( &$CurrentUser ) {
 					}
 
 					$QryUpdateUser  = "UPDATE {{table}} SET ";
-					$QryUpdateUser .= "`rpg_points` = '". $CurrentUser['rpg_points'] ."', ";
 					$QryUpdateUser .= "`spy_tech` = '". $CurrentUser['spy_tech'] ."', ";
-					$QryUpdateUser .= "`computer_tech` = '". $CurrentUser['computer_tech'] ."', ";
+					$QryUpdateUser .= "`computer_tech` = '". $CurrentUser['computer_tech'] ."' ";
+					$QryUpdateUser .= "WHERE ";
+					$QryUpdateUser .= "`uid` = '". $CurrentUser['id'] ."';";
+					doquery( $QryUpdateUser, 'users_tech' );
+
+					$QryUpdateUser  = "UPDATE {{table}} SET ";
+					$QryUpdateUser .= "`rpg_points` = '". $CurrentUser['rpg_points'] ."', ";
 					$QryUpdateUser .= "`".$resource[$Selected]."` = '". $CurrentUser[$resource[$Selected]] ."' ";
 					$QryUpdateUser .= "WHERE ";
 					$QryUpdateUser .= "`id` = '". $CurrentUser['id'] ."';";
@@ -108,6 +113,7 @@ function ShowOfficierPage ( &$CurrentUser ) {
 	return $page;
 }
 
+	$user = MergeUserTechnology($user);
 	$page = ShowOfficierPage ( $user );
 	display($page, $lang['Officier']);
 

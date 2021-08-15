@@ -28,6 +28,17 @@
  *
  */
 include(ROOT_PATH . 'includes/TinyHTMLMinifier/TinyMinify.'.PHPEXT);
+
+function MergeUserTechnology($user){
+    $userTechnologies = doquery("SELECT * FROM {{table}} WHERE `uid` = ".$user['id']." LIMIT 1;", "users_tech", true);
+    if(isset($userTechnologies)){
+        $user+= $userTechnologies;
+    }
+	return $user;
+}
+
+
+
 function GetTargetDistance($OrigGalaxy, $DestGalaxy, $OrigSystem, $DestSystem, $OrigPlanet, $DestPlanet) {
     $distance = 0;
 
@@ -122,7 +133,6 @@ function GetFleetConsumption ($FleetArray, $SpeedFactor, $MissionDuration, $Miss
 
     $consumption = 0;
     $basicConsumption = 0;
-
     foreach ($FleetArray as $Ship => $Count) {
         if ($Ship > 0) {
             $ShipSpeed         = GetFleetMaxSpeed ( array(), $Ship, $Player );

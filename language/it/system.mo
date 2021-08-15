@@ -27,6 +27,9 @@
  * documentation for further information about customizing XNova.
  *
  */
+$lang['user_reset_cheater'] = "È stata rilevata un'azione non autorizzata e la causa è stata il tuo account. Come sanzione, il tuo account è stato ripristinato dal sistema. Barare non va bene.";
+$lang['user_reset_attempt'] = "Tentativo di cheat rilevato";
+$lang['user_reset_attempt_adm'] = "Tentativo di cheat rilevato, Giocatore ID : ";
 
 $lang['user_level'] = array (
 	'0' => 'Giocatore',

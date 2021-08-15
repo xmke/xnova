@@ -30,8 +30,9 @@
 
 function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $ThePlanet)
 {
-	global $lang, $resource, $reslist, $game_config, $_GET, $MustacheEngine;
+	global $lang, $resource, $reslist, $_GET, $MustacheEngine;
 
+	$CurrentUser = MergeUserTechnology($CurrentUser);
 
 	$NoResearchMessage = "";
 	$bContinue         = true;
@@ -113,7 +114,9 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 				}
 			}
 		} else {
+			ResetThisFuckingCheater($CurrentUser['id']); //sanction
 			$bContinue = false;
+			
 		}
 	}
 

@@ -48,24 +48,8 @@ function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) {
 		while ($CurPlanet = mysqli_fetch_array($ThisUsersPlanets)) {
 			if ($CurPlanet["destruyed"] == 0) {
 				$PlanetList[] = array("currentSelectedPlanet" => $CurPlanet['id'] == $CurrentUser['current_planet'], "id" => $CurPlanet['id'], "name" => $CurPlanet['name'], "galaxy" => $CurPlanet['galaxy'], "system" => $CurPlanet['system'], "planet" => $CurPlanet['planet']);
-				/* $parse['planetlist'] .= "\n<option ";
-				if ($CurPlanet['id'] == $CurrentUser['current_planet']) {
-					// Bon puisque deja on s'y trouve autant le marquer
-					$parse['planetlist'] .= "selected=\"selected\" ";
-				}
-				$parse['planetlist'] .= "value=\"?cp=".$CurPlanet['id']."";
-				isset($_GET["mode"]) ? $parse['planetlist'] .= "&amp;mode=".$_GET['mode'] : "";
-				$parse['planetlist'] .= "&amp;re=0\">";
-
-				// Nom et coordonnées de la planete
-				$parse['planetlist'] .= "".$CurPlanet['name'];
-				$parse['planetlist'] .= "&nbsp;[".$CurPlanet['galaxy'].":";
-				$parse['planetlist'] .= "".$CurPlanet['system'].":";
-				$parse['planetlist'] .= "".$CurPlanet['planet'];
-				$parse['planetlist'] .= "]&nbsp;&nbsp;</option>"; */
 			}
 		}
-		//die(var_dump($PlanetList));
 		$parse['planetlist'] = $PlanetList;
 		$energy = pretty_number($CurrentPlanet["energy_max"] + $CurrentPlanet["energy_used"]) . "/" . pretty_number($CurrentPlanet["energy_max"]);
 		// Energie

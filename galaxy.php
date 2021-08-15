@@ -35,6 +35,7 @@ require_once dirname(__FILE__) .'/common.php';
     includeLang('galaxy');
     $lunarow       = doquery("SELECT * FROM {{table}} WHERE `id` = '". $user['current_luna'] ."';", 'lunas', true);
 
+    $user = MergeUserTechnology($user);
     $fleetmax      = $user['computer_tech'] + 1;
     $CurrentPlID   = $planetrow['id'];
     $CurrentMIP    = $planetrow['interplanetary_misil'];

@@ -32,12 +32,11 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-
+	$user = MergeUserTechnology($user);
 	includeLang('fleet');
 
 	$CurrentPlanet = doquery("SELECT * FROM {{table}} WHERE `id` = '". $user['current_planet'] ."'", 'planets', true);
 	$TargetPlanet  = doquery("SELECT * FROM {{table}} WHERE `galaxy` = '". $_POST['galaxy'] ."' AND `system` = '". $_POST['system'] ."' AND `planet` = '". $_POST['planet'] ."' AND `planet_type` = '". $_POST['planettype'] ."';", 'planets', true);
-	$MyDBRec       = doquery("SELECT * FROM {{table}} WHERE `id` = '". $user['id']."';", 'users', true);
 
 	$protection      = $game_config['noobprotection'];
 	$protectiontime  = $game_config['noobprotectiontime'];
@@ -190,12 +189,14 @@ require_once dirname(__FILE__) .'/common.php';
 	$HeDBRec = null;
 	if(!$UsedPlanet && $YourPlanet){ //Checks inutiles pour la colonisation
 		if ($TargetPlanet['id_owner'] == '') {
-			$HeDBRec = $MyDBRec;
+			$HeDBRec = $user;
 		} elseif ($TargetPlanet['id_owner'] != '') {
 			$HeDBRec = doquery("SELECT * FROM {{table}} WHERE `id` = '". $TargetPlanet['id_owner'] ."';", 'users', true);
+			$HeDBRec = MergeUserTechnology($HeDBRec);
 		}
 
-		$UserPoints    = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $MyDBRec['id'] ."';", 'statpoints', true);
+		
+		$UserPoints    = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';", 'statpoints', true);
 		$User2Points   = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';", 'statpoints', true);
 
 		$MyGameLevel  = $UserPoints['total_points'];
@@ -274,10 +275,10 @@ require_once dirname(__FILE__) .'/common.php';
 		if (isset($TargetPlanet) && $TargetPlanet['id_owner'] != '' AND $_POST['mission'] == 7) {
 			message ("<font color=\"red\"><b>". $lang['fl_bad_planet02'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
-		if (isset($HeDBRec) && $HeDBRec['ally_id'] != $MyDBRec['ally_id'] AND $_POST['mission'] == 4) {
+		if (isset($HeDBRec) && $HeDBRec['ally_id'] != $user['ally_id'] AND $_POST['mission'] == 4) {
 			message ("<font color=\"red\"><b>". $lang['fl_dont_stay_here'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
-		if (isset($TargetPlanet) && $TargetPlanet['ally_deposit'] < 1 AND $HeDBRec != $MyDBRec AND $_POST['mission'] == 5) {
+		if (isset($TargetPlanet) && $TargetPlanet['ally_deposit'] < 1 AND $HeDBRec != $user AND $_POST['mission'] == 5) {
 			message ("<font color=\"red\"><b>". $lang['fl_no_allydeposit'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
 		}
 		if (isset($TargetPlanet) && ($TargetPlanet["id_owner"] == $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 1)) {

@@ -146,8 +146,7 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
         $QryInsertUser = "INSERT INTO {{table}} SET ";
         $QryInsertUser .= "`username` = '" . mysqli_real_escape_string(Database::$dbHandle, strip_tags($UserName)) . "', ";
         $QryInsertUser .= "`email` = '" . mysqli_real_escape_string(Database::$dbHandle, $UserEmail) . "', ";
-        $QryInsertUser .= "`email_2` = '" . mysqli_real_escape_string(Database::$dbHandle, $UserEmail) . "', ";
-		$QryInsertUser .= "`ip_at_reg` = '" . $_SERVER["REMOTE_ADDR"] . "', ";
+		$QryInsertUser .= "`user_lastip` = '" . $_SERVER["REMOTE_ADDR"] . "', ";
         $QryInsertUser .= "`id_planet` = '0', ";
         $QryInsertUser .= "`register_time` = '" . time() . "', ";
         $QryInsertUser .= "`password`='" . $md5newpass . "';";
@@ -160,7 +159,13 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
         $LastSettedGalaxyPos = $game_config['LastSettedGalaxyPos'];
         $LastSettedSystemPos = $game_config['LastSettedSystemPos'];
         $LastSettedPlanetPos = $game_config['LastSettedPlanetPos'];
-        while (!isset($newpos_checked)) {
+
+        $Galaxy = 1;
+        $System = 1;
+        $Planet = 1;
+        $newpos_checked = false;
+
+        while (!$newpos_checked) {
             for ($Galaxy = $LastSettedGalaxyPos; $Galaxy <= MAX_GALAXY_IN_WORLD; $Galaxy++) {
                 for ($System = $LastSettedSystemPos; $System <= MAX_SYSTEM_IN_GALAXY; $System++) {
                     for ($Posit = $LastSettedPlanetPos; $Posit <= 4; $Posit++) {
@@ -192,31 +197,26 @@ if (!$_POST['secu'] || $_POST['secu'] != $_SESSION['secu'] ) { $errorlist .= $la
                 break;
             }
 
-            $QrySelectGalaxy = "SELECT * ";
+            $QrySelectGalaxy = "SELECT `id` ";
             $QrySelectGalaxy .= "FROM {{table}} ";
             $QrySelectGalaxy .= "WHERE ";
+            $QrySelectGalaxy .= "`planet_type` = '1' AND ";
             $QrySelectGalaxy .= "`galaxy` = '" . $Galaxy . "' AND ";
             $QrySelectGalaxy .= "`system` = '" . $System . "' AND ";
             $QrySelectGalaxy .= "`planet` = '" . $Planet . "' ";
             $QrySelectGalaxy .= "LIMIT 1;";
-            $GalaxyRow = doquery($QrySelectGalaxy, 'galaxy', true);
+
+            $GalaxyRow = doquery($QrySelectGalaxy, 'planets', true);
             
-            $newpos_checked = false;
-
-            if (isset($GalaxyRow) && $GalaxyRow["id_planet"] == "0") {
-                $newpos_checked = true;
-            }
-
             if (!$GalaxyRow) {
                 CreateOnePlanetRecord ($Galaxy, $System, $Planet, $NewUser['id'], $UserPlanet, true);
-                $newpos_checked = true;
-            }
-            if ($newpos_checked) {
                 doquery("UPDATE {{table}} SET `config_value` = '" . $LastSettedGalaxyPos . "' WHERE `config_name` = 'LastSettedGalaxyPos';", 'config');
                 doquery("UPDATE {{table}} SET `config_value` = '" . $LastSettedSystemPos . "' WHERE `config_name` = 'LastSettedSystemPos';", 'config');
                 doquery("UPDATE {{table}} SET `config_value` = '" . $LastSettedPlanetPos . "' WHERE `config_name` = 'LastSettedPlanetPos';", 'config');
+                $newpos_checked = true;
             }
         }
+        
         // Recherche de la reference de la nouvelle planete (qui est unique normalement !
         $PlanetID = doquery("SELECT `id` FROM {{table}} WHERE `id_owner` = '" . $NewUser['id'] . "' LIMIT 1;", 'planets', true);
         // Mise a jour de l'enregistrement utilisateur avec les infos de sa planete mere

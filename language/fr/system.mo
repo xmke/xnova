@@ -28,6 +28,10 @@
  *
  */
 
+$lang['user_reset_cheater'] = "Une action non autorisée a été détectée et votre compte en était à l'origine. En guise de sanction, votre compte a été remis à zéro par le système. Tricher, c'est pas bien.";
+$lang['user_reset_attempt'] = "Tentative de triche";
+$lang['user_reset_attempt_adm'] = "Tentative de triche détectée, ID du joueur : ";
+
 $lang['user_level'] = array (
 	'0' => 'Joueur',
 	'1' => 'Modérateur',

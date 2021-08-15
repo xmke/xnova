@@ -30,7 +30,7 @@
 
 define('INSIDE' , true);
 define('INSTALL' , false);
-define('NO_TEMPLATE_CACHE', true); //debug
+
 require_once dirname(__FILE__) .'/common.php';
 
     includeLang('options');
@@ -249,7 +249,6 @@ require_once dirname(__FILE__) .'/common.php';
 
        $parse['opt_usern_data'] = $user['username'];
        $parse['opt_mail1_data'] = $user['email'];
-       $parse['opt_mail2_data'] = $user['email_2'];
        $parse['opt_probe_data'] = $user['spio_anz'];
        $parse['opt_toolt_data'] = $user['settings_tooltiptime'];
        $parse['opt_fleet_data'] = $user['settings_fleetactions'];

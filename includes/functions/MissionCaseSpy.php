@@ -33,6 +33,7 @@ function MissionCaseSpy ( $FleetRow ) {
 
 	if ($FleetRow['fleet_start_time'] <= time()) {
 		$CurrentUser         = doquery("SELECT * FROM {{table}} WHERE `id` = '".$FleetRow['fleet_owner']."';", 'users', true);
+		$CurrentUser 		 = MergeUserTechnology($CurrentUser);
 		$CurrentUserID       = $FleetRow['fleet_owner'];
 		$QryGetTargetPlanet  = "SELECT * FROM {{table}} ";
 		$QryGetTargetPlanet .= "WHERE ";
@@ -45,6 +46,7 @@ function MissionCaseSpy ( $FleetRow ) {
 		$CurrentPlanet       = doquery("SELECT * FROM {{table}} WHERE `galaxy` = '".$FleetRow['fleet_start_galaxy']."' AND `system` = '".$FleetRow['fleet_start_system']."' AND `planet` = '".$FleetRow['fleet_start_planet']."';", 'planets', true);
 		$CurrentSpyLvl       = $CurrentUser['spy_tech'];
 		$TargetUser          = doquery("SELECT * FROM {{table}} WHERE `id` = '".$TargetUserID."';", 'users', true);
+		$TargetUser			 = MergeUserTechnology($TargetUser);
 		$TargetSpyLvl        = $TargetUser['spy_tech'];
 
 	    // Actualisation des ressources de la planete.

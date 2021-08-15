@@ -1,7 +1,9 @@
-<html>
+
+<!DOCTYPE html>
+<html lang="fr">
 <head>
 <title>{{title}}</title>
-<link rel="shortcut icon" href="favicon.ico">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 {{#defined_login}}
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/about.css">

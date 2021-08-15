@@ -32,7 +32,7 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 	includeLang('fleet');
-
+	$user = MergeUserTechnology($user);
 	$speed = array(10 => 100,
 		9 => 90,
 		8 => 80,

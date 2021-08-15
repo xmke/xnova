@@ -52,10 +52,10 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 								planet = '" . $selected_row['planet'] . "'", 'planets');
 
 			$select_ziel = doquery("SELECT defence_tech FROM {{table}} WHERE
-								id = '" . $selected_row['zielid'] . "'", 'users');
+								`uid` = '" . $selected_row['zielid'] . "'", 'users_tech');
 
 			$select_owner = doquery("SELECT military_tech FROM {{table}} WHERE
-								id = '" . $selected_row['owner'] . "'", 'users');
+								`uid` = '" . $selected_row['owner'] . "'", 'users_tech');
 
 			if (mysqli_num_rows($planetrow) != 1 OR mysqli_num_rows($select_ziel) != 1) {
 				doquery("DELETE FROM {{table}} WHERE id = '" . $selected_row['id'] . "'", 'iraks');

@@ -47,7 +47,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$PageTPL = gettemplate('admin/userlist_body');
 		$RowsTPL = gettemplate('admin/userlist_rows');
 
-		$query   = doquery("SELECT `id`, `username`, `email`, `ip_at_reg`, `user_lastip`, `register_time`, `onlinetime`, `banaday`, `bana` FROM {{table}} ORDER BY `". $TypeSort ."` ASC", 'users');
+		$query   = doquery("SELECT `id`, `username`, `email`, `user_lastip`, `register_time`, `onlinetime`, `banaday`, `bana` FROM {{table}} ORDER BY `". $TypeSort ."` ASC", 'users');
 
 		$parse                 = $lang;
 		$parse['adm_ul_table'] = "";
@@ -66,7 +66,6 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$Bloc['adm_ul_data_id']     = $u['id'];
 			$Bloc['adm_ul_data_name']   = $u['username'];
 			$Bloc['adm_ul_data_mail']   = $u['email'];
-			$Bloc['ip_adress_at_register']   = $u['ip_at_reg'];
 			$Bloc['adm_ul_data_adip']   = "<font color=\"".$Color."\">". $u['user_lastip'] ."</font>";
 			$Bloc['adm_ul_data_regd']   = gmdate ( "d/m/Y G:i:s", $u['register_time'] );
 			$Bloc['adm_ul_data_lconn']  = gmdate ( "d/m/Y G:i:s", $u['onlinetime'] );

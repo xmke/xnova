@@ -36,6 +36,7 @@ require_once dirname(__FILE__) .'/common.php';
 	includeLang('galaxy');
 	includeLang('fleet');
 
+	$user = MergeUserTechnology($user);
 	$UserSpyProbes  = $planetrow['spy_sonde'];
 	$UserRecycles   = $planetrow['recycler'];
 	$UserDeuterium  = $planetrow['deuterium'];

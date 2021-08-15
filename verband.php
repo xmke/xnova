@@ -33,7 +33,8 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 	includeLang('fleet');
 
-	$fleetid = $_POST['fleetid'];
+	$user = MergeUserTechnology($user);
+	$fleetid = intval($_POST['fleetid']);
 
 	if (!is_numeric($fleetid) || empty($fleetid)) {
 		header("Location: overview.php");
@@ -42,7 +43,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 	$query = doquery("SELECT * FROM {{table}} WHERE fleet_id = '" . $fleetid . "'", 'fleets');
 
-	if (mysql_num_rows($query) != 1) {
+	if (mysqli_num_rows($query) != 1) {
 		message('Cette flotte n\'existe pas (ou plus)!', 'Erreur');
 	}
 
@@ -297,6 +298,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 	foreach($reslist['fleet'] as $n => $i) {
 		if ($planetrow[$resource[$i]] > 0) {
+			$user = MergeUserTechnology($user);
 			if ($i == 202 or $i == 203 or $i == 204 or $i == 209 or $i == 210) {
 				$pricelist[$i]['speed'] = $pricelist[$i]['speed'] + (($pricelist[$i]['speed'] * $user['combustion_tech']) * 0.1);
 			}

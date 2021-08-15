@@ -74,16 +74,16 @@ function MissionCaseDestruction($FleetRow)
          $QryTargetTech   .= "`military_tech`, `defence_tech`, `shield_tech` ";
          $QryTargetTech   .= "FROM {{table}} ";
          $QryTargetTech   .= "WHERE ";
-         $QryTargetTech   .= "`id` = '". $TargetUserID ."';";
+         $QryTargetTech   .= "`uid` = '". $TargetUserID ."';";
 
-         $TargetTechno     = doquery($QryTargetTech, 'users', true);
+         $TargetTechno     = doquery($QryTargetTech, 'users_tech', true);
 
          $QryCurrentTech   = "SELECT ";
          $QryCurrentTech  .= "`military_tech`, `defence_tech`, `shield_tech` ";
          $QryCurrentTech  .= "FROM {{table}} ";
          $QryCurrentTech  .= "WHERE ";
-         $QryCurrentTech  .= "`id` = '". $CurrentUserID ."';";
-         $CurrentTechno    = doquery($QryCurrentTech, 'users', true);
+         $QryCurrentTech  .= "`uid` = '". $CurrentUserID ."';";
+         $CurrentTechno    = doquery($QryCurrentTech, 'users_tech', true);
 
          for ($SetItem = 200; $SetItem < 500; $SetItem++) {
             if ($TargetPlanet[$resource[$SetItem]] > 0) {
@@ -103,7 +103,7 @@ function MissionCaseDestruction($FleetRow)
 
          // Calcul de la duree de traitement (initialisation)
          $starttime = microtime(true);
-         $walka        = walka($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno);
+         $walka        = walka($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno, $CurrentUser, $TargetUser);
          $totaltime    = (microtime(true) - $starttime);
 
          // Ce qu'il reste de l'attaquant

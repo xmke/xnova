@@ -61,7 +61,7 @@ function ShowGalaxyRows ($Galaxy, $System) {
 
 				if ($GalaxyRow["id_luna"] != 0) {
 					$GalaxyRowMoon   = doquery("SELECT * FROM {{table}} WHERE `id` = '". $GalaxyRow["id_luna"] ."';", 'lunas', true);
-					if ($GalaxyRowMoon["destruyed"] != 0) {
+					if (isset($GalaxyRowMoon) && isset($GalaxyRowMoon['destruyed']) && $GalaxyRowMoon["destruyed"] != 0) {
 						CheckAbandonMoonState ($GalaxyRowMoon);
 					}
 				}

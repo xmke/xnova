@@ -32,7 +32,7 @@ function SortUserPlanets ( $CurrentUser ) {
 	$Order = ( $CurrentUser['planet_sort_order'] == 1 ) ? "DESC" : "ASC" ;
 	$Sort  = $CurrentUser['planet_sort'];
 
-	$QryPlanets  = "SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed` FROM {{table}} WHERE `id_owner` = '". $CurrentUser['id'] ."' ORDER BY ";
+	$QryPlanets  = "SELECT `id`, `name`, `galaxy`, `system`, `planet`, `planet_type`, `destruyed`, `image`, `b_building`, `b_building_id` FROM {{table}} WHERE `id_owner` = '". $CurrentUser['id'] ."' ORDER BY ";
 	if       ( $Sort == 0 ) {
 		$QryPlanets .= "`id` ". $Order;
 	} elseif ( $Sort == 1 ) {

@@ -64,19 +64,19 @@ function MissionCaseAttack ($FleetRow)
             $QryTargetTech .= "`military_tech`, `defence_tech`, `shield_tech` ";
             $QryTargetTech .= "FROM {{table}} ";
             $QryTargetTech .= "WHERE ";
-            $QryTargetTech .= "`id` = '" . $TargetUserID . "';";
+            $QryTargetTech .= "`uid` = '" . $TargetUserID . "';";
 
-            $TargetTechno = doquery($QryTargetTech, 'users', true);
+            $TargetTechno = doquery($QryTargetTech, 'users_tech', true);
 
             $QryCurrentTech = "SELECT ";
             $QryCurrentTech .= "`military_tech`, `defence_tech`, `shield_tech` ";
             $QryCurrentTech .= "FROM {{table}} ";
             $QryCurrentTech .= "WHERE ";
-            $QryCurrentTech .= "`id` = '" . $CurrentUserID . "';";
-            $CurrentTechno = doquery($QryCurrentTech, 'users', true);
+            $QryCurrentTech .= "`uid` = '" . $CurrentUserID . "';";
+            $CurrentTechno = doquery($QryCurrentTech, 'users_tech', true);
 
             for ($SetItem = 200; $SetItem < 500; $SetItem++) {
-                if ($TargetPlanet[$resource[$SetItem]] > 0) {
+                if (isset($resource) && isset($resource[$SetItem]) && isset($TargetPlanet[$resource[$SetItem]]) && $TargetPlanet[$resource[$SetItem]] > 0) {
                     $TargetSet[$SetItem]['count'] = $TargetPlanet[$resource[$SetItem]];
                 }
             }
@@ -96,7 +96,7 @@ function MissionCaseAttack ($FleetRow)
             $mtime = $mtime[1] + $mtime[0];
             $starttime = $mtime;
 
-            $walka = walka($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno);
+            $walka = walka($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno, $CurrentUser, $TargetUser);
             // Calcul de la duree de traitement (calcul)
             $mtime = microtime();
             $mtime = explode(" ", $mtime);
@@ -113,6 +113,8 @@ function MissionCaseAttack ($FleetRow)
             $dane_do_rw = $walka["dane_do_rw"];
             // Rapport court (cdr + unitées perdues)
             $zlom = $walka["zlom"];
+
+            $GottenMoon = "";
 
             $FleetArray = "";
             $FleetAmount = 0;
@@ -372,7 +374,7 @@ function MissionCaseAttack ($FleetRow)
             $QryUpdateFleet .= "LIMIT 1 ;";
             doquery($QryUpdateFleet , 'fleets');
 
-            SendSimpleMessage ($CurrentUserID, '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $raport);
+            SendSimpleMessage ($CurrentUserID, $CurrentUserID, $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $raport);
             // Ajout du petit point raideur
             $AddPoint = $CurrentUser['xpraid'] + 1;
 
@@ -412,7 +414,7 @@ function MissionCaseAttack ($FleetRow)
             }
             $raport2 .= $lang['sys_mess_attack_report'] . " [" . $FleetRow['fleet_end_galaxy'] . ":" . $FleetRow['fleet_end_system'] . ":" . $FleetRow['fleet_end_planet'] . "] </font></a><br /><br />";
 
-            SendSimpleMessage ($TargetUserID, '', $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $raport2);
+            SendSimpleMessage ($TargetUserID, $TargetUserID, $FleetRow['fleet_start_time'], 3, $lang['sys_mess_tower'], $lang['sys_mess_attack_report'], $raport2);
         }
         // Retour de flotte (s'il en reste)
         $fquery = "";

@@ -32,6 +32,7 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
+	$user = MergeUserTechnology($user);
 	$maxfleet  = doquery("SELECT COUNT(fleet_owner) AS `actcnt` FROM {{table}} WHERE `fleet_owner` = '".$user['id']."';", 'fleets', true);
 
 	$MaxFlyingFleets     = $maxfleet['actcnt'];
@@ -40,9 +41,13 @@ require_once dirname(__FILE__) .'/common.php';
     $MaxExpedition      = $user[$resource[124]];
     if ($MaxExpedition >= 1) {
 		$maxexpde  = doquery("SELECT COUNT(fleet_owner) AS `expedi` FROM {{table}} WHERE `fleet_owner` = '".$user['id']."' AND `fleet_mission` = '15';", 'fleets', true);
-	    $ExpeditionEnCours  = $maxexpde['expedi'];
+	    $ExpeditionEnCours  = isset($maxexpde) && isset ($maxexpde['expedi']) ? $maxexpde['expedi'] : 0;
 		$EnvoiMaxExpedition = 1 + floor( $MaxExpedition / 3 );
-    }
+    }else{
+		$MaxExpedition = 0;
+		$ExpeditionEnCours = 0;
+		$EnvoiMaxExpedition = 0;
+	}
 
 	$MaxFlottes         = 1 + $user[$resource[108]];
 

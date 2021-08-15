@@ -31,7 +31,9 @@
 define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
+
 $planet    = doquery("SELECT * FROM {{table}} WHERE `id` = '".$user['current_planet']."';", 'planets', true);
+$user = MergeUserTechnology($user);
 $iraks = $planet['interplanetary_misil'];
 
 
@@ -65,7 +67,7 @@ elseif ($user['impulse_motor_tech'] == 0) {;
 elseif ($tempvar1 >= $tempvar2 || $g != $currentplanet['galaxy']) {
 	$error = 1;
 }
-elseif (mysql_num_rows($tempvar3) != 1) {
+elseif (mysqli_num_rows($tempvar3) != 1) {
 	$error = 1;
 }
 elseif ($anz > $iraks) {
@@ -99,7 +101,7 @@ $planet = doquery("SELECT * FROM {{table}} WHERE galaxy = ".$g." AND
 $ziel_id = $planet['id_owner'];
 
 $select = doquery("SELECT * FROM {{table}} WHERE id = ".$ziel_id, 'users', true);
-
+$select = MergeUserTechnology($select);
 
 
 

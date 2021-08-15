@@ -29,6 +29,8 @@
  */
 
 function MipAttack ($NbreMip, $IDAversaire) {
+    global $user;
+    $user = MergeUserTechnology($user);
     $TechnoArme = doquery("SELECT * FROM {{table}} WHERE `id`='" . $user['id'] . "'", "users");
     $InfoAdversaire = doquery("SELECT * FROM {{table}} WHERE `id`='" . $IDAversaire . "'", "planets", true);
 

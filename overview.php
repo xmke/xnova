@@ -483,7 +483,7 @@ switch ($mode) {
             $parse['raidsloose'] = isset($user['raidsloose']) ? $user['raidsloose'] : 0;
 
             $page = $MustacheEngine->render(gettemplate('overview_body'), $parse);
-
+            
             display($page, $lang['Planet_menu']);
             break;
         }

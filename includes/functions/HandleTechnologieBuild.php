@@ -43,6 +43,7 @@ function HandleTechnologieBuild ( &$CurrentPlanet, &$CurrentUser ) {
 		if ($ThePlanet['b_tech']    <= time() &&
 			$ThePlanet['b_tech_id'] != 0) {
 			// La recherche en cours est terminée ...
+			$CurrentUser = MergeUserTechnology($CurrentUser);
 			$CurrentUser[$resource[$ThePlanet['b_tech_id']]]++;
 			// Mise a jour de la planete sur laquelle la technologie a été recherchée
 			$QryUpdatePlanet  = "UPDATE {{table}} SET ";
@@ -55,11 +56,16 @@ function HandleTechnologieBuild ( &$CurrentPlanet, &$CurrentUser ) {
 			// Mes a jour de la techno sur l'enregistrement Utilisateur
 			// Et tant qu'a faire des stats points
 			$QryUpdateUser    = "UPDATE {{table}} SET ";
-			$QryUpdateUser   .= "`".$resource[$ThePlanet['b_tech_id']]."` = '". $CurrentUser[$resource[$ThePlanet['b_tech_id']]] ."', ";
 			$QryUpdateUser   .= "`b_tech_planet` = '0' ";
 			$QryUpdateUser   .= "WHERE ";
 			$QryUpdateUser   .= "`id` = '". $CurrentUser['id'] ."';";
 			doquery( $QryUpdateUser, 'users');
+
+			$QryUpdateUser    = "UPDATE {{table}} SET ";
+			$QryUpdateUser   .= "`".$resource[$ThePlanet['b_tech_id']]."` = '". $CurrentUser[$resource[$ThePlanet['b_tech_id']]] ."' ";
+			$QryUpdateUser   .= "WHERE ";
+			$QryUpdateUser   .= "`uid` = '". $CurrentUser['id'] ."';";
+			doquery( $QryUpdateUser, 'users_tech');
 			$ThePlanet["b_tech_id"] = 0;
 			if (isset($WorkingPlanet)) {
 				$WorkingPlanet = $ThePlanet;

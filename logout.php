@@ -30,6 +30,8 @@
 
 define('INSIDE' , true);
 define('INSTALL' , false);
+define('QRYLESS', true);
+
 require_once dirname(__FILE__) . '/common.php';
 
 includeLang('logout');

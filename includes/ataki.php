@@ -28,7 +28,7 @@
  *
  */
 
-function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno) {
+function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno, $CurrentPlayer, $TargetPlayer) {
 	global $pricelist, $CombatCaps, $game_config;
 	$runda       = array();
 	$atakujacy_n = array();
@@ -47,6 +47,8 @@ function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno) {
 	// Calcul des points de Structure du défenseur
 	$wrog_zlom_poczatek['metal']    = 0;
 	$wrog_zlom_poczatek['crystal'] = 0;
+	$wrog_zlom_poczatek_obrona['metal']    = 0;
+	$wrog_zlom_poczatek_obrona['crystal'] = 0;
 	$wrog_poczatek = $TargetSet;
 	if (!is_null($TargetSet)) {
 		foreach($TargetSet as $a => $b) {
@@ -54,8 +56,8 @@ function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno) {
 				$wrog_zlom_poczatek['metal']   = $wrog_zlom_poczatek['metal']   + $TargetSet[$a]['count'] * $pricelist[$a]['metal'];
 				$wrog_zlom_poczatek['crystal'] = $wrog_zlom_poczatek['crystal'] + $TargetSet[$a]['count'] * $pricelist[$a]['crystal'];
 			} else {
-				$wrog_zlom_poczatek_obrona['metal']   = $wrog_zlom_poczatek_obrona['metal']   + $TargetSet[$a]['count'] * $pricelist[$a]['metal'];
-				$wrog_zlom_poczatek_obrona['crystal'] = $wrog_zlom_poczatek_obrona['crystal'] + $TargetSet[$a]['count'] * $pricelist[$a]['crystal'];
+				$wrog_zlom_poczatek_obrona['metal']   += $TargetSet[$a]['count'] * $pricelist[$a]['metal'];
+				$wrog_zlom_poczatek_obrona['crystal'] += $TargetSet[$a]['count'] * $pricelist[$a]['crystal'];
 			}
 		}
 	}
@@ -72,11 +74,11 @@ function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno) {
 
 		if (!is_null($CurrentSet)) {
 			foreach($CurrentSet as $a => $b) {
-				$CurrentSet[$a]["obrona"] = $CurrentSet[$a]['count'] * ($pricelist[$a]['metal'] + $pricelist[$a]['crystal']) / 10 * (1 + (0.1 * ($CurrentTechno["defence_tech"]) + (0.05 * $user['rpg_amiral'])));
+				$CurrentSet[$a]["obrona"] = $CurrentSet[$a]['count'] * ($pricelist[$a]['metal'] + $pricelist[$a]['crystal']) / 10 * (1 + (0.1 * ($CurrentTechno["defence_tech"]) + (0.05 * $CurrentPlayer['rpg_amiral'])));
 				$rand = rand(80, 120) / 100;
-				$CurrentSet[$a]["tarcza"] = $CurrentSet[$a]['count'] * $CombatCaps[$a]['shield'] * (1 + (0.1 * $CurrentTechno["shield_tech"]) + (0.05 * $user['rpg_amiral'])) * $rand;
+				$CurrentSet[$a]["tarcza"] = $CurrentSet[$a]['count'] * $CombatCaps[$a]['shield'] * (1 + (0.1 * $CurrentTechno["shield_tech"]) + (0.05 * $CurrentPlayer['rpg_amiral'])) * $rand;
 				$atak_statku = $CombatCaps[$a]['attack'];
-				$technologie = (1 + (0.1 * $CurrentTechno["military_tech"]+(0.05 * $user['rpg_amiral'])));
+				$technologie = (1 + (0.1 * $CurrentTechno["military_tech"]+(0.05 * $CurrentPlayer['rpg_amiral'])));
 				$rand = rand(80, 120) / 100;
 				$ilosc = $CurrentSet[$a]['count'];
 				$CurrentSet[$a]["atak"] = $ilosc * $atak_statku * $technologie * $rand;
@@ -91,11 +93,11 @@ function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno) {
 
 		if (!is_null($TargetSet)) {
 			foreach($TargetSet as $a => $b) {
-				$TargetSet[$a]["obrona"] = $TargetSet[$a]['count'] * ($pricelist[$a]['metal'] + $pricelist[$a]['crystal']) / 10 * (1 + (0.1 * ($TargetTechno["defence_tech"]) + (0.05 * $user['rpg_amiral'])));
+				$TargetSet[$a]["obrona"] = $TargetSet[$a]['count'] * ($pricelist[$a]['metal'] + $pricelist[$a]['crystal']) / 10 * (1 + (0.1 * ($TargetTechno["defence_tech"]) + (0.05 * $TargetPlayer['rpg_amiral'])));
 				$rand = rand(80, 120) / 100;
-				$TargetSet[$a]["tarcza"] = $TargetSet[$a]['count'] * $CombatCaps[$a]['shield'] * (1 + (0.1 * $TargetTechno["shield_tech"])+ (0.05 * $user['rpg_amiral'])) * $rand;
+				$TargetSet[$a]["tarcza"] = $TargetSet[$a]['count'] * $CombatCaps[$a]['shield'] * (1 + (0.1 * $TargetTechno["shield_tech"])+ (0.05 * $TargetPlayer['rpg_amiral'])) * $rand;
 				$atak_statku = $CombatCaps[$a]['attack'];
-				$technologie = (1 + (0.1 * $TargetTechno["military_tech"]) + (0.05 * $user['rpg_amiral']));
+				$technologie = (1 + (0.1 * $TargetTechno["military_tech"]) + (0.05 * $TargetPlayer['rpg_amiral']));
 				$rand = rand(80, 120) / 100;
 				$ilosc = $TargetSet[$a]['count'];
 				$TargetSet[$a]["atak"] = $ilosc * $atak_statku * $technologie * $rand;
@@ -124,6 +126,7 @@ function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno) {
 		if (($atakujacy_ilosc == 0) or ($wrog_ilosc == 0)) {
 			break;
 		}
+		$wrog_moc = 0;
 		foreach($CurrentSet as $a => $b) {
 			if ($atakujacy_ilosc > 0) {
 				$wrog_moc = $CurrentSet[$a]['count'] * $wrog_atak / $atakujacy_ilosc;
@@ -149,6 +152,7 @@ function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno) {
 			}
 		}
 
+		$atakujacy_moc = 0;
 		foreach($TargetSet as $a => $b) {
 			if ($wrog_ilosc > 0) {
 				$atakujacy_moc = $TargetSet[$a]['count'] * $atakujacy_atak / $wrog_ilosc;
@@ -233,6 +237,8 @@ function walka ($CurrentSet, $TargetSet, $CurrentTechno, $TargetTechno) {
 	}
 	$wrog_zlom_koniec['metal'] = 0;
 	$wrog_zlom_koniec['crystal'] = 0;
+	$wrog_zlom_koniec_obrona['metal'] = 0;
+	$wrog_zlom_koniec_obrona['crystal'] = 0;
 	if (!is_null($TargetSet)) {
 		foreach($TargetSet as $a => $b) {
 			if ($a < 300) {

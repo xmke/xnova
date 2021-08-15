@@ -27,6 +27,10 @@
  * documentation for further information about customizing XNova.
  *
  */
+$lang['user_reset_cheater'] = "An unauthorized action was detected from your account. As a sanction, your account has been reset by the system. Cheating is bad.";
+$lang['user_reset_attempt'] = "Cheating attempt detected.";
+$lang['user_reset_attempt_adm'] = "Cheating attempt detected, player ID : ";
+
 
 $lang['user_level'] = array (
 	'0' => 'Player',

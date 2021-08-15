@@ -32,7 +32,8 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 	includeLang('fleet');
-
+	
+	$user = MergeUserTechnology($user);
 	$galaxy     = intval($_POST['galaxy']);
 	$system     = intval($_POST['system']);
 	$planet     = intval($_POST['planet']);
