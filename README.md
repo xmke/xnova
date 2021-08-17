@@ -15,6 +15,14 @@ Feel free to contribute and comment :)
  - Apache2 or ngix webserver
  ... and that's all !
 
+## Local development/setup
+To setup a local development environment follow the next steps:
+1. Create database and user and grant database access rights for the user. Remind the credentials as they are needed with for the game installation
+2. Run a local webserver from CLI: ``php -S 127.0.0.1:8000 -t .``
+3. Open a webbrowser and visit `127.0.0.1:8000`
+4. Follow the game installation steps
+5. Login and enjoy
+
  ## Project status
  **UNSTABLE** - may contain bugs, may be slow... W.I.P !
  
