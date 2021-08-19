@@ -7,3 +7,6 @@ cache/*
 
 # Ignore PhpStorm editor files
 .idea/
+
+# Composer dependencies
+/vendor

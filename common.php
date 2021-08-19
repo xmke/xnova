@@ -27,6 +27,9 @@
  * documentation for further information about customizing XNova.
  *
  */
+
+require realpath(dirname(__FILE__)) . '/vendor/autoload.php';
+
 function getmicrotime(){
     list($usec, $sec) = explode(" ",microtime());
     return ((float)$usec + (float)$sec);
