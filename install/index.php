@@ -27,6 +27,11 @@
  * documentation for further information about customizing XNova.
  *
  */
+
+require realpath(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
+
+use Xmke\Xnova\Common\Language;
+
 define('INSIDE' , true);
 define('INSTALL', false);
 define('IN_INSTALL', true);
@@ -38,7 +43,6 @@ define('PHPEXT', include ROOT_PATH . 'extension.inc');
 define('DEFAULT_SKINPATH', '../skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');
-define('DEFAULT_LANG', 'fr');
 
 require ROOT_PATH.'/includes/Mustache/Autoloader.php';
 Mustache_Autoloader::register();
@@ -50,7 +54,7 @@ include(ROOT_PATH . 'includes/constants.' . PHPEXT);
 include(ROOT_PATH . 'includes/functions.' . PHPEXT);
 include(ROOT_PATH . 'includes/unlocalised.' . PHPEXT);
 include(ROOT_PATH . 'includes/todofleetcontrol.' . PHPEXT);
-include(ROOT_PATH . 'language/' . DEFAULT_LANG . '/lang_info.cfg');
+include(ROOT_PATH . 'language/' . Language::DEFAULT_LANGUAGE . '/lang_info.cfg');
 include(ROOT_PATH . 'includes/vars.' . PHPEXT);
 include(ROOT_PATH . 'includes/db.' . PHPEXT);
 include(ROOT_PATH . 'includes/strings.' . PHPEXT);

@@ -67,14 +67,12 @@ $IsUserChecked = false;
 define('DEFAULT_SKINPATH', 'skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');
-define('DEFAULT_LANG', 'fr');
-
 
 include(ROOT_PATH . 'includes/constants.' . PHPEXT);
 include(ROOT_PATH . 'includes/functions.' . PHPEXT);
 include(ROOT_PATH . 'includes/unlocalised.' . PHPEXT);
 include(ROOT_PATH . 'includes/todofleetcontrol.' . PHPEXT);
-include(ROOT_PATH . 'language/' . DEFAULT_LANG . '/lang_info.cfg');
+include(ROOT_PATH . 'language/' . Language::DEFAULT_LANGUAGE . '/lang_info.cfg');
 include(ROOT_PATH . 'includes/vars.' . PHPEXT);
 include(ROOT_PATH . 'includes/db.' . PHPEXT);
 include(ROOT_PATH . 'includes/strings.' . PHPEXT);

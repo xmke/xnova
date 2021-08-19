@@ -27,6 +27,9 @@
  * documentation for further information about customizing XNova.
  *
  */
+
+use Xmke\Xnova\Common\Language;
+
 include(ROOT_PATH . 'includes/TinyHTMLMinifier/TinyMinify.'.PHPEXT);
 
 function MergeUserTechnology($user){
@@ -279,7 +282,7 @@ function includeLang($filename, $extension = '.mo')
             return;
         }
     }
-    require_once sprintf($pathPattern, DEFAULT_LANG, '.mo');
+    require_once sprintf($pathPattern, Language::DEFAULT_LANGUAGE, '.mo');
     return;
 }
 
