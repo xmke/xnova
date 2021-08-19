@@ -34,7 +34,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 includeLang('usuw');
 
-$lang['PHP_SELF'] = 'neusuw.'.PHPEXT;
+$lang['PHP_SELF'] = 'neusuw.php';
 
 if($_POST && $mode == "change"){ //Array ( [db_character]
 

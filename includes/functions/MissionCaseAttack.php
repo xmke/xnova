@@ -35,7 +35,7 @@ function MissionCaseAttack ($FleetRow)
     if ($FleetRow['fleet_start_time'] <= time()) {
         if ($FleetRow['fleet_mess'] == 0) {
             if (!isset($CombatCaps[202]['sd'])) {
-                message("<font color=\"red\">" . $lang['sys_no_vars'] . "</font>", $lang['sys_error'], "fleet." . PHPEXT, 2);
+                message("<font color=\"red\">" . $lang['sys_no_vars'] . "</font>", $lang['sys_error'], "fleet.php", 2);
             }
             $QryTargetPlanet = "SELECT * FROM {{table}} ";
             $QryTargetPlanet .= "WHERE ";
@@ -89,7 +89,7 @@ function MissionCaseAttack ($FleetRow)
                 }
             }
 
-            include_once($xnova_root_path . 'includes/ataki.' . PHPEXT);
+            include_once($xnova_root_path . 'includes/ataki.php');
             // Calcul de la duree de traitement (initialisation)
             $mtime = microtime();
             $mtime = explode(" ", $mtime);

@@ -78,7 +78,7 @@ switch ($mode) {
                 // Controle du mot de passe pour abandon de colonie
                 if (md5($_POST['pw']) == $user["password"] && $user['id_planet'] != $user['current_planet']) {
 
-                include_once(ROOT_PATH . 'includes/functions/AbandonColony.' . PHPEXT);
+                include_once(ROOT_PATH . 'includes/functions/AbandonColony.php');
                 if (CheckFleets($planetrow)){
                    $strMessage = "Vous ne pouvez pas abandonner la colonie, il y a de la flotte en vol !";
                    message($strMessage, $lang['colony_abandon'], 'overview.php?mode=renameplanet',3);
@@ -149,7 +149,7 @@ switch ($mode) {
                     $QryUpdateUser .= "`id` = '" . $user['id'] . "';";
                     doquery($QryUpdateUser, 'users');
                     $HaveNewLevelMineur .= "<tr>";
-                    $HaveNewLevelMineur .= "<th colspan=4><a href=officier.". PHPEXT .">" . $lang['Have_new_level_mineur'] . "</a></th>";
+                    $HaveNewLevelMineur .= "<th colspan=\"4\"><a href=\"officier.php\">" . $lang['Have_new_level_mineur'] . "</a></th>";
                 }
                 if ($XPRaid >= $XpRaidUp) {
                     $QryUpdateUser = "UPDATE {{table}} SET ";
@@ -159,7 +159,7 @@ switch ($mode) {
                     $QryUpdateUser .= "`id` = '" . $user['id'] . "';";
                     doquery($QryUpdateUser, 'users');
                     $HaveNewLevelRaid  .= "<tr>";
-                    $HaveNewLevelRaid  .= "<th colspan=4><a href=officier.". PHPEXT .">" . $lang['Have_new_level_raid'] . "</a></th>";
+                    $HaveNewLevelRaid  .= "<th colspan=\"4\"><a href=\"officier.php\">" . $lang['Have_new_level_raid'] . "</a></th>";
                 }
             }
             // -----------------------------------------------------------------------------------------------

@@ -49,7 +49,6 @@ if (in_array(strtolower(getenv('DEBUG')), array('1', 'on', 'true'))) {
 !defined('DEBUG') || @error_reporting(E_ALL | E_STRICT);
 
 define('ROOT_PATH', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
-define('PHPEXT', require 'extension.inc');
 
 $MustacheEngine = new Mustache_Engine();
 
@@ -69,14 +68,14 @@ define('DEFAULT_SKINPATH', 'skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');
 
-include(ROOT_PATH . 'includes/constants.' . PHPEXT);
-include(ROOT_PATH . 'includes/functions.' . PHPEXT);
-include(ROOT_PATH . 'includes/unlocalised.' . PHPEXT);
-include(ROOT_PATH . 'includes/todofleetcontrol.' . PHPEXT);
+include(ROOT_PATH . 'includes/constants.php');
+include(ROOT_PATH . 'includes/functions.php');
+include(ROOT_PATH . 'includes/unlocalised.php');
+include(ROOT_PATH . 'includes/todofleetcontrol.php');
 include(ROOT_PATH . 'language/' . Language::DEFAULT_LANGUAGE . '/lang_info.cfg');
-include(ROOT_PATH . 'includes/vars.' . PHPEXT);
-include(ROOT_PATH . 'includes/db.' . PHPEXT);
-include(ROOT_PATH . 'includes/strings.' . PHPEXT);
+include(ROOT_PATH . 'includes/vars.php');
+include(ROOT_PATH . 'includes/db.php');
+include(ROOT_PATH . 'includes/strings.php');
 
 $query = doquery('SELECT * FROM {{table}}', 'config');
 while($row = mysqli_fetch_assoc($query)) {
@@ -128,7 +127,7 @@ if (empty($user) && !defined('DISABLE_IDENTITY_CHECK')) {
     
 }
  
-include(ROOT_PATH . 'rak.'.PHPEXT);
+include(ROOT_PATH . 'rak.php');
 
 if (!empty($user) && !defined('QRYLESS')) {
     SetSelectedPlanet($user);

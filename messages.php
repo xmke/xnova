@@ -31,7 +31,7 @@
 define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
-include(ROOT_PATH . 'includes/functions/BBcodeFunction.' . PHPEXT);
+include(ROOT_PATH . 'includes/functions/BBcodeFunction.php');
 
 if(!isset($user['authlevel'])) {
     header("Location: login.php");

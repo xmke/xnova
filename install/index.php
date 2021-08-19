@@ -39,7 +39,6 @@ define('IN_INSTALL', true);
 define('NO_TEMPLATE_CACHE', true);
 
 define('ROOT_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
-define('PHPEXT', include ROOT_PATH . 'extension.inc');
 
 define('DEFAULT_SKINPATH', '../skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
@@ -47,16 +46,16 @@ define('TEMPLATE_NAME', 'OpenGame');
 
 $MustacheEngine = new Mustache_Engine();
 
-include(ROOT_PATH . 'includes/debug.class.'.PHPEXT);
+include(ROOT_PATH . 'includes/debug.class.php');
 
-include(ROOT_PATH . 'includes/constants.' . PHPEXT);
-include(ROOT_PATH . 'includes/functions.' . PHPEXT);
-include(ROOT_PATH . 'includes/unlocalised.' . PHPEXT);
-include(ROOT_PATH . 'includes/todofleetcontrol.' . PHPEXT);
+include(ROOT_PATH . 'includes/constants.php');
+include(ROOT_PATH . 'includes/functions.php');
+include(ROOT_PATH . 'includes/unlocalised.php');
+include(ROOT_PATH . 'includes/todofleetcontrol.php');
 include(ROOT_PATH . 'language/' . Language::DEFAULT_LANGUAGE . '/lang_info.cfg');
-include(ROOT_PATH . 'includes/vars.' . PHPEXT);
-include(ROOT_PATH . 'includes/db.' . PHPEXT);
-include(ROOT_PATH . 'includes/strings.' . PHPEXT);
+include(ROOT_PATH . 'includes/vars.php');
+include(ROOT_PATH . 'includes/db.php');
+include(ROOT_PATH . 'includes/strings.php');
 
 include(ROOT_PATH . 'includes/databaseinfos.php');
 include(ROOT_PATH . 'includes/migrateinfo.php');

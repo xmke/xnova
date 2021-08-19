@@ -135,7 +135,7 @@ EOF;
         }
 
         global $user;
-        $config = include ROOT_PATH . 'config.' . PHPEXT;
+        $config = include ROOT_PATH . 'config.php';
         if(!$link) die('La base de donnee n est pas disponible pour le moment, desole pour la gene occasionnee...');
         $query = "INSERT INTO {{table}} SET
             `error_sender` = '{$user['id']}' ,
