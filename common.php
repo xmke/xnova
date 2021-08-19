@@ -30,6 +30,8 @@
 
 require realpath(dirname(__FILE__)) . '/vendor/autoload.php';
 
+use Xmke\Xnova\Common\Language;
+
 function getmicrotime(){
     list($usec, $sec) = explode(" ",microtime());
     return ((float)$usec + (float)$sec);
