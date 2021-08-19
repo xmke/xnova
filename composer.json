@@ -21,6 +21,7 @@
     "require": {
         "php": ">= 7.1",
         "ext-bcmath": "*",
-        "mustache/mustache": "^2.13"
+        "mustache/mustache": "^2.13",
+        "pfaciana/tiny-html-minifier": "^3.0"
     }
 }

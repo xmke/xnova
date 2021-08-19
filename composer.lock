@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e14ad08a782bbdfef91d8316e74cef27",
+    "content-hash": "6cac26678ecf5d7764acf0f29fd08dd9",
     "packages": [
         {
             "name": "mustache/mustache",
@@ -55,6 +55,51 @@
                 "source": "https://github.com/bobthecow/mustache.php/tree/master"
             },
             "time": "2019-11-23T21:40:31+00:00"
+        },
+        {
+            "name": "pfaciana/tiny-html-minifier",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pfaciana/tiny-html-minifier.git",
+                "reference": "9b305753a18ee6797c7cb2bfabe25ed36d454dc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pfaciana/tiny-html-minifier/zipball/9b305753a18ee6797c7cb2bfabe25ed36d454dc0",
+                "reference": "9b305753a18ee6797c7cb2bfabe25ed36d454dc0",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Minifier\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Törnell",
+                    "email": "webblayout@gmail.com"
+                },
+                {
+                    "name": "Phil Faciana",
+                    "email": "phil@renderdev.com"
+                }
+            ],
+            "description": "Minify HTML in PHP with just a single class",
+            "keywords": [
+                "html",
+                "minifier",
+                "minify"
+            ],
+            "support": {
+                "source": "https://github.com/pfaciana/tiny-html-minifier/tree/v3.0.0"
+            },
+            "time": "2020-07-27T03:41:45+00:00"
         }
     ],
     "packages-dev": [],

@@ -28,9 +28,8 @@
  *
  */
 
+use Minifier\TinyMinify;
 use Xmke\Xnova\Common\Language;
-
-include(ROOT_PATH . 'includes/TinyHTMLMinifier/TinyMinify.'.PHPEXT);
 
 function MergeUserTechnology($user){
     $userTechnologies = doquery("SELECT * FROM {{table}} WHERE `uid` = ".$user['id']." LIMIT 1;", "users_tech", true);
@@ -254,9 +253,8 @@ function getTemplate($templateName) {
     }else{
         $fileContent = file_get_contents($filename);
     }
-    
-    
-   
+
+
     return $fileContent;
 }
 
