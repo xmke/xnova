@@ -30,6 +30,7 @@
 
 require realpath(dirname(__FILE__)) . '/vendor/autoload.php';
 
+use Mustache_Engine;
 use Xmke\Xnova\Common\Language;
 
 function getmicrotime(){
@@ -50,9 +51,7 @@ if (in_array(strtolower(getenv('DEBUG')), array('1', 'on', 'true'))) {
 define('ROOT_PATH', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 define('PHPEXT', require 'extension.inc');
 
-require ROOT_PATH.'/includes/Mustache/Autoloader.php';
-Mustache_Autoloader::register();
-$MustacheEngine = new Mustache_Engine;
+$MustacheEngine = new Mustache_Engine();
 
 define('VERSION', '2021a');
 

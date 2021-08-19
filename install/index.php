@@ -30,6 +30,7 @@
 
 require realpath(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 
+use Mustache_Engine;
 use Xmke\Xnova\Common\Language;
 
 define('INSIDE' , true);
@@ -44,9 +45,7 @@ define('DEFAULT_SKINPATH', '../skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');
 
-require ROOT_PATH.'/includes/Mustache/Autoloader.php';
-Mustache_Autoloader::register();
-$MustacheEngine = new Mustache_Engine;
+$MustacheEngine = new Mustache_Engine();
 
 include(ROOT_PATH . 'includes/debug.class.'.PHPEXT);
 
