@@ -20,6 +20,7 @@
     ],
     "require": {
         "php": ">= 7.1",
+        "ext-bcmath": "*",
         "mustache/mustache": "^2.13"
     }
 }
