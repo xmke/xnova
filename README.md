@@ -10,7 +10,7 @@ Feel free to contribute and comment :)
 ## Prerequisites
 
  - A server running Linux or Windows
- - PHP 7.x
+ - PHP >= 7.1
  - MySQL or MariaDB
  - Apache2 or ngix webserver
  ... and that's all !
