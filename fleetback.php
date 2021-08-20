@@ -94,4 +94,3 @@ require_once dirname(__FILE__) .'/common.php';
 // 06.12.2007 - 08:41
 // Open Source
 // (c) by MoF
-?>

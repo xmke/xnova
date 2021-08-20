@@ -77,5 +77,3 @@ if($MipRestant > 0){
 	$Id = $PlaneteAdverse['id'];
 	MipAttack($NbreMip, $Id);
 }
-
-?>

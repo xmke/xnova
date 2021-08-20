@@ -488,5 +488,3 @@ switch ($mode) {
             break;
         }
 }
-
-?>

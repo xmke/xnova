@@ -1190,5 +1190,3 @@ while($data=mysqli_fetch_array($selection)){
 		display($page, $lang['your_alliance']);
 	}
 }
-
-?>

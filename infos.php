@@ -356,4 +356,3 @@ function ShowBuildingInfoPage ($CurrentUser, $CurrentPlanet, $BuildID) {
 // History version
 // 1.0 - Réécriture (réinventation de l'eau tiède)
 // 1.1 - Ajout JumpGate pour la porte de saut comme la présente OGame ... Enfin un peu mieux quand meme !
-?>

@@ -277,4 +277,3 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 // -----------------------------------------------------------------------------------------------------------
 // History version
 // 1.0 - Passage en fonction pour utilisation XNova
-?>

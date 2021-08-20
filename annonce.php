@@ -131,4 +131,3 @@ if ($action == 5) {
 
 // Créer par Tom1991 Copyright 2008
 // Merci au site Spacon pour m'avoir donner l'inspiration
-?>

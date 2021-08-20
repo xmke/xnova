@@ -120,7 +120,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$YourPlanet = false;
 		$UsedPlanet = false;
 	}
-	
+
 
 	// Determinons les type de missions possibles par rapport a la planete cible
 	if ($fleetmission == 15) {
@@ -195,7 +195,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$HeDBRec = MergeUserTechnology($HeDBRec);
 		}
 
-		
+
 		$UserPoints    = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';", 'statpoints', true);
 		$User2Points   = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';", 'statpoints', true);
 
@@ -523,5 +523,3 @@ require_once dirname(__FILE__) .'/common.php';
 // 06.12.2007 - 08:39
 // Open Source
 // (c) by MoF
-
-?>

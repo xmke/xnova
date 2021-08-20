@@ -180,4 +180,3 @@ elseif($_POST){//Borrar
 		display($page,$lang['Notes'],false);
 	}
 }
-?>

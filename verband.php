@@ -368,9 +368,6 @@ require_once dirname(__FILE__) .'/common.php';
 	  </center>
 	</form>';
 	}
-} else {
 }
 
 display($page, "Flotten");
-
-?>

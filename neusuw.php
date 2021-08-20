@@ -167,4 +167,3 @@ else
 }
 
 // Created by Perberos. All rights reversed (C) 2006
-?>
