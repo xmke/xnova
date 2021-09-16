@@ -219,7 +219,7 @@ if ($user['ally_id'] == 0) { // Sin alianza
 			// searchtext
 			$search = doquery("SELECT * FROM {{table}} WHERE ally_name LIKE '%{$_POST['searchtext']}%' or ally_tag LIKE '%{$_POST['searchtext']}%' LIMIT 30", "alliance");
 
-			if (mysql_num_rows($search) != 0) {
+			if (mysqli_num_rows($search) != 0) {
 				$template = gettemplate('alliance_searchresult_row');
 
 				while ($s = mysqli_fetch_array($search)) {
@@ -874,7 +874,7 @@ while($data=mysqli_fetch_array($selection)){
 		$i = 0;
 		// Como es costumbre. un row template
 		$page_list = '';
-		$lang['memberzahl'] = mysql_num_rows($listuser);
+		$lang['memberzahl'] = mysqli_num_rows($listuser);
 
 		while ($u = mysqli_fetch_array($listuser)) {
 			$UserPoints = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $u['id'] . "';", 'statpoints', true);
@@ -1151,7 +1151,7 @@ while($data=mysqli_fetch_array($selection)){
 		// El link para ver las solicitudes
 		$lang['requests'] = '';
 		$request = doquery("SELECT id FROM {{table}} WHERE ally_request='{$ally['id']}'", 'users');
-		$request_count = mysql_num_rows($request);
+		$request_count = mysqli_num_rows($request);
 		if ($request_count != 0) {
 			if ($ally['ally_owner'] == $user['id'] || $ally_ranks[$user['ally_rank_id']-1]['bewerbungen'] != 0)
 				$lang['requests'] = "<tr><th>{$lang['Requests']}</th><th><a href=\"alliance.php?mode=admin&edit=requests\">{$request_count} {$lang['XRequests']}</a></th></tr>";

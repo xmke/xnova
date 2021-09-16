@@ -104,10 +104,10 @@ require_once dirname(__FILE__) .'/common.php';
 		id = '" . $fleet['fleet_group'] . "'"
 		, 'aks');
 
-		if (mysql_num_rows($aks) != 1) {
+		if (mysqli_num_rows($aks) != 1) {
 			message('AKS nicht gefunden!', 'Fehler');
 		}
-		$aks = mysql_num_rows($aks);
+		$aks = mysqli_num_rows($aks);
 	}
 
 	$missiontype = array(1 => 'Attaquer',
