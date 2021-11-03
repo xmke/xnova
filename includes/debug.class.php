@@ -135,17 +135,17 @@ EOF;
         }
 
         global $user;
-        $config = include ROOT_PATH . 'config.' . PHPEXT;
+        $config = include ROOT_PATH . 'config.php';
         if(!$link) die('La base de donnee n est pas disponible pour le moment, desole pour la gene occasionnee...');
         $query = "INSERT INTO {{table}} SET
             `error_sender` = '{$user['id']}' ,
             `error_time` = '".time()."' ,
             `error_type` = '{$title}' ,
             `error_text` = '".mysqli_real_escape_string(Database::$dbHandle, $message)."';";
-        $sqlquery = mysql_query(str_replace("{{table}}", $dbsettings["prefix"].'errors',$query))
+        $sqlquery = mysqli_query(str_replace("{{table}}", $dbsettings["prefix"].'errors',$query))
             or die('error fatal');
         $query = "explain select * from {{table}}";
-        $q = mysqli_fetch_array(mysql_query(str_replace("{{table}}", $dbsettings["prefix"].
+        $q = mysqli_fetch_array(mysqli_query(str_replace("{{table}}", $dbsettings["prefix"].
             'errors', $query))) or die('error fatal: ');
 
         if (!function_exists('message')) {

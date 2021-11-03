@@ -162,4 +162,3 @@ else{
 display($page,"Shortcutmanager");
 
 // Created by Perberos. All rights reversed (C) 2006
-?>

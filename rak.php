@@ -180,5 +180,3 @@ if (!defined('QRYLESS') && isset($resource) && !empty($resource[401])) {
 		}
 	}
 }
-
-?>

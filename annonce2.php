@@ -61,4 +61,3 @@ HTML;
 
 display($page, "Ajout d'annonce", true);
 }
-?>

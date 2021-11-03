@@ -31,7 +31,7 @@
 define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
-include(ROOT_PATH . 'includes/functions/BBcodeFunction.' . PHPEXT);
+include(ROOT_PATH . 'includes/functions/BBcodeFunction.php');
 
 if(!isset($user['authlevel'])) {
     header("Location: login.php");
@@ -329,5 +329,3 @@ while ($CurMess = mysqli_fetch_array($UsrMess)) {
 // 1.0 - Version originelle (Tom1991)
 // 1.1 - Mise a plat, linearisation, suppression des doublons / triplons / 'n'gnions dans le code (Chlorel)
 // 1.2 - Regroupage des 2 fichiers vers 1 seul plus simple a mettre en oeuvre et a gerer !
-
-?>

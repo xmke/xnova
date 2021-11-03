@@ -278,4 +278,3 @@ $_SESSION['secu'] = $_SESSION['nombre1'] + $_SESSION['nombre2'];
 // 1.0 - Version originelle
 // 1.1 - Menage + rangement + utilisation fonction de creation planete nouvelle generation
 // 1.2 - Ajout securite activable ou non
-?>

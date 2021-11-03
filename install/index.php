@@ -27,33 +27,35 @@
  * documentation for further information about customizing XNova.
  *
  */
+
+require realpath(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
+
+use Mustache_Engine;
+use Xmke\Xnova\Common\Language;
+
 define('INSIDE' , true);
 define('INSTALL', false);
 define('IN_INSTALL', true);
 define('NO_TEMPLATE_CACHE', true);
 
 define('ROOT_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
-define('PHPEXT', include ROOT_PATH . 'extension.inc');
 
 define('DEFAULT_SKINPATH', '../skins/epicblue/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');
-define('DEFAULT_LANG', 'fr');
 
-require ROOT_PATH.'/includes/Mustache/Autoloader.php';
-Mustache_Autoloader::register();
-$MustacheEngine = new Mustache_Engine;
+$MustacheEngine = new Mustache_Engine();
 
-include(ROOT_PATH . 'includes/debug.class.'.PHPEXT);
+include(ROOT_PATH . 'includes/debug.class.php');
 
-include(ROOT_PATH . 'includes/constants.' . PHPEXT);
-include(ROOT_PATH . 'includes/functions.' . PHPEXT);
-include(ROOT_PATH . 'includes/unlocalised.' . PHPEXT);
-include(ROOT_PATH . 'includes/todofleetcontrol.' . PHPEXT);
-include(ROOT_PATH . 'language/' . DEFAULT_LANG . '/lang_info.cfg');
-include(ROOT_PATH . 'includes/vars.' . PHPEXT);
-include(ROOT_PATH . 'includes/db.' . PHPEXT);
-include(ROOT_PATH . 'includes/strings.' . PHPEXT);
+include(ROOT_PATH . 'includes/constants.php');
+include(ROOT_PATH . 'includes/functions.php');
+include(ROOT_PATH . 'includes/unlocalised.php');
+include(ROOT_PATH . 'includes/todofleetcontrol.php');
+include(ROOT_PATH . 'language/' . Language::DEFAULT_LANGUAGE . '/lang_info.cfg');
+include(ROOT_PATH . 'includes/vars.php');
+include(ROOT_PATH . 'includes/db.php');
+include(ROOT_PATH . 'includes/strings.php');
 
 include(ROOT_PATH . 'includes/databaseinfos.php');
 include(ROOT_PATH . 'includes/migrateinfo.php');

@@ -29,5 +29,5 @@
  */
 
 if ( defined('INSIDE') ) {
-	include(ROOT_PATH . 'db/mysql.'.PHPEXT);
+	include(ROOT_PATH . 'db/mysql.php');
 }

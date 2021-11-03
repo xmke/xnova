@@ -32,15 +32,12 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-	includeLang('rules');
+includeLang('rules');
 
-	$parse = $lang;
-	$parse['servername']   = $game_config['game_name'];
+$parse = $lang;
+$parse['servername']   = $game_config['game_name'];
 
-	$PageTPL  = gettemplate('rules_body');
-	$page     = $MustacheEngine->render( $PageTPL, $parse);
+$PageTPL  = gettemplate('rules_body');
+$page     = $MustacheEngine->render( $PageTPL, $parse);
 
-	display($page, $lang['rules'], false);
-
-
-?>
+display($page, $lang['rules'], false);

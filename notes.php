@@ -42,7 +42,7 @@ $lang['Please_Wait'] = "Patientez...";
 //lenguaje
 includeLang('notes');
 
-$lang['PHP_SELF'] = 'notes.'.PHPEXT;
+$lang['PHP_SELF'] = 'notes.php';
 
 if($s == 1 || $s == 2){//Edicion y agregar notas
 
@@ -53,7 +53,7 @@ if($s == 1 || $s == 2){//Edicion y agregar notas
 
 	if($s ==1){
 		doquery("INSERT INTO {{table}} SET owner={$user['id']}, time=$time, priority=$priority, title='$title', text='$text'","notes");
-		message($lang['NoteAdded'], $lang['Please_Wait'],'notes.'.PHPEXT,"3");
+		message($lang['NoteAdded'], $lang['Please_Wait'],'notes.php',"3");
 	}elseif($s == 2){
 		/*
 		  pequeño query para averiguar si la nota que se edita es del propio jugador
@@ -65,7 +65,7 @@ if($s == 1 || $s == 2){//Edicion y agregar notas
 		if(!$note_query){ message($lang['notpossiblethisway'],$lang['Notes']); }
 
 		doquery("UPDATE {{table}} SET time=$time, priority=$priority, title='$title', text='$text' WHERE id=$id","notes");
-		message($lang['NoteUpdated'], $lang['Please_Wait'], 'notes.'.PHPEXT, "3");
+		message($lang['NoteUpdated'], $lang['Please_Wait'], 'notes.php', "3");
 	}
 
 }
@@ -87,10 +87,12 @@ elseif($_POST){//Borrar
 			}
 		}
 	}
-	if($deleted){
+	if ($deleted) {
 		$mes = ($deleted == 1) ? $lang['NoteDeleted'] : $lang['NoteDeleteds'];
-		message($mes,$lang['Please_Wait'],'notes.'.PHPEXT,"3");
-	}else{header("Location: notes.". PHPEXT);}
+		message($mes,$lang['Please_Wait'],'notes.php',"3");
+	} else {
+		header("Location: notes.php");
+	}
 
 }else{//sin post...
 	if($a == 1){//crear una nueva nota.
@@ -178,4 +180,3 @@ elseif($_POST){//Borrar
 		display($page,$lang['Notes'],false);
 	}
 }
-?>

@@ -27,7 +27,9 @@
  * documentation for further information about customizing XNova.
  *
  */
-include(ROOT_PATH . 'includes/TinyHTMLMinifier/TinyMinify.'.PHPEXT);
+
+use Minifier\TinyMinify;
+use Xmke\Xnova\Common\Language;
 
 function MergeUserTechnology($user){
     $userTechnologies = doquery("SELECT * FROM {{table}} WHERE `uid` = ".$user['id']." LIMIT 1;", "users_tech", true);
@@ -251,9 +253,8 @@ function getTemplate($templateName) {
     }else{
         $fileContent = file_get_contents($filename);
     }
-    
-    
-   
+
+
     return $fileContent;
 }
 
@@ -279,7 +280,7 @@ function includeLang($filename, $extension = '.mo')
             return;
         }
     }
-    require_once sprintf($pathPattern, DEFAULT_LANG, '.mo');
+    require_once sprintf($pathPattern, Language::DEFAULT_LANGUAGE, '.mo');
     return;
 }
 

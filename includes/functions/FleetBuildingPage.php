@@ -84,13 +84,13 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
 
             // Imagette + Link vers la page d'info
             $PageTable .= "<th class=l>";
-            $PageTable .= "<a href=infos.".PHPEXT."?gid=".$shipId.">";
+            $PageTable .= "<a href=infos.php?gid=".$shipId.">";
             $PageTable .= "<img border=0 src=\"skins/epicblue/gebaeude/".$shipId.".gif\" align=top width=120 height=120></a>";
             $PageTable .= "</th>";
 
             // Description
             $PageTable .= "<td class=l>";
-            $PageTable .= "<a href=infos.".PHPEXT."?gid=".$shipId.">".$shipIdName."</a> ".$shipIdNbre."<br />";
+            $PageTable .= "<a href=infos.php?gid=".$shipId.">".$shipIdName."</a> ".$shipIdNbre."<br />";
             $PageTable .= "".$lang['res']['descriptions'][$shipId]."<br />";
             // On affiche le 'prix' avec eventuellement ce qui manque en ressource
             $PageTable .= GetElementPrice($currentUser, $currentPlanet, $shipId, false);

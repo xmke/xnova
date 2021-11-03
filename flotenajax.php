@@ -254,4 +254,3 @@ require_once dirname(__FILE__) .'/common.php';
 	$ResultMessage .= $CurrentFlyingFleets ." ".$UserSpyProbes." ".$UserRecycles." ".$UserMissiles;
 
 	die ( $ResultMessage );
-?>

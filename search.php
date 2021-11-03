@@ -129,4 +129,3 @@ $lang['search_results'] = $search_results;
 //esto es algo repetitivo ... w
 $page = $MustacheEngine->render(gettemplate('search_body'), $lang);
 display($page,$lang['Search']);
-?>

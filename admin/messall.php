@@ -61,7 +61,7 @@ if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERA
 				while ($u = mysqli_fetch_array($sq)) {
 					SendSimpleMessage ( $u['id'], $user['id'], $Time, 97, $From, $Subject, $Message);
 				}
-				message("OK !", "Complete", "../overview." . PHPEXT, 3);
+				message("OK !", "Complete", "../overview.php", 3);
 			}
 		}
 	} else {

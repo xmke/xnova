@@ -35,7 +35,7 @@ require_once dirname(__FILE__) .'/common.php';
 
     includeLang('options');
 
-    $lang['PHP_SELF'] = 'options.' . PHPEXT;
+    $lang['PHP_SELF'] = 'options.php';
 
     $mode = isset($_GET['mode']) ? mysqli_real_escape_string(Database::$dbHandle, $_GET['mode']) : "";
 
@@ -280,5 +280,3 @@ require_once dirname(__FILE__) .'/common.php';
        }
        die();
     }
-
-    ?>

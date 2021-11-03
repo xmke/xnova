@@ -34,7 +34,7 @@ define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN))) {
-		$lang['PHP_SELF'] = 'options.'.PHPEXT;
+		$lang['PHP_SELF'] = 'options.php';
 		doquery("UPDATE {{table}} SET `banaday` =` banaday` - '1' WHERE `banaday` != '0';",'users');
 		doquery("UPDATE {{table}} SET `bana` = '0' WHERE `banaday` < '1';",'users');
 		$parse = $game_config;

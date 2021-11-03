@@ -60,4 +60,3 @@ display($MustacheEngine->render(gettemplate('banned_body'), $parse),'Banned',tru
 
 
 // Created by e-Zobar (XNova Team). All rights reversed (C) 2008
-?>

@@ -84,7 +84,7 @@ require_once dirname(__FILE__) .'/common.php';
 		}
 	}
 
-	message ("<font color=\"".$TxtColor."\">". $BoxMessage ."</font>", $BoxTitle, "fleet.". PHPEXT, 2);
+	message ("<font color=\"".$TxtColor."\">". $BoxMessage ."</font>", $BoxTitle, "fleet.php", 2);
 
 // -----------------------------------------------------------------------------------------------------------
 // History version
@@ -94,4 +94,3 @@ require_once dirname(__FILE__) .'/common.php';
 // 06.12.2007 - 08:41
 // Open Source
 // (c) by MoF
-?>
