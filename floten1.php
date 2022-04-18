@@ -89,7 +89,7 @@ require_once dirname(__FILE__) .'/common.php';
 	}
 
 	if (!$fleet['fleetlist']) {
-		message($lang['fl_unselectall'], $lang['fl_error'], "fleet." . PHPEXT, 1);
+		message($lang['fl_unselectall'], $lang['fl_error'], "fleet.php", 1);
 	} else {
 		$speedallsmin = min($speedalls);
 	}
@@ -285,4 +285,3 @@ require_once dirname(__FILE__) .'/common.php';
 
 // Updated by Chlorel. 16 Jan 2008 (String extraction, bug corrections, code uniformisation
 // Created by Perberos. All rights reversed (C) 2006
-?>

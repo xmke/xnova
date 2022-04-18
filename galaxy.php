@@ -157,4 +157,3 @@ require_once dirname(__FILE__) .'/common.php';
 // 1.1 - Modified by -MoF- (UGamela germany)
 // 1.2 - 1er Nettoyage Chlorel ...
 // 1.3 - 2eme Nettoyage Chlorel ... Mise en fonction et debuging complet
-?>

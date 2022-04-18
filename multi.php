@@ -63,5 +63,3 @@ if ($mode == 'add') {
 }
 // D�claration des multi compte
 // Par Tom pour XNova
-?>
-

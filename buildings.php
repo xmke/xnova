@@ -65,4 +65,3 @@ require_once dirname(__FILE__) .'/common.php';
 // 1.0 - Nettoyage modularisation
 // 1.1 - Mise au point, mise en fonction pour lin�arisation du fonctionnement
 // 1.2 - Liste de construction batiments
-?>

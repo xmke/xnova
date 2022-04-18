@@ -134,7 +134,7 @@ function display ($page, $title = '', $topnav = true, $AdminPage = false) {
 
 			echo "\r\n<br />Page générée en ".round($EndPageGeneration-$StartPageGeneration, 3) ." secondes avec ".$SqlQueries." requêtes.<br />\r\n";
 		}
-		
+
 
 	}else{
 		echo $page;
@@ -200,5 +200,3 @@ function CalculateMaxPlanetFields (&$planet) {
 
 	return $planet["field_max"] + ($planet[ $resource[33] ] * 5);
 }
-
-?>

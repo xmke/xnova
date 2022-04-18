@@ -79,4 +79,3 @@ require_once dirname(__FILE__) .'/common.php';
 // - 1.0 mise en conformité code avec skin XNova
 // - 1.1 ajout lien pour les details des technos
 // - 1.2 suppression du lien details ou il n'est pas necessaire
-?>

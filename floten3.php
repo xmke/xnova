@@ -48,13 +48,13 @@ require_once dirname(__FILE__) .'/common.php';
 	$fleetarray  = unserialize(base64_decode(str_rot13($_POST["usedfleet"])));
 
 	if (!is_array($fleetarray)) {
-		message ("<font color=\"red\"><b>". $lang['fl_fleet_err'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_fleet_err'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	// On verifie s'il y a assez de vaisseaux sur la planete !
 	foreach ($fleetarray as $Ship => $Count) {
 		if ($Count > $CurrentPlanet[$resource[$Ship]]) {
-			message ("<font color=\"red\"><b>". $lang['fl_fleet_err'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_fleet_err'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 	}
 
@@ -66,7 +66,7 @@ require_once dirname(__FILE__) .'/common.php';
     $fleetmission       = $_POST['mission'];
 
 	if ($planettype != 1 && $planettype != 2 && $planettype != 3) {
-		message ("<font color=\"red\"><b>". $lang['fl_fleet_err_pl'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_fleet_err_pl'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	if ($fleetmission == 8) {
@@ -83,24 +83,24 @@ require_once dirname(__FILE__) .'/common.php';
 		$CurrentPlanet['system'] == $system &&
 		$CurrentPlanet['planet'] == $planet &&
 		$CurrentPlanet['planet_type'] == $planettype) {
-		message ("<font color=\"red\"><b>". $lang['fl_ownpl_err'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_ownpl_err'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	// Test d'existance de l'enregistrement dans la gaalxie !
 	if ($_POST['mission'] != 15) {
 		if (!isset($select) && $fleetmission != 7) {
-			message ("<font color=\"red\"><b>". $lang['fl_unknow_target'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_unknow_target'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		} elseif ($fleetmission == 9 && !isset($select)) {
-			message ("<font color=\"red\"><b>". $lang['fl_used_target'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_used_target'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 	} else {
 	    $EnvoiMaxExpedition = $_POST['maxepedition'];
 	    $Expedition         = $_POST['curepedition'];
 
 	    if       ($EnvoiMaxExpedition == 0 ) {
-			message ("<font color=\"red\"><b>". $lang['fl_expe_notech'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_expe_notech'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		} elseif ($Expedition >= $EnvoiMaxExpedition ) {
-			message ("<font color=\"red\"><b>". $lang['fl_expe_max'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_expe_max'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 	}
 
@@ -120,7 +120,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$YourPlanet = false;
 		$UsedPlanet = false;
 	}
-	
+
 
 	// Determinons les type de missions possibles par rapport a la planete cible
 	if ($fleetmission == 15) {
@@ -181,7 +181,7 @@ require_once dirname(__FILE__) .'/common.php';
 	}
 
 	if (empty($missiontype[$fleetmission])) {
-		message ("<font color=\"red\"><b>". $lang['fl_bad_mission'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_bad_mission'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	CheckPlanetUsedFields($CurrentPlanet);
@@ -195,7 +195,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$HeDBRec = MergeUserTechnology($HeDBRec);
 		}
 
-		
+
 		$UserPoints    = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $user['id'] ."';", 'statpoints', true);
 		$User2Points   = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '". $HeDBRec['id'] ."';", 'statpoints', true);
 
@@ -208,7 +208,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$_POST['mission']     == 1  AND
 			$protection           == 1  AND
 			$HeGameLevel < ($protectiontime * 1000)) {
-			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet.php", 2);
 		}
 
 		if ($MyGameLevel > ($HeGameLevel * $protectionmulti) AND
@@ -216,7 +216,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$_POST['mission']     == 5  AND
 			$protection           == 1  AND
 			$HeGameLevel < ($protectiontime * 1000)) {
-			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet.php", 2);
 		}
 
 		if ($MyGameLevel > ($HeGameLevel * $protectionmulti) AND
@@ -224,7 +224,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$_POST['mission']     == 6  AND
 			$protection           == 1  AND
 			$HeGameLevel < ($protectiontime * 1000)) {
-			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet.php", 2);
 		}
 
 		if (($MyGameLevel * $protectionmulti) < $HeGameLevel AND
@@ -232,7 +232,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$_POST['mission']     == 1  AND
 			$protection           == 1  AND
 			$MyGameLevel < ($protectiontime * 1000)) {
-			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet.php", 2);
 		}
 
 		if (($MyGameLevel * $protectionmulti) < $HeGameLevel AND
@@ -240,7 +240,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$_POST['mission']     == 5  AND
 			$protection           == 1  AND
 			$MyGameLevel < ($protectiontime * 1000)) {
-			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet.php", 2);
 		}
 
 		if (($MyGameLevel * $protectionmulti) < $HeGameLevel AND
@@ -248,17 +248,17 @@ require_once dirname(__FILE__) .'/common.php';
 			$_POST['mission']     == 6  AND
 			$protection           == 1  AND
 			$MyGameLevel < ($protectiontime * 1000)) {
-			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet." . PHPEXT, 2);
+			message("<font color=\"lime\"><b>".$lang['fl_noob_mess_n']."</b></font>", $lang['fl_noob_title'], "fleet.php", 2);
 		}
 
 		if ($VacationMode AND $_POST['mission'] != 8) {
-			message("<font color=\"lime\"><b>".$lang['fl_vacation_pla']."</b></font>", $lang['fl_vacation_ttl'], "fleet." . PHPEXT, 2);
+			message("<font color=\"lime\"><b>".$lang['fl_vacation_pla']."</b></font>", $lang['fl_vacation_ttl'], "fleet.php", 2);
 		}
 	}
 	$FlyingFleets = doquery("SELECT COUNT(fleet_id) as Number FROM {{table}} WHERE `fleet_owner`='{$user['id']}'", 'fleets', true);
 	$ActualFleets = $FlyingFleets["Number"];
 	if (($user[$resource[108]] + 1) <= $ActualFleets) {
-		message("Pas de slot disponible", "Erreur", "fleet." . PHPEXT, 1);
+		message("Pas de slot disponible", "Erreur", "fleet.php", 1);
 	}
 	$cumulatedResources = 0;
 	$cumulatedResources += isset($_POST['resource1']) && is_numeric($_POST['resource1']) ? $_POST['resource1'] : 0;
@@ -266,29 +266,29 @@ require_once dirname(__FILE__) .'/common.php';
 	$cumulatedResources += isset($_POST['resource3']) && is_numeric($_POST['resource3']) ? $_POST['resource3'] : 0;
 
 	if ($cumulatedResources < 1 AND $_POST['mission'] == 3) {
-		message("<font color=\"lime\"><b>".$lang['fl_noenoughtgoods']."</b></font>", $lang['type_mission'][3], "fleet." . PHPEXT, 1);
+		message("<font color=\"lime\"><b>".$lang['fl_noenoughtgoods']."</b></font>", $lang['type_mission'][3], "fleet.php", 1);
 	}
 	if ($_POST['mission'] != 15) {
 		if (isset($TargetPlanet) && $TargetPlanet['id_owner'] == '' AND $_POST['mission'] < 7) {
-			message ("<font color=\"red\"><b>". $lang['fl_bad_planet01'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_bad_planet01'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 		if (isset($TargetPlanet) && $TargetPlanet['id_owner'] != '' AND $_POST['mission'] == 7) {
-			message ("<font color=\"red\"><b>". $lang['fl_bad_planet02'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_bad_planet02'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 		if (isset($HeDBRec) && $HeDBRec['ally_id'] != $user['ally_id'] AND $_POST['mission'] == 4) {
-			message ("<font color=\"red\"><b>". $lang['fl_dont_stay_here'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_dont_stay_here'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 		if (isset($TargetPlanet) && $TargetPlanet['ally_deposit'] < 1 AND $HeDBRec != $user AND $_POST['mission'] == 5) {
-			message ("<font color=\"red\"><b>". $lang['fl_no_allydeposit'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_no_allydeposit'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 		if (isset($TargetPlanet) && ($TargetPlanet["id_owner"] == $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 1)) {
-			message ("<font color=\"red\"><b>". $lang['fl_no_self_attack'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_no_self_attack'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 		if (isset($TargetPlanet) && ($TargetPlanet["id_owner"] == $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 6)) {
-			message ("<font color=\"red\"><b>". $lang['fl_no_self_spy'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_no_self_spy'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 		if (isset($TargetPlanet) && ($TargetPlanet["id_owner"] != $CurrentPlanet["id_owner"]) AND ($_POST["mission"] == 4)) {
-			message ("<font color=\"red\"><b>". $lang['fl_only_stay_at_home'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+			message ("<font color=\"red\"><b>". $lang['fl_only_stay_at_home'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 		}
 	}
 
@@ -313,17 +313,17 @@ require_once dirname(__FILE__) .'/common.php';
 	$MaxFleetSpeed  = min($AllFleetSpeed);
 
 	if (!in_array($GenFleetSpeed, $speed_possible)) {
-		message ("<font color=\"red\"><b>". $lang['fl_cheat_speed'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_cheat_speed'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	$CurrentPlanet = doquery("SELECT * FROM {{table}} WHERE `id` = '".$user['current_planet']."';", 'planets', true);
 
 	if ($MaxFleetSpeed != $_POST['speedallsmin']) {
-		message ("<font color=\"red\"><b>". $lang['fl_cheat_speed'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_cheat_speed'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	if (!$_POST['planettype']) {
-		message ("<font color=\"red\"><b>". $lang['fl_no_planet_type'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_no_planet_type'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	// Test de coherance de la destination (voir si elle se trouve dans les limites de l'univers connu
@@ -343,7 +343,7 @@ require_once dirname(__FILE__) .'/common.php';
 	}
 
 	if ($error > 0) {
-		message ("<font color=\"red\"><ul>" . $errorlist . "</ul></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><ul>" . $errorlist . "</ul></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	// La flotte part bien de la planete courrante ??
@@ -351,11 +351,11 @@ require_once dirname(__FILE__) .'/common.php';
 		$_POST['thissystem'] != $CurrentPlanet['system'] |
 		$_POST['thisplanet'] != $CurrentPlanet['planet'] |
 		$_POST['thisplanettype'] != $CurrentPlanet['planet_type']) {
-		message ("<font color=\"red\"><b>". $lang['fl_cheat_origine'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_cheat_origine'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	if (!isset($fleetarray)) {
-		message ("<font color=\"red\"><b>". $lang['fl_no_fleetarray'] ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_no_fleetarray'] ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	$distance      = GetTargetDistance ( $_POST['thisgalaxy'], $_POST['galaxy'], $_POST['thissystem'], $_POST['system'], $_POST['thisplanet'], $_POST['planet'] );
@@ -421,11 +421,11 @@ require_once dirname(__FILE__) .'/common.php';
 		}
 	}
 	if ( !$StockOk ) {
-		message ("<font color=\"red\"><b>". $lang['fl_noressources'] . pretty_number($consumption) ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_noressources'] . pretty_number($consumption) ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	if ( $StorageNeeded > $FleetStorage) {
-		message ("<font color=\"red\"><b>". $lang['fl_nostoragespa'] . pretty_number($StorageNeeded - $FleetStorage) ."</b></font>", $lang['fl_error'], "fleet." . PHPEXT, 2);
+		message ("<font color=\"red\"><b>". $lang['fl_nostoragespa'] . pretty_number($StorageNeeded - $FleetStorage) ."</b></font>", $lang['fl_error'], "fleet.php", 2);
 	}
 
 	// ecriture de l'enregistrement de flotte (a partir de l�, y a quelque chose qui vole et c'est toujours sur la planete d'origine)
@@ -523,5 +523,3 @@ require_once dirname(__FILE__) .'/common.php';
 // 06.12.2007 - 08:39
 // Open Source
 // (c) by MoF
-
-?>

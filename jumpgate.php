@@ -121,5 +121,3 @@ function DoFleetJump ( $CurrentUser, $CurrentPlanet ) {
 // -----------------------------------------------------------------------------------------------------------
 // History version
 // 1.0 - Version from scrap .. y avait pas ... bin maintenant y a !!
-
-?>

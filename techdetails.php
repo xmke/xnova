@@ -93,5 +93,3 @@ $parse['Liste'] = $Liste;
 $page = $MustacheEngine->render($PageTPL, $parse);
 
 display ($page, $lang['Tech'], false, '', false);
-
-?>

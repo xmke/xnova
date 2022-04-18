@@ -1,0 +1,12 @@
+/config.php
+
+# Ignore cache files
+cache/*
+!cache/.gitignore
+!cache/admin/.gitignore
+
+# Ignore PhpStorm editor files
+.idea/
+
+# Composer dependencies
+/vendor

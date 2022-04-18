@@ -121,4 +121,3 @@ function ShowOfficierPage ( &$CurrentUser ) {
 // History version
 // 1.0 - Version originelle (Tom1991)
 // 1.1 - Réécriture Chlorel pour integration complete dans XNova
-?>

@@ -49,4 +49,3 @@ $page = $MustacheEngine->render(gettemplate('changelog_body'), $lang);
 display($page,"Change Log");
 
 // Created by Perberos. All rights reversed (C) 2006
-?>

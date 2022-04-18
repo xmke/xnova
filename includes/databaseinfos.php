@@ -28,7 +28,9 @@
  *
  */
 
-	$QryTableAks         = "CREATE TABLE `{{table}}` ( ";
+use Xmke\Xnova\Common\Language;
+
+$QryTableAks         = "CREATE TABLE `{{table}}` ( ";
 	$QryTableAks        .= "`id` bigint(20) unsigned NOT NULL auto_increment, ";
 	$QryTableAks        .= "`name` varchar(50) collate latin1_general_ci default NULL, ";
 	$QryTableAks        .= "`teilnehmer` text collate latin1_general_ci, ";
@@ -423,7 +425,7 @@
 	$QryTableUsers      .= "`username` varchar(64) character set latin1 NOT NULL default '', ";
 	$QryTableUsers      .= "`password` varchar(64) character set latin1 NOT NULL default '', ";
 	$QryTableUsers      .= "`email` varchar(64) character set latin1 NOT NULL default '', ";
-	$QryTableUsers      .= "`lang` varchar(8) character set latin1 NOT NULL default 'fr', ";
+	$QryTableUsers      .= "`lang` varchar(8) character set latin1 NOT NULL default '" . Language::DEFAULT_LANGUAGE . "', ";
 	$QryTableUsers      .= "`authlevel` tinyint(4) NOT NULL default '0', ";
 	$QryTableUsers      .= "`id_planet` int(11) NOT NULL default '0', ";
 	$QryTableUsers      .= "`galaxy` int(11) NOT NULL default '0', ";
@@ -561,7 +563,7 @@
 	$QryTableUsersTech .= "`expedition_tech` int NOT NULL DEFAULT '0', ";
 	$QryTableUsersTech .= "`graviton_tech` int NOT NULL DEFAULT '0', ";
 	$QryTableUsersTech .= "PRIMARY KEY  (`uid`) ";
-	$QryTableUsersTech .= ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; ";
+	$QryTableUsersTech .= ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci; ";
 
 	$QryFKUsersTech  = "ALTER TABLE `{{table}}users_tech` ";
 	$QryFKUsersTech .= "ADD CONSTRAINT `{{table}}users_tech_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `{{table}}users` (`id`); ";

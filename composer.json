@@ -1,0 +1,33 @@
+{
+    "name": "xmke/xnova",
+    "description": "XNova is an Open Source project clone of the original space game, OGame.",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Xmke\\Xnova\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Xmke",
+            "role": "Project owner/Developer"
+        },
+        {
+            "name": "Wesley van den Haak",
+            "role": "Contributor"
+        }
+    ],
+    "require": {
+        "php": ">= 7.1",
+        "ext-bcmath": "*",
+        "ext-gd": "*",
+        "ext-json": "*",
+        "ext-mysqli": "*",
+        "mustache/mustache": "^2.13",
+        "pfaciana/tiny-html-minifier": "^3.0"
+    },
+    "scripts": {
+        "serve": "php -S 127.0.0.1:8000 -t ."
+    }
+}

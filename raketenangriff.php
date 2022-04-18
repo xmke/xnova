@@ -250,5 +250,3 @@ else
 // Copyright (c) 2007 by -= MoF =- for Deutsches UGamela Forum
 // 05.12.2007 - 11:45
 // Open Source
-
-?>

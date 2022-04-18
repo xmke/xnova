@@ -70,6 +70,3 @@ require_once dirname(__FILE__) .'/common.php';
 		$Page = $MustacheEngine->render($PageTpl, $parse);
 
 		display ($Page, "Declaration d\'IP partagee", false, '', true);
-
-
-?>
